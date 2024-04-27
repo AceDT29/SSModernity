@@ -11,9 +11,13 @@
 
 <body class="">
   <main>
-    <Banner />
-    <HomeSec />
-    <SideNav on:ChangeMode={enableMode} />
+    <header class="mb-44 p-0">
+      <Banner />
+    </header>
+    <article class="flex lg:gap-x-12 ">
+      <SideNav on:ChangeMode={enableMode}/>
+      <HomeSec />
+    </article>
     <footer class="w-full h-[60vh] border drop-shadow-2xl p-10">
         <div class="flex flex-col items-center gap-3">
           <h1 class="font-extrabold text-4xl">SS Modernity</h1>

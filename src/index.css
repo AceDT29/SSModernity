@@ -12,16 +12,28 @@
 }
 
 @layer components {
-    .DivSet {
-        @apply  flex flex-col flex-wrap gap-4 content-center lg:flex-row
+    .SideLiConfig {
+        @apply grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md
     }
-    .figSet {
-        @apply w-64 h-52 rounded-sm border-2 md:min-w-80 md:min-h-60 cursor-pointer active:scale-90 transition-all relative
+    .SideIconsConfig {
+        @apply block w-12 h-12 bg-transparent  rounded-lg active:scale-90 transition duration-200 cursor-pointer p-2
     }
-    .ImgSet {
+    .SideArtConfig {
+        @apply overflow-hidden group-hover:block relative
+    }
+    .SideTextConfig {
+        @apply text-center text-sm font-extralight py-3 absolute lg:text-base
+    }
+    .HomeDivSet {
+        @apply  flex flex-col flex-wrap gap-8 content-center lg:flex-row
+    }
+    .HomefigSet {
+        @apply w-52 h-44 rounded-sm border-2 md:min-w-80 md:min-h-60 cursor-pointer active:scale-90 transition-all relative
+    }
+    .HomeImgSet {
         @apply w-full h-full object-cover
     }
-    .HiddenInfo {
+    .HomeHiddenInfo {
         @apply w-full h-28 space-y-2 p-2 bg-gray-400/50 rounded-sm text-start absolute bottom-0 opacity-0 transition-all duration-200
     }
 }

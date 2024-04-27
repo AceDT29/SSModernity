@@ -5,6 +5,9 @@
     import prodImg4 from "../assets/imagen4.jpg"
     import prodImg5 from "../assets/imagen5.jpg"
     import prodImg6 from "../assets/imagen6.jpg"
+    import prodImg7 from "../assets/imagen7.jpg"
+    import prodImg8 from "../assets/imagen8.jpg"
+    import prodImg9 from "../assets/imagen9.jpg"
 
     const productos = []
 
@@ -23,17 +26,20 @@
     let casualOut = new Items ("Casual Outfit for Men", prodImg3, 49.99, "L",)
     let sportOut = new Items ("Sporty outfit with accessories", prodImg2, 35, "L  and M",)
     let grungeOut = new Items ("Grunge Outfit Unisex", prodImg5, 20, "S, L  and M",)
+    let beachAcc = new Items ("Beach accessories for women", prodImg7, 19.99, "Universal")
+    let girlSport = new Items ("Sporty Oufit for Women", prodImg8, 29.99, "S")
+    let chicOut = new Items ("Fall outfit for a girl", prodImg9, 49.99, "S")
 
-    productos.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut) 
+    productos.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut) 
 </script>
 
-<section class="relative bg-transparent left-[35%] w-[60%] h-auto p-4 border-2 rounded-md lg:left-[15%] lg:w-[80%] transition-all drop-shadow-lg">
+<section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-t border-b rounded-md lg:mb-60 lg:w-[80%] transition-all drop-shadow-lg">
     <h2 class="">Our Products:</h2>
-    <div class="DivSet">
+    <div class="HomeDivSet">
     {#each productos as prod }
-        <figure class="figSet group">
-            <img class="ImgSet" src={prod.photo} alt="">
-            <div class="HiddenInfo group-hover:opacity-100">
+        <figure class="HomefigSet group">
+            <img class="HomeImgSet" src={prod.photo} alt="">
+            <div class="HomeHiddenInfo group-hover:opacity-100">
                 <h2 class="text-base">{prod.name}</h2>
                 <p class="text-sm">Size: {prod.size}</p>
                 <h3 class="text-lg">Price: {prod.price}$</h3>

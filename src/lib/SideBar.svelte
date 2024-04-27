@@ -19,49 +19,50 @@
   }
 </script>
 
-<nav class="relative bottom-[550px] z-10 w-20 h-[90vh] p-3 ml-2 mb-12 border-2 bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-40 drop-shadow-lg">
+
+<div class="sticky inset-0 top-28 z-50 w-20 h-96 p-2 ml-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-40 drop-shadow-lg lg:p-3">
     <ul class="flex flex-col p-0 space-y-4">
-        <li class="grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md">
-            <button class="block w-12 h-12 bg-transparent border-1 rounded-lg active:scale-90 transition duration-200 cursor-pointer p-2" on:click={enableDark}>
+        <li class="SideLiConfig">
+            <button class="SideIconsConfig" on:click={enableDark}>
                 <img class="w-full h-full" src={isDarkMode ? moonIcon : sunIcon} alt="Light/Dark">
             </button>
-            <article class="overflow-hidden group-hover:block relative">
-                <p class="text-center font-extralight py-3 absolute" id="AccText">{isDarkMode ? "Light Mode" : "Dark Mode"}</p>
+            <article class="SideArtConfig">
+                <p class="SideTextConfig whitespace-nowrap" id="AccText">{isDarkMode ? "Light Mode" : "Dark Mode"}</p>
             </article>
         </li>
-        <li class="grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md">
-            <a class="block w-12 h-12 bg-transparent border-1 rounded-lg active:scale-90 transition duration-200 cursor-pointer p-2" href=".">
+        <li class="SideLiConfig">
+            <a class="SideIconsConfig" href=".">
                 <img class="w-full h-full" src={isDarkMode ? homeDarkIcon : homeLightIcon} alt="">
             </a>
-            <article class="overflow-hidden group-hover:block relative">
-                <p class="text-center font-extralight py-3 absolute">Home</p>
+            <article class="SideArtConfig">
+                <p class="SideTextConfig">Home</p>
             </article>
         </li>
-        <li class="grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md">
-            <a class="block w-12 h-12 bg-transparent border-1 rounded-lg active:scale-90 transition duration-200 cursor-pointer p-2" href=".">
+        <li class="SideLiConfig">
+            <a class="SideIconsConfig" href=".">
                 <img class="w-full h-full" src={isDarkMode ? messengerDarkIcon : messengerLightIcon} alt="">
             </a>
-            <article class="overflow-hidden group-hover:block relative">
-                <p class="text-center font-extralight py-3 absolute">Messages</p>
+            <article class="SideArtConfig">
+                <p class="SideTextConfig">Messages</p>
             </article>
         </li>
-        <li class="grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md">
-            <a class="block w-12 h-12 bg-transparent border-1 rounded-lg active:scale-90 transition duration-200 cursor-pointer p-2" href=".">
+        <li class="SideLiConfig">
+            <a class="SideIconsConfig" href=".">
                 <img class="w-full h-full" src={isDarkMode ? wishListDarkIcon : wishListLightIcon}  alt="">
             </a>
-            <article class="overflow-hidden group-hover:block relative">
-                <p class="text-center font-extralight py-3 absolute">Wish list</p>
+            <article class="SideArtConfig">
+                <p class="SideTextConfig">Wish list</p>
             </article>
         </li>
-        <li class="grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md relative top-44">
+        <li class="SideLiConfig">
             <figure class="w-[52px] h-[52px] p-2 rounded-full hover:scale-105 transition duration-200">
                 <img class="block w-full h-full rounded-full" src={avatarImg} alt="">
             </figure>
-            <article class="overflow-hidden group-hover:block relative">
-                <p class="text-center font-extralight py-3 absolute">Log In</p>
+            <article class="SideArtConfig">
+                <p class="SideTextConfig">Log In</p>
             </article>
         </li>
     </ul>
-</nav>
+</div>
 
 
