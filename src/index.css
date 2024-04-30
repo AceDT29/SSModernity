@@ -25,10 +25,10 @@
         @apply text-center text-sm font-extralight py-3 absolute lg:text-base
     }
     .HomeDivSet {
-        @apply  flex flex-col flex-wrap gap-8 content-center lg:flex-row
+        @apply  flex flex-col flex-wrap gap-8 content-center lg:flex-row lg:justify-center
     }
     .HomefigSet {
-        @apply w-52 h-44 rounded-sm border-2 md:min-w-80 md:min-h-60 cursor-pointer active:scale-90 transition-all relative
+        @apply w-52 h-44 rounded-sm border-2 md:min-w-72 md:min-h-60 cursor-pointer active:scale-90 transition-all relative
     }
     .HomeImgSet {
         @apply w-full h-full object-cover

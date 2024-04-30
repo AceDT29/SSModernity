@@ -17,13 +17,13 @@
     
 </script>
 
-<nav class="sticky top-0 inset-0 z-10 w-full h-auto px-10 py-5 backdrop-filter backdrop-blur-sm border drop-shadow-2xl shadow-lg">
-  <div class="flex flex-col gap-3">
+<nav class="fixed inset-0 z-20 w-full h-28 mx-auto py-5 backdrop-filter backdrop-blur-sm border-b drop-shadow-2xl shadow-lg ">
+  <div class="flex flex-col gap-3 mx-auto">
        <h1 class="font-extrabold text-4xl">SS Modernity</h1>
        <p class="text-sm">Your way, your style</p>
   </div>   
 </nav>
-<div class="relative top-0 h-[100vh] w-full py-1 px-4 bg-transparent">
+<div class="relative h-[100vh] w-full py-1 px-4 bg-transparent">
     {#each imgS as img, i}
       <figure class="absolute h-[95%] w-[95%] mt-10 ml-6 transition duration-300 transform opacity-0 rounded-sm mb-4 drop-shadow-2xl {currentImage === i ? 'translate-x-0 opacity-100' : ''}">
             <img class="block w-full h-full object-cover" src={img} alt="">
