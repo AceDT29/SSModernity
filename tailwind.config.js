@@ -8,7 +8,8 @@ export default {
         "lobster": ["'Lobster'", "sans-serif"]
       },
       backgroundColor: {
-        "ArrowBtnR": "url(./src/assets/ArrowRight.svg)"
+        "ArrowBtnR": "url('./src/assets/ArrowRight.svg')",
+        "BigSaleBan": "url('./src/assets/BannerBeta.png')"
       }
     },
   },

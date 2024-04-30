@@ -11,10 +11,10 @@
 
 <body class="">
   <main>
-    <header class="mb-44 p-0 mx-0">
+    <header class="mb-14 p-0">
       <Banner />
     </header>
-    <article class="flex lg:gap-x-10">
+    <article class="flex lg:gap-x-14">
       <SideNav on:ChangeMode={enableMode}/>
       <HomeSec />
     </article>
