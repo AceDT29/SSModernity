@@ -2,7 +2,7 @@
   import SideNav from "./lib/SideBar.svelte"
   import Banner from "./lib/Banner.svelte"
   import HomeSec from "./lib/Home.svelte"
-  
+
   function enableMode() {
     document.body.classList.toggle("darkMode")
   }
@@ -14,7 +14,7 @@
     <header class="mb-14 p-0">
       <Banner />
     </header>
-    <article class="flex lg:gap-x-14">
+    <article class="flex lg:gap-x-16">
       <SideNav on:ChangeMode={enableMode}/>
       <HomeSec />
     </article>

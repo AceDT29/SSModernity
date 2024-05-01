@@ -20,7 +20,7 @@
 </script>
 
 
-<div class="sticky inset-0 top-28 z-50 w-20 h-96 p-2 ml-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-40 drop-shadow-lg lg:p-3">
+<div class="sticky inset-0 top-28 z-50 w-16 h-[340px] p-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-40 drop-shadow-lg lg:w-20 lg:p-3">
     <ul class="flex flex-col p-0 space-y-4">
         <li class="SideLiConfig">
             <button class="SideIconsConfig" on:click={enableDark}>
