@@ -33,7 +33,7 @@
     productos.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut) 
 </script>
 
-<section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-t border-b rounded-md lg:mb-60 lg:w-[80%] transition-all drop-shadow-lg">
+<section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:mb-60 lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
     <h2 class="">Our Products:</h2>
     <div class="HomeDivSet">
     {#each productos as prod }

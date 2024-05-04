@@ -14,7 +14,7 @@
     <header class="mb-14 p-0">
       <Banner />
     </header>
-    <article class="flex lg:gap-x-16">
+    <article class="flex md:gap-8 lg:gap-x-16">
       <SideNav on:ChangeMode={enableMode}/>
       <HomeSec />
     </article>

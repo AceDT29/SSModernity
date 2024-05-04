@@ -20,8 +20,8 @@
 </script>
 
 
-<div class="sticky inset-0 top-28 z-50 w-16 h-[340px] p-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-40 drop-shadow-lg lg:w-20 lg:p-3">
-    <ul class="flex flex-col p-0 space-y-4">
+<div class="sticky inset-0 top-28 z-50 w-16 h-[340px] p-2 border-r border-b bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-40 drop-shadow-2xl shadow-lg lg:w-20 lg:p-3">
+    <ul class="flex flex-col p-0 space-y-4 lg:ml-2">
         <li class="SideLiConfig">
             <button class="SideIconsConfig" on:click={enableDark}>
                 <img class="w-full h-full" src={isDarkMode ? moonIcon : sunIcon} alt="Light/Dark">

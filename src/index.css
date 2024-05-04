@@ -12,11 +12,20 @@
 }
 
 @layer components {
+    .BannerFigRules {
+        @apply relative w-full mt-2 h-48 mb-8 shadow-md
+    }
+    .BannerDivRules {
+        @apply relative p-10 z-10 flex gap-2 flex-col justify-center items-center text-center
+    }
+    .BannerImgRules {
+        @apply w-full h-full object-cover 
+    }
     .SideLiConfig {
         @apply grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md
     }
     .SideIconsConfig {
-        @apply block w-12 h-12 bg-transparent  rounded-lg active:scale-90 transition duration-200 cursor-pointer p-2
+        @apply block w-12 h-12 bg-transparent rounded-lg active:scale-90 transition duration-200 cursor-pointer p-2
     }
     .SideArtConfig {
         @apply overflow-hidden group-hover:block relative
@@ -25,15 +34,15 @@
         @apply text-center text-sm font-extralight py-3 absolute lg:text-base
     }
     .HomeDivSet {
-        @apply  flex flex-col flex-wrap gap-8 content-center lg:flex-row lg:justify-center
+        @apply  flex flex-col flex-wrap gap-6 justify-center content-center md:flex-row lg:gap-8
     }
     .HomefigSet {
-        @apply w-52 h-44 rounded-sm border-2 md:min-w-72 md:min-h-60 cursor-pointer active:scale-90 transition-all relative
+        @apply w-52 h-44 rounded-sm border-2 lg:min-w-72 lg:min-h-60 cursor-pointer active:scale-90 transition-all relative
     }
     .HomeImgSet {
         @apply w-full h-full object-cover
     }
     .HomeHiddenInfo {
-        @apply w-full h-28 space-y-2 p-2 bg-gray-400/50 rounded-sm text-start absolute bottom-0 opacity-0 transition-all duration-200
+        @apply w-full h-28 space-y-1 p-2 bg-gray-400/50 rounded-sm text-start absolute bottom-0 opacity-0 transition-all duration-200 md:space-y-2
     }
 }
