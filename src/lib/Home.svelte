@@ -8,6 +8,17 @@
     import prodImg7 from "../assets/imagen7.jpg"
     import prodImg8 from "../assets/imagen8.jpg"
     import prodImg9 from "../assets/imagen9.jpg"
+    import WishList from "../assets/WishListAddIcon.png"
+
+    let wishProd = []
+
+    function prodSelec(prod){
+        const prodExists = wishProd.some((item) => item.name === prod.name)
+        if (!prodExists) {
+            wishProd.push(prod)
+        }
+        console.log(wishProd)
+    }
 
     const productos = []
 
@@ -30,15 +41,18 @@
     let girlSport = new Items ("Sporty Oufit for Women", prodImg8, 29.99, "S")
     let chicOut = new Items ("Fall outfit for a girl", prodImg9, 49.99, "S")
 
-    productos.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut) 
+    productos.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
 </script>
 
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:mb-60 lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
-    <h2 class="">Our Products:</h2>
+    <h2 class="text-lg mb-2">Our Products:</h2>
     <div class="HomeDivSet">
     {#each productos as prod }
         <figure class="HomefigSet group">
             <img class="HomeImgSet" src={prod.photo} alt="">
+            <button on:click={() => prodSelec(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-12 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-200">
+                <img class="w-[90%] h-[90%]" src={WishList} alt="">
+            </button>  
             <div class="HomeHiddenInfo group-hover:opacity-100">
                 <h2 class="text-base">{prod.name}</h2>
                 <p class="text-sm">Size: {prod.size}</p>
