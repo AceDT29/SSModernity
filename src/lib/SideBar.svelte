@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher } from "svelte"
   import avatarImg from "../assets/avatar.png"
   import sunIcon from "../assets/sun-regular.svg"
   import moonIcon from "../assets/moon-regular.svg"
@@ -9,18 +9,25 @@
   import messengerDarkIcon from "../assets/messenger-dark.svg"
   import wishListLightIcon from "../assets/wishList-light.svg"
   import wishListDarkIcon from "../assets/wishList-dark.svg"
-  
+ 
   const dispatch = createEventDispatcher()
   let isDarkMode = false
+  let checkPlease = false
   
   function enableDark(){
-    isDarkMode = !isDarkMode
-    dispatch('ChangeMode', { isDarkMode })
+     isDarkMode = !isDarkMode
+     dispatch('ChangeMode', { isDarkMode })
   }
+
+  function displayWithcheck() {
+    checkPlease = !checkPlease
+    dispatch("wishToFather",  checkPlease)
+  }
+
 </script>
 
 
-<div class="sticky inset-0 top-28 z-50 w-16 h-[340px] p-2 border-r border-b bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-40 drop-shadow-2xl shadow-lg lg:w-20 lg:p-3">
+<div class="sticky inset-0 top-28 z-50 w-16 h-[340px] p-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-40 drop-shadow-2xl shadow-lg lg:w-20 lg:p-3">
     <ul class="flex flex-col p-0 space-y-4 lg:ml-2">
         <li class="SideLiConfig">
             <button class="SideIconsConfig" on:click={enableDark}>
@@ -47,9 +54,10 @@
             </article>
         </li>
         <li class="SideLiConfig">
-            <a class="SideIconsConfig" href=".">
+            <label for="checkWish" class="SideIconsConfig">
+                <input class="hidden" type="checkbox" id="checkWish" on:change={displayWithcheck}>
                 <img class="w-full h-full" src={isDarkMode ? wishListDarkIcon : wishListLightIcon}  alt="">
-            </a>
+            </label>
             <article class="SideArtConfig">
                 <p class="SideTextConfig">Wish list</p>
             </article>

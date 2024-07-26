@@ -12,6 +12,9 @@
 }
 
 @layer components {
+    .SpecialButtons {
+        @apply fixed z-50 left-[87%] top-[85%] w-10 h-10 rounded-full active:scale-90 hover:scale-110 transition duration-150 drop-shadow-lg lg:left-[95%] lg:top-[80%] lg:w-12 lg:h-12 
+    }
     .BannerFigRules {
         @apply relative w-full mt-2 h-48 mb-8 shadow-md
     }
@@ -44,5 +47,14 @@
     }
     .HomeHiddenInfo {
         @apply w-full h-28 space-y-1 p-2 bg-gray-400/50 rounded-sm text-start absolute bottom-0 opacity-0 transition-all duration-200 md:space-y-2
+    }
+    .hiddenClass {
+        @apply hidden
+    }
+    .translateBack {
+        @apply -translate-x-0
+    }
+    .translateAll {
+        @apply translate-x-full
     }
 }
