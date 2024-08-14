@@ -59,7 +59,7 @@
                 <img class="w-full h-full" src={isDarkMode ? wishListDarkIcon : wishListLightIcon}  alt="">
             </label>
             <article class="SideArtConfig">
-                <p class="SideTextConfig">Wish list</p>
+                <p class="SideTextConfig" translate="no">Wish list</p>
             </article>
         </li>
         <li class="SideLiConfig">

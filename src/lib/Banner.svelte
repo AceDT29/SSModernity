@@ -21,8 +21,8 @@
 
 <nav class="sticky inset-0 z-30 w-full h-20 px-5 py-2 backdrop-filter backdrop-blur-sm border-b drop-shadow-2xl shadow-md md:py-5 md:h-28">
     <div class="flex flex-col gap-2 items-center">
-        <h1 class="font-extrabold text-2xl md:text-4xl">SS Modernity</h1>
-        <p class="text-sm">Your way, your style</p>
+        <h1 class="font-extrabold text-2xl md:text-4xl" translate="no">SS Modernity</h1>
+        <p class="text-sm" translate="no">Your way, your style</p>
     </div>   
 </nav>
 <figure class="BannerFigRules h-52 shadow-md md:hidden">

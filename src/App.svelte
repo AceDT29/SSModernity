@@ -53,8 +53,8 @@
     </article>
     <footer class="w-full h-[60vh] border drop-shadow-2xl p-10">
         <div class="flex flex-col items-center gap-3">
-          <h1 class="font-extrabold text-4xl">SS Modernity</h1>
-          <p class="text-sm">Your way, your style</p>
+          <h1 class="font-extrabold text-4xl"  translate="no">SS Modernity</h1>
+          <p class="text-sm" translate="no">Your way, your style</p>
         </div> 
     </footer>
   </main> 

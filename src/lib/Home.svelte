@@ -46,10 +46,7 @@
             }
             return prodList
         })
-    }
-
-    const closeMenu = () => !checkValue
-        
+    }   
 </script>
 
 
@@ -73,22 +70,21 @@
 </section>
 {#if checkValue}
     <div class="absolute z-10 left-[70%] w-96 h-auto rounded-md">
-        <div class=" bg-slate-400 rounded-md p-3">
-            <button class="w-10 h-10" on:click={closeMenu}>
+        <div class=" bg-slate-300 border rounded-md px-2 py-4 shadow-md">
+            <button class="w-10 h-10 p-1 z-10 relative left-[90%]">
                 <img class="w-full h-full block" src={closeIcon} alt="">
             </button>
-            <h2>Your WishList:</h2>
+            <h2 class="relative bottom-8">Your WishList:</h2>
             {#each $wishProd as prod}
-                <div class="flex w-[90%] h-28 gap-1 items-center justify-around transition">
-                    <figure class="w-32 h-28">
+                <div class="flex w-[90%] h-28 gap-1 gap-y-3 items-center transition">
+                    <figure class="w-40 h-32 my-2">
                         <img class="w-full h-full block" src={prod.photo} alt="">
                     </figure>
-                    <p class="self-center">{prod.name}</p>
-                    <h3 class="self-center text-lg">{prod.price}</h3>
-                    <button>-</button>
+                    <p class="self-start">{prod.name}</p>
+                    <h3 class="self-start text-lg">{prod.price}$</h3>
                 </div>
                 {:else}
-                <p>You're not have any product yet</p>
+                <p class="relative bottom-7">You're not have any product yet</p>
             {/each}
         </div>  
     </div>
