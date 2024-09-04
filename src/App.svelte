@@ -3,13 +3,24 @@
   import SideNav from "./lib/SideBar.svelte"
   import Banner from "./lib/Banner.svelte"
   import HomeSec from "./lib/Home.svelte"
+  import WishComp from "./lib/Wishlist.svelte"
   import upButton from "./assets/UpArrow.svg"
 
   let upBtn
   let checkFromNav
+  let productPkg = []
 
   function enableMode() {
     document.body.classList.toggle("darkMode")
+  }
+
+  function wishToSon(event){
+    checkFromNav = event.detail
+  }
+
+  function onCart(event){
+    productPkg = [...event.detail]
+    console.log(productPkg)
   }
 
   function getScroll() {
@@ -30,26 +41,25 @@
     }
   }
 
-  function wishToSon(event){
-    checkFromNav = event.detail
-  }
-    
   onMount(() => {
     addEventListener("scroll", getScroll)
   })
 </script>
 
-<body class="">
+<body class="relative">
   <main>
-    <header class="mb-14 p-0">
-      <Banner />
+    <header class="mb-12 p-0">
+      <Banner>
+        <WishComp theWish={productPkg} checkValue={checkFromNav} />
+      </Banner>
     </header>
     <article class="flex md:gap-8 lg:gap-x-16">
-      <SideNav on:ChangeMode={enableMode} on:wishToFather={wishToSon}/>
-      <HomeSec checkValue={checkFromNav}/>
-      <button class="hiddenClass SpecialButtons" bind:this={upBtn} on:click={backToTop}>
-        <img class="w-full h-full block" src={upButton} alt="Volver al inicio">
-      </button>
+      <SideNav on:ChangeMode={enableMode} on:wishToFather={wishToSon}>
+        <button class="hiddenClass SpecialButtons" bind:this={upBtn} on:click={backToTop}>
+          <img class="w-full h-full block" src={upButton} alt="Volver al inicio">
+        </button>
+      </SideNav>
+      <HomeSec on:Wishie={onCart} />
     </article>
     <footer class="w-full h-[60vh] border drop-shadow-2xl p-10">
         <div class="flex flex-col items-center gap-3">

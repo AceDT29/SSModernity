@@ -61,6 +61,7 @@
     </div>
     <img class="BannerImgRules absolute top-0" src={bigSale} alt="">
 </figure>
+<slot />
 
 
 

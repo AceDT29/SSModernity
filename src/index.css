@@ -13,10 +13,10 @@
 
 @layer components {
     .SpecialButtons {
-        @apply fixed z-50 left-[87%] top-[85%] w-10 h-10 rounded-full active:scale-90 hover:scale-110 transition duration-150 drop-shadow-lg lg:left-[95%] lg:top-[80%] lg:w-12 lg:h-12 
+        @apply fixed z-50 left-14 w-8 h-8 rounded-full active:scale-90 hover:scale-110 transition duration-150 drop-shadow-lg lg:w-10 lg:h-10 
     }
     .BannerFigRules {
-        @apply relative w-full mt-2 h-48 mb-8 shadow-md
+        @apply relative w-full mt-2 h-48 shadow-md
     }
     .BannerDivRules {
         @apply relative p-10 z-10 flex gap-2 flex-col justify-center items-center text-center
