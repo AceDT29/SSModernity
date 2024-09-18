@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte"
+  import { onMount } from "svelte"
   import avatarImg from "../assets/avatar.png"
   import sunIcon from "../assets/sun-regular.svg"
   import moonIcon from "../assets/moon-regular.svg"
@@ -10,25 +11,39 @@
   import wishListLightIcon from "../assets/wishList-light.svg"
   import wishListDarkIcon from "../assets/wishList-dark.svg"
  
+  export let checkPlease 
   const dispatch = createEventDispatcher()
   let isDarkMode = false
-  let checkPlease = false
+  let sideNode
+
+  function mobileSideBar() {
+    if(window.innerWidth < 768) {
+        console.log("Se ha llamado al evento")
+        sideNode.classList.add("SideRezise")
+    } else {
+        sideNode.classList.remove("SideRezise")
+    }
+  }
   
   function enableDark(){
      isDarkMode = !isDarkMode
      dispatch('ChangeMode', { isDarkMode })
   }
 
-  function displayWithcheck() {
-    checkPlease = !checkPlease
-    dispatch("wishToFather",  checkPlease)
-  }
+  onMount(() => {
+    mobileSideBar()
+    addEventListener("resize", mobileSideBar)
+
+    return () => {
+      window.removeEventListener("resize", mobileSideBar)
+    }
+  })
 
 </script>
 
 
-<div class="sticky inset-0 top-28 z-50 w-16 h-[340px] p-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-36 drop-shadow-2xl shadow-lg lg:w-20">
-    <ul class="flex flex-col p-0 space-y-4 ml-1">
+<div class="sticky inset-0 top-28 z-50 w-16 h-[340px] p-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-36 drop-shadow-2xl shadow-lg lg:w-20 md:sticky" bind:this={sideNode}>
+    <ul class="flex flex-col p-0 space-y-4 md:ml-2">
         <li class="SideLiConfig">
             <button class="SideIconsConfig" on:click={enableDark}>
                 <img class="w-full h-full" src={isDarkMode ? moonIcon : sunIcon} alt="Light/Dark">
@@ -55,7 +70,7 @@
         </li>
         <li class="SideLiConfig">
             <label for="checkWish" class="SideIconsConfig">
-                <input class="hidden" type="checkbox" id="checkWish" on:change={displayWithcheck}>
+                <input class="hidden" type="checkbox" id="checkWish" bind:checked={checkPlease}>
                 <img class="w-full h-full" src={isDarkMode ? wishListDarkIcon : wishListLightIcon}  alt="">
             </label>
             <article class="SideArtConfig">

@@ -7,20 +7,11 @@
   import upButton from "./assets/UpArrow.svg"
 
   let upBtn
-  let checkFromNav
+  let checkFromNav = false
   let productPkg = []
 
   function enableMode() {
     document.body.classList.toggle("darkMode")
-  }
-
-  function wishToSon(event){
-    checkFromNav = event.detail
-  }
-
-  function onCart(event){
-    productPkg = [...event.detail]
-    console.log(productPkg)
   }
 
   function getScroll() {
@@ -48,18 +39,18 @@
 
 <body class="relative">
   <main>
-    <header class="mb-12 p-0">
+    <header class="mb-10 p-0">
       <Banner>
-        <WishComp theWish={productPkg} checkValue={checkFromNav} />
+        <WishComp bind:theWish={productPkg} bind:checkValue={checkFromNav} />
       </Banner>
     </header>
     <article class="flex md:gap-8 lg:gap-x-16">
-      <SideNav on:ChangeMode={enableMode} on:wishToFather={wishToSon}>
+      <SideNav bind:checkPlease={checkFromNav} on:ChangeMode={enableMode}>
         <button class="hiddenClass SpecialButtons" bind:this={upBtn} on:click={backToTop}>
           <img class="w-full h-full block" src={upButton} alt="Volver al inicio">
         </button>
       </SideNav>
-      <HomeSec on:Wishie={onCart} />
+      <HomeSec bind:myWish={productPkg}/>
     </article>
     <footer class="w-full h-[60vh] border drop-shadow-2xl p-10">
         <div class="flex flex-col items-center gap-3">

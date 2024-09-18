@@ -1,5 +1,4 @@
 <script>
-    import { createEventDispatcher } from "svelte"
     import prodImg1 from "../assets/imagen1.jpg"
     import prodImg2 from "../assets/imagen2.jpg"
     import prodImg3 from "../assets/imagen3.jpg"
@@ -11,9 +10,8 @@
     import prodImg9 from "../assets/imagen9.jpg"
     import WishIcon from "../assets/WishListAddIcon.png"
     
-    const myWish = []
-    const productos = []
-    const dispatch = createEventDispatcher()
+    export let myWish = []
+    const products = []
     
     class Items {
         constructor(name, photo, price, size) {
@@ -34,13 +32,12 @@
     let girlSport = new Items ("Sporty Oufit for Women", prodImg8, 29.99, "S")
     let chicOut = new Items ("Fall outfit for a girl", prodImg9, 49.99, "S")
 
-    productos.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
+    products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
 
-    function prodSelec(prod) {
-        const prodExists = myWish.some((item) => item.name === prod.name)
+    function prodSelec(prodItem) {
+        const prodExists = myWish.some((item) => item.name === prodItem.name)
         if (!prodExists && myWish.length < 7) {
-            myWish.push(prod)
-            dispatch("Wishie", [...myWish])
+           return myWish = [...myWish, prodItem]
         }
     }   
 </script>
@@ -48,7 +45,7 @@
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:mb-60 lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
     <h2 class="text-lg mb-2">Our Products:</h2>
     <div class="HomeDivSet">
-    {#each productos as prod }
+    {#each products as prod }
         <figure class="HomefigSet group">
             <img class="HomeImgSet" src={prod.photo} alt="">
             <button on:click={() => prodSelec(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-200 peer">
