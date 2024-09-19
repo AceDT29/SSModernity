@@ -10,28 +10,28 @@
 </script>
 
 {#if checkValue}
-    <div class="absolute left-[35%] z-20 w-80 h-auto rounded-md md:left-[63%] md:w-72 lg:left-[69%] lg:w-96">
+    <div class="absolute overflow-hidden left-[33%] z-20 w-60 h-auto rounded-md md:left-[60%] md:w-80 lg:left-[69%] lg:w-96">
         <div class=" backdrop-filter backdrop-blur-xl border-b border-r rounded-md p-2 shadow-md lg:p-4">
-            <label for="CloseBtn" class="relative w-10 h-10 left-72 z-10 p-1 cursor-pointer">
+            <label for="CloseBtn" class="relative left-[88%] bottom-6 w-10 h-10 z-10 p-2 cursor-pointer">
                 <input type="checkbox" class="hidden" id="CloseBtn" bind:checked={checkValue}>
-                <img class="w-10 h-10 block" src={closeIcon} alt="">
+                <img class="w-8 h-8 block" src={closeIcon} alt="">
             </label>
-            <h2 class="relative bottom-16">Your WishList:</h2>
+            <h2 class="relative text-lg bottom-20">Your WishList:</h2>
             {#each theWish as prod}
-                <div class="flex w-[90%] h-36 gap-x-3 gap-y-3 items-start transition">
-                    <figure class="w-36 h-32 my-3 cursor-pointer hover:scale-110 transition-all">
+                <div class="flex relative bottom-8 h-36 gap-x-3 gap-y-3 items-start transition lg:w-full">
+                    <figure class="w-36 h-32 cursor-pointer hover:scale-110 transition-all md:w-40 ">
                         <img class="w-full h-full block rounded-sm" src={prod.photo} alt="">
                     </figure>
-                    <div class="flex-col py-1">
+                    <div class="flex-col">
                         <p class="">{prod.name}</p>
                         <h3 class="text-lg">{prod.price}$</h3>
-                        <button class="w-10 h-10 p-2 z-10" on:click={() => prodDel(prod.name)}>
+                        <button class="w-10 h-10 p-1 z-10 transition-all active:scale-90" on:click={() => prodDel(prod.name)}>
                             <img class="w-full h-full block" src={garbage} alt="Delete product">
                         </button>
                     </div>
                 </div>
                 {:else}
-                <p class="relative bottom-14">You're not have any product yet</p>
+                <p class="relative text-lg bottom-8">You're not have any product yet</p>
             {/each}
         </div>  
     </div>

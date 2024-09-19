@@ -9,8 +9,14 @@
   let upBtn
   let checkFromNav = false
   let productPkg = []
+  let isDark 
 
-  function enableMode() {
+  if (localStorage.getItem("products")) {
+    productPkg = JSON.parse(localStorage.getItem("products"))
+  }
+
+  function enableMode(event) {
+    isDark = event.detail
     document.body.classList.toggle("darkMode")
   }
 
@@ -31,6 +37,8 @@
       scrollTo(0, currentValue - (currentValue / 10))
     }
   }
+
+  $: localStorage.setItem("products", JSON.stringify(productPkg))
 
   onMount(() => {
     addEventListener("scroll", getScroll)
