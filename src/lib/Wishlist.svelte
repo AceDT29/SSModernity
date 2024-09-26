@@ -19,19 +19,19 @@
             <h2 class="relative text-lg bottom-20">Your WishList:</h2>
             {#each theWish as prod}
                 <div class="flex relative bottom-8 h-36 gap-x-3 gap-y-3 items-start transition lg:w-full">
-                    <figure class="w-36 h-32 cursor-pointer hover:scale-110 transition-all md:w-40 ">
+                    <figure class="w-44 h-32 cursor-pointer hover:scale-110 transition-all">
                         <img class="w-full h-full block rounded-sm" src={prod.photo} alt="">
                     </figure>
                     <div class="flex-col">
-                        <p class="">{prod.name}</p>
-                        <h3 class="text-lg">{prod.price}$</h3>
-                        <button class="w-10 h-10 p-1 z-10 transition-all active:scale-90" on:click={() => prodDel(prod.name)}>
+                        <p class="text-sm md:text-base lg:text-base">{prod.name}</p>
+                        <h3 class="text-base font-semibold lg:text-lg">{prod.price}$</h3>
+                        <button class="w-10 h-10 p-2 z-10 transition-all active:scale-90 lg:p-1" on:click={() => prodDel(prod.name)}>
                             <img class="w-full h-full block" src={garbage} alt="Delete product">
                         </button>
                     </div>
                 </div>
                 {:else}
-                <p class="relative text-lg bottom-8">You're not have any product yet</p>
+                <p class="relative text-lg bottom-14 lg:bottom-8">You're not have any product yet</p>
             {/each}
         </div>  
     </div>
