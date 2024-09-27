@@ -1,19 +1,28 @@
 <script>
   import { onMount } from "svelte"
+  import { productPkg } from "./stores.js"
   import SideNav from "./lib/SideBar.svelte"
   import Banner from "./lib/Banner.svelte"
   import HomeSec from "./lib/Home.svelte"
   import WishComp from "./lib/Wishlist.svelte"
   import upButton from "./assets/UpArrow.svg"
-
+  
+  const storedProducts = localStorage.getItem("products")
   let upBtn
   let checkFromNav = false
-  let productPkg = []
   let isDark 
+  
 
-  if (localStorage.getItem("products")) {
-    productPkg = JSON.parse(localStorage.getItem("products"))
+  if (storedProducts) {
+    try {
+        const parsedProducts = JSON.parse(storedProducts)
+        productPkg.local(parsedProducts)
+      } catch (error) {
+          console.error("Error al analizar los productos desde localStorage:", error)
+      }
   }
+
+ $: localStorage.setItem("products", JSON.stringify($productPkg))
 
   function enableMode(event) {
     isDark = event.detail
@@ -38,8 +47,6 @@
     }
   }
 
-  $: localStorage.setItem("products", JSON.stringify(productPkg))
-
   onMount(() => {
     addEventListener("scroll", getScroll)
   })
@@ -49,7 +56,7 @@
   <main>
     <header class="mb-10 p-0">
       <Banner>
-        <WishComp bind:theWish={productPkg} bind:checkValue={checkFromNav} />
+        <WishComp bind:checkValue={checkFromNav} />
       </Banner>
     </header>
     <article class="flex md:gap-8 lg:gap-x-16">
@@ -58,7 +65,7 @@
           <img class="w-full h-full block" src={upButton} alt="Volver al inicio">
         </button>
       </SideNav>
-      <HomeSec bind:myWish={productPkg}/>
+      <HomeSec/>
     </article>
     <footer class="w-full h-[60vh] border drop-shadow-2xl p-10">
         <div class="flex flex-col items-center gap-3">

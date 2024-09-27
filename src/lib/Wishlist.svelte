@@ -1,11 +1,11 @@
 <script>
+    import { productPkg } from "../stores.js"
     import closeIcon from "../assets/CloseIcon.svg"
     import garbage from "../assets/garbage.svg"
-    export let theWish = []
     export let checkValue  
     
     const prodDel = (name) => {
-        theWish = theWish.filter((item) => item.name !== name)
+        productPkg.delete(name)
     }
 </script>
 
@@ -17,7 +17,7 @@
                 <img class="w-8 h-8 block" src={closeIcon} alt="">
             </label>
             <h2 class="relative text-lg bottom-20">Your WishList:</h2>
-            {#each theWish as prod}
+            {#each $productPkg as prod}
                 <div class="flex relative bottom-8 h-36 gap-x-3 gap-y-3 items-start transition lg:w-full">
                     <figure class="w-44 h-32 cursor-pointer hover:scale-110 transition-all">
                         <img class="w-full h-full block rounded-sm" src={prod.photo} alt="">

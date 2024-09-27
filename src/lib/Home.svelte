@@ -1,4 +1,5 @@
 <script>
+    import { productPkg } from "../stores.js"
     import prodImg1 from "../assets/imagen1.jpg"
     import prodImg2 from "../assets/imagen2.jpg"
     import prodImg3 from "../assets/imagen3.jpg"
@@ -10,7 +11,6 @@
     import prodImg9 from "../assets/imagen9.jpg"
     import WishIcon from "../assets/WishListAddIcon.png"
     
-    export let myWish = []
     const products = []
     
     class Items {
@@ -35,10 +35,7 @@
     products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
 
     function prodSelec(prodItem) {
-        const prodExists = myWish.some((item) => item.name === prodItem.name)
-        if (!prodExists && myWish.length < 7) {
-           return myWish = [...myWish, prodItem]
-        }
+        productPkg.add(prodItem)
     }   
 </script>
 
