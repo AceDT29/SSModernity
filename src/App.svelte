@@ -10,31 +10,24 @@
   const storedProducts = localStorage.getItem("products")
   let upBtn
   let checkFromNav = false
-  let isDark 
-  
 
   if (storedProducts) {
     try {
-        const parsedProducts = JSON.parse(storedProducts)
-        productPkg.local(parsedProducts)
-      } catch (error) {
-          console.error("Error al analizar los productos desde localStorage:", error)
-      }
+      const parsedProducts = JSON.parse(storedProducts)
+      productPkg.local(parsedProducts)
+    } catch (error) {
+      console.error("Error al analizar los productos desde localStorage:", error)
+    }
   }
 
- $: localStorage.setItem("products", JSON.stringify($productPkg))
-
-  function enableMode(event) {
-    isDark = event.detail
-    document.body.classList.toggle("darkMode")
-  }
-
+  $: localStorage.setItem("products", JSON.stringify($productPkg))
+   
   function getScroll() {
     let valueScroll = document.body.scrollTop || document.documentElement.scrollTop
     if (valueScroll > 500 && upBtn.classList.contains("hiddenClass")) {
         upBtn.classList.remove("hiddenClass")
       } else if (valueScroll === 0 && !upBtn.classList.contains("hiddenClass")) {
-         upBtn.classList.add("hiddenClass")
+        upBtn.classList.add("hiddenClass")
       }
     return valueScroll
   }
@@ -60,7 +53,7 @@
       </Banner>
     </header>
     <article class="flex md:gap-8 lg:gap-x-16">
-      <SideNav bind:checkPlease={checkFromNav} on:ChangeMode={enableMode}>
+      <SideNav bind:checkPlease={checkFromNav}>
         <button class="hiddenClass SpecialButtons" bind:this={upBtn} on:click={backToTop}>
           <img class="w-full h-full block" src={upButton} alt="Volver al inicio">
         </button>

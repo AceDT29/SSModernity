@@ -1,5 +1,4 @@
 <script>
-  import { createEventDispatcher } from "svelte"
   import avatarImg from "../assets/avatar.png"
   import sunIcon from "../assets/sun-regular.svg"
   import moonIcon from "../assets/moon-regular.svg"
@@ -11,23 +10,41 @@
   import wishListDarkIcon from "../assets/wishList-dark.svg"
  
   export let checkPlease
-  const dispatch = createEventDispatcher()
-  let isDarkMode 
-  
-  function enableDark(){
-     isDarkMode = !isDarkMode
-     dispatch('ChangeMode', { isDarkMode })
+  let isDarkMode
+  const userMode = localStorage.getItem("mode")
+
+  if (userMode) {
+    try {
+        const parsedValue = JSON.parse(userMode)
+        isDarkMode = parsedValue
+        if (isDarkMode) {
+            document.body.classList.add("darkMode")
+        }
+    } catch (error) {
+        console.error("No se pudo recuperar tu configuracion", error)
+    }
   }
 
+  function enableDark(){
+    if (isDarkMode) {
+        document.body.classList.add("darkMode")
+    } else {
+        document.body.classList.remove("darkMode")
+    }
+    return localStorage.setItem("mode", JSON.stringify(isDarkMode))
+  }
+
+  $: console.log(userMode)
 </script>
 
 
 <div class="sticky inset-0 top-28 z-50 w-16 h-[340px] p-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-36 drop-shadow-2xl shadow-lg lg:w-20 md:sticky">
     <ul class="flex flex-col p-0 space-y-4 mr-1 lg:ml-2">
         <li class="SideLiConfig">
-            <button class="SideIconsConfig" on:click={enableDark}>
+            <label for="switch" class="SideIconsConfig">
+                <input class="hidden" type="checkbox" id="switch" bind:checked={isDarkMode} on:change={enableDark}>
                 <img class="w-full h-full" src={isDarkMode ? moonIcon : sunIcon} alt="Light/Dark">
-            </button>
+            </label>
             <article class="SideArtConfig">
                 <p class="SideTextConfig whitespace-nowrap" id="AccText">{isDarkMode ? "Light Mode" : "Dark Mode"}</p>
             </article>
