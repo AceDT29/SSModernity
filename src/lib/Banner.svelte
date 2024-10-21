@@ -49,6 +49,15 @@
         {#each imgS as img, i}
           <figure class="absolute h-full w-full mt-2 transition duration-300 transform opacity-0 rounded-md mb-4 shadow-md {currentImage === i ? 'translate-x-0 opacity-100' : ''}">
                 <img class="BannerImgRules" src={img} alt="">
+                <div class="absolute hidden w-96 h-48 p-3 lg:block lg:top-[60%] lg:left-[70%] rounded-md backdrop-filter backdrop-blur-lg border">
+                    <div class="flex flex-col items-start gap-y-3">
+                        <h4 class="self-start text-2xl">Join the SS club</h4>
+                        <p class="text-sm">15% discount on our entire catalog, notification of new products in stock, and 5 gift coupons!</p>
+                        <button class="self-start w-14 h-10 p-1 active:scale-90 transition-all bg-red-400/60 rounded-md">
+                            <p class="text-sm text-slate-50">Sign Up</p>
+                        </button>
+                    </div>
+                </div>
           </figure>
         {/each}
     </div>
