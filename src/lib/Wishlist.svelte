@@ -1,5 +1,5 @@
 <script>
-    import { productPkg } from "../stores.js"
+    import { productPkg } from "../Stores/ProductStore"
     import closeIcon from "../assets/CloseIcon.svg"
     import garbage from "../assets/garbage.svg"
     export let checkValue  

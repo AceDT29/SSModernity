@@ -1,5 +1,5 @@
 <script>
-    import { productPkg } from "../stores.js"
+    import { productPkg } from "../Stores/ProductStore"
     import prodImg1 from "../assets/imagen1.jpg"
     import prodImg2 from "../assets/imagen2.jpg"
     import prodImg3 from "../assets/imagen3.jpg"

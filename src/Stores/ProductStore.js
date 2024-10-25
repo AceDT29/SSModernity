@@ -11,7 +11,6 @@ const createProduct = () => {
         add: (prodItem) => {
             update(productPkg => {
                 if (!Array.isArray(productPkg)) {
-                    console.error("productPkg no es un array, inicializando como vacío.")
                     return []
                 }
                 const prodExists = productPkg.some((item) => item.name === prodItem.name)
