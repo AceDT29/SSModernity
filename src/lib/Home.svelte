@@ -1,5 +1,6 @@
 <script>
     import { productPkg } from "../Stores/ProductStore"
+    import { User } from "../Stores/UserStore"
     import prodImg1 from "../assets/imagen1.jpg"
     import prodImg2 from "../assets/imagen2.jpg"
     import prodImg3 from "../assets/imagen3.jpg"
@@ -10,6 +11,7 @@
     import prodImg8 from "../assets/imagen8.jpg"
     import prodImg9 from "../assets/imagen9.jpg"
     import WishIcon from "../assets/WishListAddIcon.png"
+    import Offsale from "../assets/OffLogo.svg"
     
     const products = []
     
@@ -20,6 +22,13 @@
             this.price = price
             this.size = size
         }
+
+        static getProductDiscount(item, porcentaje) {
+           let discount = (item.price * porcentaje) / 100 
+           let total = item.price - Math.round(discount)
+           return console.log(`Tu descuento para este producto es del ${discount}% ,Total a pagar: ${total}`)
+        }
+
     }
 
     let modernMaleOut = new Items ("Modern Outfit Male", prodImg1, 55, "M",)
@@ -35,8 +44,11 @@
     products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
 
     function prodSelec(prodItem) {
+        if ($User) {
+            Items.getProductDiscount(prodItem, 15)
+        }
         productPkg.add(prodItem)
-    }   
+    }
 </script>
 
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:mb-60 lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
@@ -47,7 +59,12 @@
             <img class="HomeImgSet" src={prod.photo} alt="">
             <button on:click={() => prodSelec(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-200 peer">
                 <img class="w-[90%] h-[90%]" src={WishIcon} alt="">
-            </button>  
+            </button>
+        {#if $User}
+            <figure class="absolute w-16 h-16 top-0 left-[78%] hover:scale-110 transition-all">
+                <img class="block w-full h-full" src={Offsale} alt="">
+            </figure>
+        {/if}
             <div class="HomeHiddenInfo group-hover:opacity-100">
                 <h2 class="text-base">{prod.name}</h2>
                 <p class="text-sm">Size: {prod.size}</p>

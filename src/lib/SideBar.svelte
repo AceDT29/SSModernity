@@ -122,15 +122,15 @@
                     </Link>
                 </figure>
                 <article class="SideArtConfig">
-                    <p class="SideTextConfig">My Profile</p>
+                    <p class="SideTextConfig text-sm mt-1">My Profile</p>
                 </article>
             {:else}
                 <figure
-                    class="w-[52px] h-[52px] p-2 rounded-full hover:scale-105 transition duration-200"
+                    class="w-[52px] h-[52px] p-2 rounded-full ml-1 hover:scale-105 transition duration-200"
                 >
                     <Link to="/Login" preserveScroll>
                         <img
-                            class="block w-full h-full rounded-full"
+                            class="block w-full h-full"
                             src={isDarkMode ? loginDark : loginSun}
                             alt=""
                         />
