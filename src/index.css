@@ -55,7 +55,7 @@
         @apply flex mx-3 flex-col w-60 h-[400px] justify-start gap-6
     }
     .LoginInput {
-        @apply w-60 h-10 border border-slate-500 rounded-md text-lg shadow-md bg-transparent
+        @apply w-60 h-10 border rounded-md text-lg shadow-md bg-transparent 
     }
     .hiddenClass {
         @apply hidden

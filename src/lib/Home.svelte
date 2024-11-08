@@ -16,17 +16,26 @@
     const products = []
     
     class Items {
+        static userDiscount = 15
+
         constructor(name, photo, price, size) {
             this.name = name
             this.photo = photo
             this.price = price
             this.size = size
+            this.discounted = false
         }
 
-        static getProductDiscount(item, porcentaje) {
-           let discount = (item.price * porcentaje) / 100 
-           let total = item.price - Math.round(discount)
-           return console.log(`Tu descuento para este producto es del ${discount}% ,Total a pagar: ${total}`)
+        static getProductDiscount(item) {
+            let discount = (item.price * this.userDiscount) / 100 
+            let total = item.price - Math.round(discount)
+            if(!item.discounted) {
+                item.price = total
+                item.discounted = true
+            } else {
+                return
+            }
+           return item.price
         }
 
     }
@@ -45,7 +54,7 @@
 
     function prodSelec(prodItem) {
         if ($User) {
-            Items.getProductDiscount(prodItem, 15)
+            Items.getProductDiscount(prodItem)
         }
         productPkg.add(prodItem)
     }
@@ -61,7 +70,7 @@
                 <img class="w-[90%] h-[90%]" src={WishIcon} alt="">
             </button>
         {#if $User}
-            <figure class="absolute w-16 h-16 top-0 left-[78%] hover:scale-110 transition-all">
+            <figure class="absolute w-12 h-12 top-0 left-[77%] hover:scale-110 transition-all lg:w-16 lg:h-16 lg:[left-85%]">
                 <img class="block w-full h-full" src={Offsale} alt="">
             </figure>
         {/if}
