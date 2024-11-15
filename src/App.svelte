@@ -11,14 +11,15 @@
   import SignUp from "./lib/Registrer.svelte"
   import upButton from "./assets/UpArrow.svg"
   
+  export let url = ""
   const storedProducts = localStorage.getItem("products")
   let upBtn
   let checkFromNav = false
-  export let url = ""
-
+  let parsedProducts
+ 
   if (storedProducts) {
     try {
-      const parsedProducts = JSON.parse(storedProducts)
+      parsedProducts = JSON.parse(storedProducts)
       productPkg.local(parsedProducts)
     } catch (error) {
       console.error("Error al analizar los productos desde localStorage:", error)
@@ -28,13 +29,13 @@
   $: localStorage.setItem("products", JSON.stringify($productPkg))
    
   function getScroll() {
-    let valueScroll = document.body.scrollTop || document.documentElement.scrollTop
-    if (valueScroll > 500 && upBtn.classList.contains("hiddenClass")) {
+    let scrollValue = document.body.scrollTop || document.documentElement.scrollTop
+    if (scrollValue > 500 && upBtn.classList.contains("hiddenClass")) {
         upBtn.classList.remove("hiddenClass")
-      } else if (valueScroll === 0 && !upBtn.classList.contains("hiddenClass")) {
+      } else if (scrollValue === 0 && !upBtn.classList.contains("hiddenClass")) {
         upBtn.classList.add("hiddenClass")
       }
-    return valueScroll
+    return scrollValue
   }
 
   function backToTop(){
@@ -74,7 +75,7 @@
           <MyProfile />
         </Route>
         <Route path="/">
-          <HomeSec/>
+          <HomeSec parsedInfo={parsedProducts}/>
         </Route> 
       </article>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">

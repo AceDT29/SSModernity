@@ -12,10 +12,31 @@
     let currentImage =  0
     let imgS = [imagenAni1, imagenAni2, imagenAni3, imagenAni4]
 
+    function getScroll(){
+        let valueScroll = document.body.scrollTop || document.documentElement.scrollTop
+        return valueScroll
+    }
+
+    const goToSignUp = () => {
+        const targetScroll = 900
+        const currentScroll = getScroll()
+        const distance = targetScroll - currentScroll
+        if(currentScroll < targetScroll) {
+            const steps = distance / 10
+            window.scrollTo(0, currentScroll + steps)
+            requestAnimationFrame(goToSignUp)
+        } else {
+            return
+        }
+    }
+
     onMount(() => {
-    setInterval(() => {
-      currentImage = (currentImage + 1) % imgS.length
-    }, 5000)
+        setInterval(() => {
+            currentImage = (currentImage + 1) % imgS.length
+        }, 5000)
+        if(window.innerWidth > 768) {
+            window.addEventListener("scroll", getScroll)
+        }  
     })
   
 </script>
@@ -47,23 +68,23 @@
             </div>
         </figure>
     </div>
-    <div class="relative hidden bg-transparent shadow-md md:w-[60%] md:h-60 md:block lg:w-full lg:h-[100vh]  lg:block">
+    <div class="relative overflow-hidden transition duration-300 bg-transparent shadow-md md:w-[60%] md:h-60 md:block lg:w-full lg:h-[100vh] lg:block">
+        {#if !$User}
+            <div class="hidden left-[70%] z-10 w-96 h-48 p-3 lg:absolute lg:block lg:top-[60%] rounded-md transition-all backdrop-filter backdrop-blur-lg border">
+                <div class="flex flex-col items-start gap-y-3">
+                    <h4 class="self-start text-2xl">Join the SS club</h4>
+                    <p class="text-sm">15% discount on our entire catalog, notification of new products in stock, and 5 gift coupons!</p>
+                    <Link to="/SignUp">
+                        <button on:click={goToSignUp} class="self-start w-14 h-10 p-1 active:scale-90 transition-all bg-red-400/60 rounded-md">
+                            <p class="text-sm text-slate-50">Sign Up</p>
+                        </button>
+                    </Link>
+                 </div>
+            </div>
+        {/if}
         {#each imgS as img, i}
           <figure class="absolute h-full w-full mt-2 transition duration-300 transform opacity-0 rounded-md mb-4 shadow-md {currentImage === i ? 'translate-x-0 opacity-100' : ''}">
                 <img class="BannerImgRules" src={img} alt="">
-                {#if !$User}
-                <div class="absolute hidden w-96 h-48 p-3 lg:block lg:top-[60%] lg:left-[70%] rounded-md backdrop-filter backdrop-blur-lg border">
-                    <div class="flex flex-col items-start gap-y-3">
-                        <h4 class="self-start text-2xl">Join the SS club</h4>
-                        <p class="text-sm">15% discount on our entire catalog, notification of new products in stock, and 5 gift coupons!</p>
-                        <Link to="/SignUp" preserveScroll>
-                            <button class="self-start w-14 h-10 p-1 active:scale-90 transition-all bg-red-400/60 rounded-md">
-                                <p class="text-sm text-slate-50">Sign Up</p>
-                            </button>
-                        </Link>
-                    </div>
-                </div>
-                {/if}
           </figure>
         {/each}
     </div>

@@ -1,5 +1,6 @@
 <script>
     import { productPkg } from "../Stores/ProductStore"
+    import { User } from "../Stores/UserStore"
     import closeIcon from "../assets/CloseIcon.svg"
     import garbage from "../assets/garbage.svg"
     export let checkValue  
@@ -7,6 +8,7 @@
     const prodDel = (name) => {
         productPkg.delete(name)
     }
+
 </script>
 
 {#if checkValue}
@@ -24,7 +26,12 @@
                     </figure>
                     <div class="flex-col">
                         <p class="text-sm md:text-base lg:text-base">{prod.name}</p>
-                        <h3 class="text-base font-semibold lg:text-lg">{prod.price}$</h3>
+                    {#if $User}
+                        <h3 class="text-base text-gray-700/80 lg:text-lg line-through">Before {prod.price}$</h3>
+                        <h3 class="text-base lg:text-lg">Now {prod.discountedPrice}$</h3>
+                    {:else}
+                        <h3 class="text-base lg:text-lg">{prod.price}$</h3>
+                    {/if}
                         <button class="w-10 h-10 p-2 z-10 transition-all active:scale-90 lg:p-1" on:click={() => prodDel(prod.name)}>
                             <img class="w-full h-full block" src={garbage} alt="Delete product">
                         </button>

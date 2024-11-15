@@ -1,6 +1,7 @@
 <script>
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
+    import { onMount } from "svelte"
     import prodImg1 from "../assets/imagen1.jpg"
     import prodImg2 from "../assets/imagen2.jpg"
     import prodImg3 from "../assets/imagen3.jpg"
@@ -10,11 +11,13 @@
     import prodImg7 from "../assets/imagen7.jpg"
     import prodImg8 from "../assets/imagen8.jpg"
     import prodImg9 from "../assets/imagen9.jpg"
-    import WishIcon from "../assets/WishListAddIcon.png"
     import Offsale from "../assets/OffLogo.svg"
+    import fav from "../assets/FavouriteIcon.svg"
+    import notFav from "../assets/NotFavouriteIcon.svg"
     
+    export let parsedInfo
     const products = []
-    
+
     class Items {
         static userDiscount = 15
 
@@ -24,18 +27,19 @@
             this.price = price
             this.size = size
             this.discounted = false
+            this.discountedPrice = price
         }
 
         static getProductDiscount(item) {
             let discount = (item.price * this.userDiscount) / 100 
             let total = item.price - Math.round(discount)
             if(!item.discounted) {
-                item.price = total
+                item.discountedPrice = total
                 item.discounted = true
             } else {
                 return
             }
-           return item.price
+           return item.discountedPrice
         }
 
     }
@@ -58,6 +62,17 @@
         }
         productPkg.add(prodItem)
     }
+
+    onMount(() =>{
+        const favLocalInfo = {...parsedInfo}
+        if($User && $productPkg) {
+            for (const key in favLocalInfo) {
+                const product = favLocalInfo[key]
+                Items.getProductDiscount(product)
+                productPkg.add(product)
+            }
+        }
+    })
 </script>
 
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:mb-60 lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
@@ -66,11 +81,11 @@
     {#each products as prod }
         <figure class="HomefigSet group">
             <img class="HomeImgSet" src={prod.photo} alt="">
-            <button on:click={() => prodSelec(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-200 peer">
-                <img class="w-[90%] h-[90%]" src={WishIcon} alt="">
+            <button on:click={() => prodSelec(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-150 peer">
+                <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? fav : notFav} alt="">
             </button>
         {#if $User}
-            <figure class="absolute w-12 h-12 top-0 left-[77%] hover:scale-110 transition-all lg:w-16 lg:h-16 lg:[left-85%]">
+            <figure class="absolute w-12 h-12 top-0 left-[77%] hover:scale-110 transition-all lg:w-16 lg:h-16 lg:left-[78%]">
                 <img class="block w-full h-full" src={Offsale} alt="">
             </figure>
         {/if}

@@ -19,7 +19,7 @@
                 contraseña: passValue
             }
             User.addUser(newUser)
-            navigate("/Profile", {replace: true, preserveScroll: true})
+            navigate("/", {replace: true, preserveScroll: true})
         }
     }
 
