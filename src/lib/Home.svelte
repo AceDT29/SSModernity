@@ -15,7 +15,6 @@
     import fav from "../assets/FavouriteIcon.svg"
     import notFav from "../assets/NotFavouriteIcon.svg"
     
-    export let parsedInfo
     const products = []
 
     class Items {
@@ -30,7 +29,7 @@
             this.discountedPrice = price
         }
 
-        static getProductDiscount(item) {
+        static setProductDiscount(item) {
             let discount = (item.price * this.userDiscount) / 100 
             let total = item.price - Math.round(discount)
             if(!item.discounted) {
@@ -58,20 +57,22 @@
 
     function prodSelec(prodItem) {
         if ($User) {
-            Items.getProductDiscount(prodItem)
+            Items.setProductDiscount(prodItem)
         }
         productPkg.add(prodItem)
     }
 
-    onMount(() =>{
-        const favLocalInfo = {...parsedInfo}
+    function discountedStateChecker(){
         if($User && $productPkg) {
-            for (const key in favLocalInfo) {
-                const product = favLocalInfo[key]
-                Items.getProductDiscount(product)
-                productPkg.add(product)
-            }
+            $productPkg.forEach((obj) => {
+                Items.setProductDiscount(obj)
+            })
+            return
         }
+    }
+
+    onMount(() =>{
+        discountedStateChecker()
     })
 </script>
 

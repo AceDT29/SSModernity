@@ -27,7 +27,7 @@
                     <div class="flex-col">
                         <p class="text-sm md:text-base lg:text-base">{prod.name}</p>
                     {#if $User}
-                        <h3 class="text-base text-gray-700/80 lg:text-lg line-through">Before {prod.price}$</h3>
+                        <h3 class="text-base text-gray-500 lg:text-lg line-through">Before {prod.price}$</h3>
                         <h3 class="text-base lg:text-lg">Now {prod.discountedPrice}$</h3>
                     {:else}
                         <h3 class="text-base lg:text-lg">{prod.price}$</h3>

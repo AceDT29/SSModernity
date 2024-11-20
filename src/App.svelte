@@ -75,7 +75,7 @@
           <MyProfile />
         </Route>
         <Route path="/">
-          <HomeSec parsedInfo={parsedProducts}/>
+          <HomeSec />
         </Route> 
       </article>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">
