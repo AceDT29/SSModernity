@@ -2,6 +2,8 @@
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
     import { onMount } from "svelte"
+    import { navigate } from "svelte-routing"
+    import { createEventDispatcher } from "svelte"
     import prodImg1 from "../assets/imagen1.jpg"
     import prodImg2 from "../assets/imagen2.jpg"
     import prodImg3 from "../assets/imagen3.jpg"
@@ -16,6 +18,7 @@
     import notFav from "../assets/NotFavouriteIcon.svg"
     
     const products = []
+    const dispatch = createEventDispatcher()
 
     class Items {
         static userDiscount = 15
@@ -62,6 +65,12 @@
         productPkg.add(prodItem)
     }
 
+    function displayLargeView(item) {
+        let itemSelected = item
+        dispatch("Send", [itemSelected])
+        navigate("/Product", {replace: true, preserveScroll: true})
+    }
+
     function discountedStateChecker(){
         if($User && $productPkg) {
             $productPkg.forEach((obj) => {
@@ -80,9 +89,9 @@
     <h2 class="text-lg mb-2">Our Products:</h2>
     <div class="HomeDivSet">
     {#each products as prod }
-        <figure class="HomefigSet group">
+        <figure class="HomefigSet group" on:dblclick={() => {displayLargeView(prod)}}>
             <img class="HomeImgSet" src={prod.photo} alt="">
-            <button on:click={() => prodSelec(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-150 peer">
+            <button on:click={() => prodSelec(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-150 peer">
                 <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? fav : notFav} alt="">
             </button>
         {#if $User}

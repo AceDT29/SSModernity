@@ -9,6 +9,7 @@
   import Login from "./lib/Login.svelte"
   import MyProfile from "./lib/MyProfile.svelte"
   import SignUp from "./lib/Registrer.svelte"
+  import Product from "./lib/ProductView.svelte"
   import upButton from "./assets/UpArrow.svg"
   
   export let url = ""
@@ -16,7 +17,8 @@
   let upBtn
   let checkFromNav = false
   let parsedProducts
- 
+  let prodFromHome
+
   if (storedProducts) {
     try {
       parsedProducts = JSON.parse(storedProducts)
@@ -44,6 +46,10 @@
       requestAnimationFrame(backToTop)
       scrollTo(0, currentValue - (currentValue / 10))
     }
+  }
+
+  function getUserChoose(e){
+    prodFromHome = e.detail
   }
 
   onMount(() => {
@@ -74,8 +80,11 @@
         <Route path="/Profile">
           <MyProfile />
         </Route>
+        <Route path="/Product">
+          <Product myProduct={prodFromHome} />
+        </Route>
         <Route path="/">
-          <HomeSec />
+          <HomeSec on:Send={getUserChoose} />
         </Route> 
       </article>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">
