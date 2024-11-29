@@ -1,14 +1,29 @@
 <script>
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
+    import { onMount } from "svelte"
     import closeIcon from "../assets/CloseIcon.svg"
     import garbage from "../assets/garbage.svg"
-    export let checkValue  
+
+    export let checkValue
+    export let ItemsClass 
     
     const prodDel = (name) => {
         productPkg.delete(name)
     }
 
+    function discountedStateChecker(){
+        if($User && $productPkg) {
+            $productPkg.forEach((obj) => {
+                ItemsClass.setProductDiscount(obj)
+            })
+            return
+        }
+    }
+
+    onMount(() => {
+        discountedStateChecker()
+    })
 </script>
 
 {#if checkValue}

@@ -9,17 +9,13 @@
     import bigSale from "../assets/BannerBeta.png"
     import MobileBan from "../assets/BannerMobile.png"
      
+    export let scrollHandler
     let currentImage =  0
     let imgS = [imagenAni1, imagenAni2, imagenAni3, imagenAni4]
 
-    function getScroll(){
-        let valueScroll = document.body.scrollTop || document.documentElement.scrollTop
-        return valueScroll
-    }
-
     const goToSignUp = () => {
         const targetScroll = 900
-        const currentScroll = getScroll()
+        const currentScroll = scrollHandler()
         const distance = targetScroll - currentScroll
         if(currentScroll < targetScroll) {
             const steps = distance / 10
@@ -35,7 +31,7 @@
             currentImage = (currentImage + 1) % imgS.length
         }, 5000)
         if(window.innerWidth > 768) {
-            window.addEventListener("scroll", getScroll)
+            window.addEventListener("scroll", scrollHandler)
         }  
     })
   

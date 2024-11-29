@@ -1,7 +1,6 @@
 <script>
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
-    import { onMount } from "svelte"
     import { navigate } from "svelte-routing"
     import { createEventDispatcher } from "svelte"
     import prodImg1 from "../assets/imagen1.jpg"
@@ -17,50 +16,25 @@
     import fav from "../assets/FavouriteIcon.svg"
     import notFav from "../assets/NotFavouriteIcon.svg"
     
+    export let ItemsClass
     const products = []
     const dispatch = createEventDispatcher()
 
-    class Items {
-        static userDiscount = 15
-
-        constructor(name, photo, price, size) {
-            this.name = name
-            this.photo = photo
-            this.price = price
-            this.size = size
-            this.discounted = false
-            this.discountedPrice = price
-        }
-
-        static setProductDiscount(item) {
-            let discount = (item.price * this.userDiscount) / 100 
-            let total = item.price - Math.round(discount)
-            if(!item.discounted) {
-                item.discountedPrice = total
-                item.discounted = true
-            } else {
-                return
-            }
-           return item.discountedPrice
-        }
-
-    }
-
-    let modernMaleOut = new Items ("Modern Outfit Male", prodImg1, 55, "M",)
-    let summerWomenOut = new Items ("Summer Outfit Women", prodImg6, 29.99, "S",)
-    let ofWhite = new Items ("OfWhite Headsets", prodImg4, 25, "Universal",)
-    let casualOut = new Items ("Casual Outfit for Men", prodImg3, 49.99, "L",)
-    let sportOut = new Items ("Sporty outfit with accessories", prodImg2, 35, "L  and M",)
-    let grungeOut = new Items ("Grunge Outfit Unisex", prodImg5, 20, "S, L  and M",)
-    let beachAcc = new Items ("Beach accessories for women", prodImg7, 19.99, "Universal")
-    let girlSport = new Items ("Sporty Oufit for Women", prodImg8, 29.99, "S")
-    let chicOut = new Items ("Fall outfit for a girl", prodImg9, 49.99, "S")
+    let modernMaleOut = new ItemsClass ("Modern Outfit Male", prodImg1, 55, "M",)
+    let summerWomenOut = new ItemsClass ("Summer Outfit Women", prodImg6, 29.99, "S",)
+    let ofWhite = new ItemsClass ("OfWhite Headsets", prodImg4, 25, "Universal",)
+    let casualOut = new ItemsClass ("Casual Outfit for Men", prodImg3, 49.99, "L",)
+    let sportOut = new ItemsClass ("Sporty outfit with accessories", prodImg2, 35, "L  and M",)
+    let grungeOut = new ItemsClass ("Grunge Outfit Unisex", prodImg5, 20, "S, L  and M",)
+    let beachAcc = new ItemsClass ("Beach accessories for women", prodImg7, 19.99, "Universal")
+    let girlSport = new ItemsClass ("Sporty Oufit for Women", prodImg8, 29.99, "S")
+    let chicOut = new ItemsClass ("Fall outfit for a girl", prodImg9, 49.99, "S")
 
     products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
 
     function prodSelec(prodItem) {
         if ($User) {
-            Items.setProductDiscount(prodItem)
+            ItemsClass.setProductDiscount(prodItem)
         }
         productPkg.add(prodItem)
     }
@@ -71,18 +45,6 @@
         navigate("/Product", {replace: true, preserveScroll: true})
     }
 
-    function discountedStateChecker(){
-        if($User && $productPkg) {
-            $productPkg.forEach((obj) => {
-                Items.setProductDiscount(obj)
-            })
-            return
-        }
-    }
-
-    onMount(() =>{
-        discountedStateChecker()
-    })
 </script>
 
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:mb-60 lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
