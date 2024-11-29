@@ -1,7 +1,7 @@
 <script>
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
-    import { onMount } from "svelte"
+    import { afterUpdate } from "svelte"
     import closeIcon from "../assets/CloseIcon.svg"
     import garbage from "../assets/garbage.svg"
 
@@ -21,7 +21,7 @@
         }
     }
 
-    onMount(() => {
+    afterUpdate(() => {
         discountedStateChecker()
     })
 </script>
