@@ -32,7 +32,7 @@
         }, 5000)
         if(window.innerWidth > 768) {
             window.addEventListener("scroll", scrollHandler)
-        }  
+        }
     })
   
 </script>
@@ -66,7 +66,7 @@
     </div>
     <div class="relative overflow-hidden transition duration-300 bg-transparent shadow-md md:w-[60%] md:h-60 md:block lg:w-full lg:h-[100vh] lg:block">
         {#if !$User}
-            <div class="hidden left-[70%] z-10 w-96 h-48 p-3 lg:absolute lg:block lg:top-[60%] rounded-md transition-all backdrop-filter backdrop-blur-lg border">
+            <div class="hidden left-[70%] z-10 w-96 h-48 p-3 lg:absolute lg:block lg:top-[60%] rounded-md transition-all backdrop-filter backdrop-blur-lg border animFadeLeft animate-delay-1000 animate-ease-out">
                 <div class="flex flex-col items-start gap-y-3">
                     <h4 class="self-start text-2xl">Join the SS club</h4>
                     <p class="text-sm">15% discount on our entire catalog, notification of new products in stock, and 5 gift coupons!</p>
