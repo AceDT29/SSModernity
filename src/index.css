@@ -52,13 +52,13 @@
         @apply w-full h-28 space-y-1 p-2 bg-gray-400/50 rounded-sm text-start absolute bottom-0 opacity-0 transition-all duration-200 md:space-y-2
     }
     .SecForm{
-        @apply relative w-[80%] border rounded-md h-auto p-2 flex flex-col items-center gap-y-8 overflow-hidden
+        @apply relative w-[80%] border rounded-md h-auto p-3 flex flex-col items-center gap-y-6 overflow-hidden 
     }
     .LoginForm {
         @apply flex mx-3 flex-col w-60 justify-center gap-6
     }
     .LoginInput {
-        @apply w-60 h-10 border rounded-lg text-lg shadow-md bg-transparent 
+        @apply w-60 h-10 border rounded-lg text-base shadow-md bg-transparent p-1 
     }
     .labelForm {
         @apply flex flex-col items-center text-start
@@ -72,6 +72,9 @@
     .translateAll {
         @apply translate-x-full
     }
+    .animFade {
+       @apply animate-fade animate-once animate-duration-[600ms] animate-ease-in animate-fill-both
+    }
     .animFadeLeft {
         @apply animate-fade-left animate-once animate-duration-[800ms] animate-ease-out
     }
@@ -83,5 +86,8 @@
     } 
     .animFadeUp {
         @apply animate-fade-up animate-once animate-duration-[800ms]  animate-ease-out
+    }
+    .animPulse {
+        @apply animate-pulse animate-infinite animate-duration-[2000ms] animate-ease-in animate-fill-both
     }
 }

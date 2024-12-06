@@ -31,7 +31,7 @@
 
     onMount(() =>{
         if($User) {
-            navigate("/Home", { replace: true, preserveScroll: true })
+            navigate("/", { replace: true, preserveScroll: true })
         }
     })
 
