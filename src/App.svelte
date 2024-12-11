@@ -76,9 +76,7 @@
     }
   }
 
-  function getUserChoose(e) {
-    prodFromHome = e.detail;
-  }
+  const getUserChoose = (e) => prodFromHome = [...e.detail]
 
   onMount(() => {
     addEventListener("scroll", getScroll);
@@ -96,10 +94,7 @@
       <article class="flex md:gap-8 lg:gap-x-16 flex-grow">
         <SideNav bind:checkPlease={checkFromNav}>
           <button
-            class={`${btnScrollState ? "SpecialButtons" : "hiddenClass"}`}
-            bind:this={upBtn}
-            on:click={backToTop}
-          >
+            class={`${btnScrollState ? "SpecialButtons" : "hiddenClass"}`} bind:this={upBtn} on:click={backToTop}>
             <img
               class="w-full h-full block"
               src={upButton}
@@ -117,7 +112,7 @@
           <MyProfile />
         </Route>
         <Route path="/Product">
-          <Product myProduct={prodFromHome} />
+          <Product ItemsClass={Items} myProduct={prodFromHome} />
         </Route>
         <Route path="/">
           <HomeSec ItemsClass={Items} on:Send={getUserChoose} />

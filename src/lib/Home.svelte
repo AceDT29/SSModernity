@@ -2,7 +2,7 @@
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
     import { navigate } from "svelte-routing"
-    import { createEventDispatcher } from "svelte"
+    import { createEventDispatcher, onMount } from "svelte"
     import prodImg1 from "../assets/imagen1.jpg"
     import prodImg2 from "../assets/imagen2.jpg"
     import prodImg3 from "../assets/imagen3.jpg"
@@ -25,7 +25,7 @@
     let ofWhite = new ItemsClass ("OfWhite Headsets", prodImg4, 25, "Universal",)
     let casualOut = new ItemsClass ("Casual Outfit for Men", prodImg3, 49.99, "L",)
     let sportOut = new ItemsClass ("Sporty outfit with accessories", prodImg2, 35, "L  and M",)
-    let grungeOut = new ItemsClass ("Grunge Outfit Unisex", prodImg5, 20, "S, L  and M",)
+    let grungeOut = new ItemsClass ("Grunge Outfit For Girl", prodImg5, 20, "S, L  and M",)
     let beachAcc = new ItemsClass ("Beach accessories for women", prodImg7, 19.99, "Universal")
     let girlSport = new ItemsClass ("Sporty Oufit for Women", prodImg8, 29.99, "S")
     let chicOut = new ItemsClass ("Fall outfit for a girl", prodImg9, 49.99, "S")
@@ -44,6 +44,19 @@
         dispatch("Send", [itemSelected])
         navigate("/Product", {replace: true, preserveScroll: true})
     }
+
+    function discountedStateChecker(item){
+        if($User) {
+            item.forEach((obj) => {
+                ItemsClass.setProductDiscount(obj)
+            })
+            return
+        }
+    }
+
+    onMount(() => {
+        discountedStateChecker(products)
+    })
 
 </script>
 
@@ -64,7 +77,7 @@
             <div class="HomeHiddenInfo group-hover:opacity-100">
                 <h2 class="text-base">{prod.name}</h2>
                 <p class="text-sm">Size: {prod.size}</p>
-                <h3 class="text-lg">Price: {prod.price}$</h3>
+                <h3 class="text-lg">Price: {$User ? prod.discountedPrice : prod.price}$</h3>
             </div>
         </figure>
     {/each}

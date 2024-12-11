@@ -1,14 +1,56 @@
 <script>
-    import { onMount } from "svelte"
+    import { afterUpdate, onMount } from "svelte"
+    import { User } from "../Stores/UserStore"
+    import { Link, navigate } from "svelte-routing"
 
-    export let myProduct
+    export let ItemsClass
+    export let myProduct 
+
+    function discountedStateChecker(){
+        if($User) {
+            myProduct.forEach((obj) => {
+                ItemsClass.setProductDiscount(obj)
+            })
+            return
+        }
+    }
+
+    afterUpdate(() => {
+        discountedStateChecker()
+    })
 
     onMount(() => {
-        console.log(myProduct)
+        if (!myProduct) {
+            navigate("/", {replace: true, preserveScroll: true})
+        }
     })
 </script>
 
-
-<div>
-    <p>Tus Productos</p>
-</div>
+<article class="relative ml-3 flex p-2 overflow-hidden">
+    {#if myProduct}
+    <div class="flex flex-col justify-center gap-y-6 gap-x-6 lg:flex-row lg:justify-start">
+        {#each myProduct as prod}
+        <figure class="basis-[60%] rounded-lg border w-[60vw] h-[70vh]">
+            <img class="block w-full h-full rounded-lg" src={prod.photo} alt="">
+        </figure>
+        <div class="basis-[40%] flex flex-col gap-y-5">
+            <h2 class="text-lg">{prod.name}</h2>
+        {#if $User}
+            <div class="w-12 h-10 p-2 rounded-2xl bg-gradient-to-r from-red-500/60 to-orange-500/60 cursor-pointer lg:w-16 lg:h-12">
+                <h3 class="text-lg md:text-2xl">${prod.discountedPrice}</h3>
+            </div>
+        {:else}
+            <h3 class="text-lg md:text-2xl">${prod.price}</h3>
+            <Link to="/Login">
+                <div class="relative cursor-pointer w-auto p-2 rounded-lg bg-red-300/40 animFadeRight hover:bg-orange-300/40 group">
+                    <p class="text-[12px] z-10">Unete a SSclub o inicia sesion y ahorra un 15% en la compra de este producto</p>
+                </div>
+            </Link>
+        {/if}
+        </div>
+        {/each}
+    </div>
+    <button>        
+    </button>
+    {/if}   
+</article>
