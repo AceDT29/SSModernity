@@ -13,7 +13,7 @@
 
 @layer components {
     .SpecialButtons {
-        @apply fixed z-50 left-10 mt-3 ml-2 w-8 h-8 rounded-full active:scale-90 hover:scale-110 transition duration-150 drop-shadow-lg lg:left-14 lg:ml-1 lg:w-10 lg:h-10 
+        @apply fixed z-50 left-10 ml-2 w-8 h-8 rounded-full active:scale-90 hover:scale-110 transition duration-150 drop-shadow-lg md:mt-3 lg:left-14 lg:ml-1 lg:w-10 lg:h-10 
     }
     .BannerFigRules {
         @apply relative w-full mt-2 h-48 shadow-md
@@ -28,13 +28,13 @@
         @apply grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md
     }
     .SideIconsConfig {
-        @apply block w-12 h-12 p-2 bg-transparent rounded-lg active:scale-90 transition duration-200 cursor-pointer 
+        @apply block w-10 h-10 p-2 bg-transparent rounded-lg active:scale-90 transition duration-200 cursor-pointer md:w-12 md:h-12
     }
     .SideArtConfig {
         @apply overflow-hidden group-hover:block relative
     }
     .SideTextConfig {
-        @apply text-center text-sm font-extralight py-3 absolute lg:text-base
+        @apply text-center text-sm font-extralight py-3 absolute lg:text-base whitespace-nowrap 
     }
     .SideRezise {
         @apply fixed 

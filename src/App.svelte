@@ -28,6 +28,7 @@
       this.photo = photo;
       this.price = price;
       this.size = size;
+      this.favourite = false;
       this.discounted = false;
       this.discountedPrice = price;
     }

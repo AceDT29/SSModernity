@@ -40,9 +40,9 @@
 </script>
 
 <div
-    class="sticky inset-0 top-28 z-50 w-16 h-[340px] p-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-36 drop-shadow-2xl shadow-lg lg:w-20 md:sticky"
+    class="sticky inset-0 top-28 z-50 w-16 h-72 p-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-36 drop-shadow-2xl shadow-lg md:sticky lg:w-20 lg:h-[340px] animFadeRight animate-delay-200"
 >
-    <ul class="flex flex-col p-0 space-y-4 mr-1 lg:ml-2">
+    <ul class="flex flex-col p-0 space-y-4 ml-1 mr-1">
         <li class="SideLiConfig">
             <label for="switch" class="SideIconsConfig">
                 <input
@@ -111,7 +111,7 @@
         <li class="SideLiConfig">
             {#if $User}
                 <figure
-                    class="w-[52px] h-[52px] p-2 rounded-full hover:scale-105 transition duration-200"
+                    class="w-12 h-12 p-2 rounded-full hover:scale-105 transition duration-200 md:w-[52px] md:h-[52px]"
                 >
                     <Link to="/Profile" preserveScroll>
                         <img
@@ -122,11 +122,11 @@
                     </Link>
                 </figure>
                 <article class="SideArtConfig">
-                    <p class="SideTextConfig text-sm mt-1">My Profile</p>
+                    <p class=" SideTextConfig text-[12px] lg:text-base">My Profile</p>
                 </article>
             {:else}
                 <figure
-                    class="w-[52px] h-[52px] p-2 rounded-full ml-1 hover:scale-105 transition duration-200"
+                    class="w-10 h-10 p-2 rounded-full ml-1 hover:scale-105 transition duration-200 md:w-12 md:h-12"
                 >
                     <Link to="/Login" preserveScroll>
                         <img
@@ -137,7 +137,7 @@
                     </Link>
                 </figure>
                 <article class="SideArtConfig">
-                    <p class="SideTextConfig">Log In</p>
+                    <p class="SideTextConfig ">Log In</p>
                 </article>
             {/if}
         </li>

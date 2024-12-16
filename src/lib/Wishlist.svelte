@@ -1,7 +1,7 @@
 <script>
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
-    import { afterUpdate } from "svelte"
+    import { beforeUpdate } from "svelte"
     import closeIcon from "../assets/CloseIcon.svg"
     import garbage from "../assets/garbage.svg"
 
@@ -21,7 +21,7 @@
         }
     }
 
-    afterUpdate(() => {
+    beforeUpdate(() => {
         discountedStateChecker()
     })
 </script>

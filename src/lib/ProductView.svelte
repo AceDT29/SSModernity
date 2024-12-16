@@ -42,8 +42,8 @@
         {:else}
             <h3 class="text-lg md:text-2xl">${prod.price}</h3>
             <Link to="/Login">
-                <div class="relative cursor-pointer w-auto p-2 rounded-lg bg-red-300/40 animFadeRight hover:bg-orange-300/40 group">
-                    <p class="text-[12px] z-10">Unete a SSclub o inicia sesion y ahorra un 15% en la compra de este producto</p>
+                <div class="relative  cursor-pointer w-32 p-2 rounded-lg bg-red-300/40 animFadeRight hover:bg-orange-300/40 group">
+                    <p class="text-[12px] z-10">Join SSclub or log in and save 15%</p>
                 </div>
             </Link>
         {/if}

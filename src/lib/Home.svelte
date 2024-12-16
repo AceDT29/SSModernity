@@ -2,7 +2,7 @@
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
     import { navigate } from "svelte-routing"
-    import { createEventDispatcher, onMount } from "svelte"
+    import { createEventDispatcher } from "svelte"
     import prodImg1 from "../assets/imagen1.jpg"
     import prodImg2 from "../assets/imagen2.jpg"
     import prodImg3 from "../assets/imagen3.jpg"
@@ -44,20 +44,6 @@
         dispatch("Send", [itemSelected])
         navigate("/Product", {replace: true, preserveScroll: true})
     }
-
-    function discountedStateChecker(item){
-        if($User) {
-            item.forEach((obj) => {
-                ItemsClass.setProductDiscount(obj)
-            })
-            return
-        }
-    }
-
-    onMount(() => {
-        discountedStateChecker(products)
-    })
-
 </script>
 
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:mb-60 lg:w-[80%] transition-all drop-shadow-lg shadow-lg">

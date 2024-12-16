@@ -109,7 +109,7 @@
     {/if}
     {#each imgS as img, i}
       <figure
-        class="absolute h-full w-full mt-2 transition duration-300 transform opacity-0 rounded-md mb-4 shadow-md {currentImage ===
+        class="absolute h-full w-full transition duration-300 transform opacity-0 rounded-md mb-4 shadow-md {currentImage ===
         i
           ? 'translate-x-0 opacity-100 animFadeRight'
           : ''}"
