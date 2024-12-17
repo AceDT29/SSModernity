@@ -11,6 +11,9 @@
   import SignUp from "./lib/Registrer.svelte";
   import Product from "./lib/ProductView.svelte";
   import upButton from "./assets/UpArrow.svg";
+  import fav from "./assets/FavouriteIcon.svg";
+  import unFav from "./assets/NotFavouriteIcon.svg";
+
 
   export let url = "";
   const storedProducts = localStorage.getItem("products");
@@ -28,7 +31,8 @@
       this.photo = photo;
       this.price = price;
       this.size = size;
-      this.favourite = false;
+      this.favourite = fav;
+      this.unFavourite = unFav;
       this.discounted = false;
       this.discountedPrice = price;
     }

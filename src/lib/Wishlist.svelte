@@ -12,9 +12,9 @@
         productPkg.delete(name)
     }
 
-    function discountedStateChecker(){
+    function discountedStateChecker(arr){
         if($User && $productPkg) {
-            $productPkg.forEach((obj) => {
+            arr.forEach((obj) => {
                 ItemsClass.setProductDiscount(obj)
             })
             return
@@ -22,7 +22,7 @@
     }
 
     beforeUpdate(() => {
-        discountedStateChecker()
+        discountedStateChecker($productPkg)
     })
 </script>
 

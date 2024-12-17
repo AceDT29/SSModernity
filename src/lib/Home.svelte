@@ -2,7 +2,7 @@
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
     import { navigate } from "svelte-routing"
-    import { createEventDispatcher } from "svelte"
+    import { createEventDispatcher, beforeUpdate } from "svelte"
     import prodImg1 from "../assets/imagen1.jpg"
     import prodImg2 from "../assets/imagen2.jpg"
     import prodImg3 from "../assets/imagen3.jpg"
@@ -13,8 +13,6 @@
     import prodImg8 from "../assets/imagen8.jpg"
     import prodImg9 from "../assets/imagen9.jpg"
     import Offsale from "../assets/OffLogo.svg"
-    import fav from "../assets/FavouriteIcon.svg"
-    import notFav from "../assets/NotFavouriteIcon.svg"
     
     export let ItemsClass
     const products = []
@@ -44,6 +42,19 @@
         dispatch("Send", [itemSelected])
         navigate("/Product", {replace: true, preserveScroll: true})
     }
+
+    function discountedStateChecker(arr){
+        if($User && $productPkg) {
+            arr.forEach((obj) => {
+                ItemsClass.setProductDiscount(obj)
+            })
+            return
+        }
+    }
+
+    beforeUpdate(() => {
+        discountedStateChecker(products)
+    })
 </script>
 
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:mb-60 lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
@@ -53,17 +64,24 @@
         <figure class="HomefigSet group" on:dblclick={() => {displayLargeView(prod)}}>
             <img class="HomeImgSet" src={prod.photo} alt="">
             <button on:click={() => prodSelec(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-150 peer">
-                <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? fav : notFav} alt="">
+                <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? prod.favourite : prod.unFavourite} alt="">
             </button>
-        {#if $User}
-            <figure class="absolute w-12 h-12 top-0 left-[77%] hover:scale-110 transition-all lg:w-16 lg:h-16 lg:left-[78%]">
-                <img class="block w-full h-full" src={Offsale} alt="">
+            <figure class="HomeHiddenFlag">
+                <img class={$User ? 'globalImgRules' : 'hidden'} src={Offsale} alt="">
             </figure>
-        {/if}
             <div class="HomeHiddenInfo group-hover:opacity-100">
                 <h2 class="text-base">{prod.name}</h2>
                 <p class="text-sm">Size: {prod.size}</p>
-                <h3 class="text-lg">Price: {$User ? prod.discountedPrice : prod.price}$</h3>
+            {#if $User}
+                <div class="flex gap-x-2 lg:gap-x-4">
+                    <h3 class="text-base line-through whitespace-nowrap lg:text-lg">Before ${prod.price}</h3>
+                    <h3 class="text-base lg:text-lg whitespace-nowrap text-red-500/85">Now ${prod.discountedPrice}</h3>
+                </div>
+            {:else}
+                <div>
+                    <h3 class="text-base whitespace-nowrap lg:text-lg">Price ${prod.price}</h3>
+                </div>
+            {/if}
             </div>
         </figure>
     {/each}
