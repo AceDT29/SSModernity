@@ -10,6 +10,7 @@
   import MyProfile from "./lib/MyProfile.svelte";
   import SignUp from "./lib/Registrer.svelte";
   import Product from "./lib/ProductView.svelte";
+  import NotFound from "./lib/NotFound.svelte";
   import upButton from "./assets/UpArrow.svg";
   import fav from "./assets/FavouriteIcon.svg";
   import unFav from "./assets/NotFavouriteIcon.svg";
@@ -31,10 +32,10 @@
       this.photo = photo;
       this.price = price;
       this.size = size;
-      this.favourite = fav;
-      this.unFavourite = unFav;
       this.discounted = false;
       this.discountedPrice = price;
+      this.favIcon = fav;
+      this.unFavIcon = unFav;
     }
 
     static setProductDiscount(item) {
@@ -90,6 +91,7 @@
 
 <body class="relative">
   <Router {url}>
+    <Route path="*" component={NotFound} />
     <main class="">
       <header class="mb-10 p-0">
         <Banner scrollHandler={getScroll}>

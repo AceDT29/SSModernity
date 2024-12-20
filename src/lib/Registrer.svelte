@@ -4,7 +4,6 @@
     import { validFunc } from "../utilities/ValidField.js"
     import { onMount } from "svelte"
 
-
     let emailField
     let passField
     let name = ""
@@ -37,7 +36,7 @@
 
 </script>
 
-<section class="SecForm">
+<section class="LoginSecForm">
 
     <div class="flex animFadeDown animate-delay-200 gap-x-4">
         <div class="flex group flex-col cursor-pointer">

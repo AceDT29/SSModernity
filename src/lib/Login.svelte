@@ -32,7 +32,7 @@
     })
 </script>
 
-<section class="SecForm">
+<section class="LoginSecForm">
     <div class="flex animFadeDown animate-delay-100 gap-x-4">
         <div class="flex group flex-col cursor-pointer">
             <h2 class="text-2xl">SignIn</h2>

@@ -15,8 +15,8 @@
     import Offsale from "../assets/OffLogo.svg"
     
     export let ItemsClass
-    const products = []
     const dispatch = createEventDispatcher()
+    const products = []
 
     let modernMaleOut = new ItemsClass ("Modern Outfit Male", prodImg1, 55, "M",)
     let summerWomenOut = new ItemsClass ("Summer Outfit Women", prodImg6, 29.99, "S",)
@@ -29,13 +29,6 @@
     let chicOut = new ItemsClass ("Fall outfit for a girl", prodImg9, 49.99, "S")
 
     products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
-
-    function prodSelec(prodItem) {
-        if ($User) {
-            ItemsClass.setProductDiscount(prodItem)
-        }
-        productPkg.add(prodItem)
-    }
 
     function displayLargeView(item) {
         let itemSelected = item
@@ -63,8 +56,8 @@
     {#each products as prod }
         <figure class="HomefigSet group" on:dblclick={() => {displayLargeView(prod)}}>
             <img class="HomeImgSet" src={prod.photo} alt="">
-            <button on:click={() => prodSelec(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-150 peer">
-                <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? prod.favourite : prod.unFavourite} alt="">
+            <button on:click={() => productPkg.add(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-150 peer">
+                <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? prod.favIcon : prod.unFavIcon} alt="">
             </button>
             <figure class="HomeHiddenFlag">
                 <img class={$User ? 'globalImgRules' : 'hidden'} src={Offsale} alt="">

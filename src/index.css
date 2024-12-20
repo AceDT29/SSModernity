@@ -57,8 +57,8 @@
     .HomeHiddenFlag {
         @apply absolute w-12 h-12 top-0 left-[77%] hover:scale-110 transition-all lg:w-16 lg:h-16 lg:left-[78%]
     }
-    .SecForm{
-        @apply relative w-[80%] border rounded-md h-auto p-3 flex flex-col items-center gap-y-6 overflow-hidden 
+    .LoginSecForm {
+        @apply relative w-[80%] border-b border-r rounded-md h-auto p-3 flex flex-col items-center gap-y-6 overflow-hidden shadow-lg
     }
     .LoginForm {
         @apply flex mx-3 flex-col w-60 justify-center gap-6
@@ -95,5 +95,8 @@
     }
     .animPulse {
         @apply animate-pulse animate-infinite animate-duration-[2000ms] animate-ease-in animate-fill-both
+    }
+    .animBounce {
+        @apply animate-bounce animate-infinite animate-ease-out
     }
 }
