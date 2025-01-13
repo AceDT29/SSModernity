@@ -32,7 +32,6 @@
             const response = await signInWithPopup(auth, provider)
             User.addUser(response.user)
             navigate("/", {replace: true, preserveScroll: true})
-            console.log(response)
         } catch (error) {
             console.log("Ocurrio un error al iniciar sesion, vuelve a intentarlo", error)
         }
