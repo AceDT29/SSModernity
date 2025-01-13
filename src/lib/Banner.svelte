@@ -35,7 +35,7 @@
   onMount(() => {
     bannerAnim()
     if (window.innerWidth > 768) {
-        window.addEventListener("scroll", scrollHandler);
+      window.addEventListener("scroll", scrollHandler);
     }
   });
 </script>

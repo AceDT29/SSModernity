@@ -82,8 +82,6 @@
     }
   }
 
-  const getUserChoose = (e) => prodFromHome = [...e.detail]
-
   onMount(() => {
     addEventListener("scroll", getScroll);
   });
@@ -122,7 +120,7 @@
           <Product ItemsClass={Items} myProduct={prodFromHome} />
         </Route>
         <Route path="/">
-          <HomeSec ItemsClass={Items} on:Send={getUserChoose} />
+          <HomeSec ItemsClass={Items} bind:itemSelected={prodFromHome} /> 
         </Route>
       </article>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">

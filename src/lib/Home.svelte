@@ -2,7 +2,7 @@
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
     import { navigate } from "svelte-routing"
-    import { createEventDispatcher, beforeUpdate } from "svelte"
+    import { beforeUpdate } from "svelte"
     import prodImg1 from "../assets/imagen1.jpg"
     import prodImg2 from "../assets/imagen2.jpg"
     import prodImg3 from "../assets/imagen3.jpg"
@@ -15,7 +15,7 @@
     import Offsale from "../assets/OffLogo.svg"
     
     export let ItemsClass
-    const dispatch = createEventDispatcher()
+    export let itemSelected
     const products = []
 
     let modernMaleOut = new ItemsClass ("Modern Outfit Male", prodImg1, 55, "M",)
@@ -31,8 +31,7 @@
     products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
 
     function displayLargeView(item) {
-        let itemSelected = item
-        dispatch("Send", [itemSelected])
+        itemSelected = [item]
         navigate("/Product", {replace: true, preserveScroll: true})
     }
 
@@ -55,7 +54,7 @@
     <div class="HomeDivSet">
     {#each products as prod }
         <figure class="HomefigSet group" on:dblclick={() => {displayLargeView(prod)}}>
-            <img class="HomeImgSet" src={prod.photo} alt="">
+            <img class="HomeImgSet" src={prod.photo} loading="lazy" alt="">
             <button on:click={() => productPkg.add(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-150 peer">
                 <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? prod.favIcon : prod.unFavIcon} alt="">
             </button>
