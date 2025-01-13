@@ -14,6 +14,7 @@
   import upButton from "./assets/UpArrow.svg";
   import fav from "./assets/FavouriteIcon.svg";
   import unFav from "./assets/NotFavouriteIcon.svg";
+  import { User } from "./Stores/UserStore";
 
 
   export let url = "";
@@ -82,7 +83,8 @@
     }
   }
 
-  onMount(() => {
+  onMount( async () => {
+    await User.currentUser()
     addEventListener("scroll", getScroll);
   });
 </script>

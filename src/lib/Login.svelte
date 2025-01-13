@@ -3,8 +3,10 @@
     import { validFunc } from "../utilities/ValidField"
     import { User } from "../Stores/UserStore"
     import { onMount } from "svelte"
+    import { auth, provider } from "../firebase/firebaseConfig"
+    import { signInWithPopup } from "firebase/auth"
     import googleBtn from "../assets/Google.svg"
-    
+   
     let emailValue
     let passValue
     let emailField
@@ -22,6 +24,17 @@
             }
             User.addUser(newUser)
             navigate("/", {replace: true, preserveScroll: true})
+        }
+    }
+
+    const signUpWithGoogle = async () => {
+        try {
+            const response = await signInWithPopup(auth, provider)
+            User.addUser(response.user)
+            navigate("/", {replace: true, preserveScroll: true})
+            console.log(response)
+        } catch (error) {
+            console.log("Ocurrio un error al iniciar sesion, vuelve a intentarlo", error)
         }
     }
 
@@ -62,7 +75,7 @@
     </form>
     <div class="relative flex flex-col items-start gap-y-2 right-8 animFadeUp animate-delay-1000">
         <h3 class="text-lg dark:text-gray-400">Or SignIn with providers:</h3>
-        <button class="w-10 h-10 p-2 bg-white active:scale-90 rounded-full transition-all">
+        <button class="w-10 h-10 p-2 bg-white active:scale-90 rounded-full transition-all" on:click={signUpWithGoogle}>
             <img class="block w-full h-full" src={googleBtn} alt="">
         </button>
     </div>    

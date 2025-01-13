@@ -111,12 +111,12 @@
         <li class="SideLiConfig">
             {#if $User}
                 <figure
-                    class="w-12 h-12 p-2 rounded-full hover:scale-105 transition duration-200 lg:w-[52px] lg:h-[52px]"
+                    class="w-12 h-12 p-2 rounded-full  hover:scale-105 transition duration-200 lg:w-[52px] lg:h-[52px] "
                 >
                     <Link to="/Profile" preserveScroll>
                         <img
-                            class="block w-full h-full rounded-full"
-                            src={avatarImg}
+                            class="block w-full h-full rounded-full border border-slate-400"
+                            src={$User.photoURL ? $User.photoURL : avatarImg}
                             alt=""
                         />
                     </Link>
