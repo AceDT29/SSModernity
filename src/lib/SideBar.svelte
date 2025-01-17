@@ -1,6 +1,7 @@
 <script>
     import { Link } from "svelte-routing";
     import { User } from "../Stores/UserStore";
+    import { beforeUpdate } from "svelte";
     import avatarImg from "../assets/avatar.png";
     import sunIcon from "../assets/sun-regular.svg";
     import moonIcon from "../assets/moon-regular.svg";
@@ -14,29 +15,14 @@
     import wishListDarkIcon from "../assets/wishList-dark.svg";
 
     export let checkPlease;
-    let isDarkMode;
+    export let getConfig
+    export let switchMode
     const userMode = localStorage.getItem("mode");
+    export let darkMode = getConfig(userMode)
 
-    if (userMode) {
-        try {
-            const parsedValue = JSON.parse(userMode);
-            isDarkMode = parsedValue;
-            if (isDarkMode) {
-                document.body.classList.add("darkMode");
-            }
-        } catch (error) {
-            console.error("No se pudo recuperar tu configuracion", error);
-        }
-    }
-
-    function enableDark() {
-        if (isDarkMode) {
-            document.body.classList.add("darkMode");
-        } else {
-            document.body.classList.remove("darkMode");
-        }
-        return localStorage.setItem("mode", JSON.stringify(isDarkMode));
-    }
+    beforeUpdate(() => {
+        switchMode(darkMode)
+    })
 </script>
 
 <div
@@ -49,18 +35,17 @@
                     class="hidden"
                     type="checkbox"
                     id="switch"
-                    bind:checked={isDarkMode}
-                    on:change={enableDark}
+                    bind:checked={darkMode}
                 />
                 <img
                     class="w-full h-full"
-                    src={isDarkMode ? moonIcon : sunIcon}
+                    src={darkMode ? moonIcon : sunIcon}
                     alt="Light/Dark"
                 />
             </label>
             <article class="SideArtConfig">
                 <p class="SideTextConfig whitespace-nowrap" id="AccText">
-                    {isDarkMode ? "Light Mode" : "Dark Mode"}
+                    {darkMode ? "Light Mode" : "Dark Mode"}
                 </p>
             </article>
         </li>
@@ -69,7 +54,7 @@
                 <a class="SideIconsConfig" href=".">
                     <img
                         class="w-full h-full"
-                        src={isDarkMode ? homeDarkIcon : homeLightIcon}
+                        src={darkMode ? homeDarkIcon : homeLightIcon}
                         alt=""
                     />
                 </a>
@@ -82,7 +67,7 @@
             <a class="SideIconsConfig" href=".">
                 <img
                     class="w-full h-full"
-                    src={isDarkMode ? messengerDarkIcon : messengerLightIcon}
+                    src={darkMode ? messengerDarkIcon : messengerLightIcon}
                     alt=""
                 />
             </a>
@@ -100,7 +85,7 @@
                 />
                 <img
                     class="w-full h-full"
-                    src={isDarkMode ? wishListDarkIcon : wishListLightIcon}
+                    src={darkMode ? wishListDarkIcon : wishListLightIcon}
                     alt=""
                 />
             </label>
@@ -131,7 +116,7 @@
                     <Link to="/Login" preserveScroll>
                         <img
                             class="block w-full h-full"
-                            src={isDarkMode ? loginDark : loginSun}
+                            src={darkMode ? loginDark : loginSun}
                             alt=""
                         />
                     </Link>

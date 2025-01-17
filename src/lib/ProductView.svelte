@@ -3,20 +3,11 @@
     import { User } from "../Stores/UserStore"
     import { Link, navigate } from "svelte-routing"
 
-    export let ItemsClass
+    export let discount
     export let myProduct 
 
-    function discountedStateChecker(){
-        if($User) {
-            myProduct.forEach((obj) => {
-                ItemsClass.setProductDiscount(obj)
-            })
-            return
-        }
-    }
-
     afterUpdate(() => {
-        discountedStateChecker()
+        discount(myProduct)
     })
 
     onMount(() => {

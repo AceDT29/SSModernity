@@ -15,14 +15,15 @@
     import Offsale from "../assets/OffLogo.svg"
     
     export let ItemsClass
+    export let discount
     export let itemSelected
     const products = []
 
-    let modernMaleOut = new ItemsClass ("Modern Outfit Male", prodImg1, 55, "M",)
-    let summerWomenOut = new ItemsClass ("Summer Outfit Women", prodImg6, 29.99, "S",)
-    let ofWhite = new ItemsClass ("OfWhite Headsets", prodImg4, 25, "Universal",)
-    let casualOut = new ItemsClass ("Casual Outfit for Men", prodImg3, 49.99, "L",)
-    let sportOut = new ItemsClass ("Sporty outfit with accessories", prodImg2, 35, "L  and M",)
+    let modernMaleOut = new ItemsClass ("Modern Outfit Male", prodImg1, 55, "M")
+    let summerWomenOut = new ItemsClass ("Summer Outfit Women", prodImg6, 29.99, "S")
+    let ofWhite = new ItemsClass ("OfWhite Headsets", prodImg4, 25, "Universal")
+    let casualOut = new ItemsClass ("Casual Outfit for Men", prodImg3, 49.99, "L")
+    let sportOut = new ItemsClass ("Sporty outfit with accessories", prodImg2, 35, "L  and M")
     let grungeOut = new ItemsClass ("Grunge Outfit For Girl", prodImg5, 20, "S, L  and M",)
     let beachAcc = new ItemsClass ("Beach accessories for women", prodImg7, 19.99, "Universal")
     let girlSport = new ItemsClass ("Sporty Oufit for Women", prodImg8, 29.99, "S")
@@ -35,17 +36,8 @@
         navigate("/Product", {replace: true, preserveScroll: true})
     }
 
-    function discountedStateChecker(arr){
-        if($User && $productPkg) {
-            arr.forEach((obj) => {
-                ItemsClass.setProductDiscount(obj)
-            })
-            return
-        }
-    }
-
     beforeUpdate(() => {
-        discountedStateChecker(products)
+        discount(products)
     })
 </script>
 

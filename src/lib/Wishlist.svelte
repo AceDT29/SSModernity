@@ -6,24 +6,12 @@
     import garbage from "../assets/garbage.svg"
 
     export let checkValue
-    export let ItemsClass 
-    
-    const prodDel = (name) => {
-        productPkg.delete(name)
-    }
-
-    function discountedStateChecker(arr){
-        if($User && $productPkg) {
-            arr.forEach((obj) => {
-                ItemsClass.setProductDiscount(obj)
-            })
-            return
-        }
-    }
+    export let discount 
 
     beforeUpdate(() => {
-        discountedStateChecker($productPkg)
+        discount($productPkg)
     })
+
 </script>
 
 {#if checkValue}
@@ -47,7 +35,7 @@
                     {:else}
                         <h3 class="text-base lg:text-lg">{prod.price}$</h3>
                     {/if}
-                        <button class="w-10 h-10 p-2 z-10 transition-all active:scale-90 lg:p-1" on:click={() => prodDel(prod.name)}>
+                        <button class="w-10 h-10 p-2 z-10 transition-all active:scale-90 lg:p-1" on:click={()=> productPkg.delete(prod.name)}>
                             <img class="w-full h-full block" src={garbage} alt="Delete product">
                         </button>
                     </div>

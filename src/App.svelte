@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { productPkg } from "./Stores/ProductStore";
   import { Router, Route } from "svelte-routing";
+  import { User } from "./Stores/UserStore";
   import SideNav from "./lib/SideBar.svelte";
   import Banner from "./lib/Banner.svelte";
   import HomeSec from "./lib/Home.svelte";
@@ -14,11 +15,10 @@
   import upButton from "./assets/UpArrow.svg";
   import fav from "./assets/FavouriteIcon.svg";
   import unFav from "./assets/NotFavouriteIcon.svg";
-  import { User } from "./Stores/UserStore";
-
-
+  
   export let url = "";
   const storedProducts = localStorage.getItem("products");
+  let isDarkMode
   let checkFromNav = false;
   let btnScrollState = false;
   let upBtn;
@@ -51,7 +51,7 @@
       return item.discountedPrice;
     }
   }
-
+  
   if (storedProducts) {
     try {
       parsedProducts = JSON.parse(storedProducts);
@@ -65,6 +65,26 @@
   }
 
   $: localStorage.setItem("products", JSON.stringify($productPkg));
+
+  function discountedStateChecker(arr){
+    if($User) {
+      arr.forEach((obj) => {
+        Items.setProductDiscount(obj)
+      })
+        return
+    }
+  }
+
+  function getUserConfig(configValue) {
+    if (configValue) {
+      try {
+        const parsedValue = JSON.parse(configValue);
+        return parsedValue
+      } catch (error) {
+        console.error("No se pudo recuperar tu configuracion", error);
+      }
+    }
+  }
 
   function getScroll() {
     const scrollValue =
@@ -82,11 +102,21 @@
       scrollTo(0, currentValue - currentValue / 10);
     }
   }
-
+   
+  const enableDark = (value) => {
+    if (value) {
+      document.body.classList.add("darkMode");
+    } else {
+      document.body.classList.remove("darkMode");
+    }
+    return localStorage.setItem("mode", JSON.stringify(value));
+  }
+  
   onMount( async () => {
     await User.currentUser()
     addEventListener("scroll", getScroll);
   });
+  
 </script>
 
 <body class="relative">
@@ -95,11 +125,11 @@
     <main class="">
       <header class="mb-10 p-0">
         <Banner scrollHandler={getScroll}>
-          <WishComp ItemsClass={Items} bind:checkValue={checkFromNav} />
+          <WishComp discount={discountedStateChecker} bind:checkValue={checkFromNav} />
         </Banner>
       </header>
       <article class="flex md:gap-8 lg:gap-x-16 flex-grow">
-        <SideNav bind:checkPlease={checkFromNav}>
+        <SideNav bind:checkPlease={checkFromNav} getConfig={getUserConfig} switchMode={enableDark} darkMode={isDarkMode}>
           <button
             class={`${btnScrollState ? "SpecialButtons" : "hiddenClass"}`} bind:this={upBtn} on:click={backToTop}>
             <img
@@ -116,13 +146,13 @@
           <SignUp />
         </Route>
         <Route path="/Profile">
-          <MyProfile />
+          <MyProfile getConfig={getUserConfig} darkMode={isDarkMode}/>
         </Route>
         <Route path="/Product">
-          <Product ItemsClass={Items} myProduct={prodFromHome} />
+          <Product discount={discountedStateChecker} myProduct={prodFromHome} />
         </Route>
         <Route path="/">
-          <HomeSec ItemsClass={Items} bind:itemSelected={prodFromHome} /> 
+          <HomeSec discount={discountedStateChecker} ItemsClass={Items} bind:itemSelected={prodFromHome} /> 
         </Route>
       </article>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">

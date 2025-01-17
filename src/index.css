@@ -99,4 +99,7 @@
     .animBounce {
         @apply animate-bounce animate-infinite animate-ease-out
     }
+    .animFlipDown {
+        @apply animate-flip-down animate-once animate-duration-[1900ms] animate-delay-200
+    }
 }
