@@ -37,12 +37,12 @@
 </script>
 
 {#if $User}
-    <section class="LoginSecForm items-start gap-y-6 p-4">
-        <figure>
-            <img src="" alt="">
+    <section class="LoginSecForm items-start gap-y-6 p-4 my-auto">
+        <figure class="z-10 w-36 h-36 rounded-full border-2 border-gray-400 animFadeRight">
+            <img class="globalImgRules rounded-full" src={$User.photoURL} alt="">
         </figure>
-        <h2>Bienvenido a tu perfil {$User.displayName}</h2>
-        <div class="w-80 h-32 p-2 hover:bg-slate-300 transition-all rounded-md shadow-md animFadeDown">
+        <h2 class="animFadeLeft">Bienvenido a tu perfil {$User.displayName}</h2>
+        <div class="w-80 h-14 p-2 hover:bg-slate-300 transition-all hover:h-32 rounded-md cursor-pointer shadow-md animFadeDown overflow-hidden">
             <div class="flex justify-start items-center gap-x-2">
                 <figure class="w-10 h-10 p-2 self-start">
                     <img class="globalImgRules" src={darkMode ? userInfoDark : userInfo} alt="">
@@ -54,13 +54,13 @@
                     <figure class="w-10 h-10 p-2 self-start">
                         <img class="globalImgRules" src={darkMode ? nameIconDark : nameIcon} alt="">
                     </figure>
-                    <p>{$User.email}</p>
+                    <p>{$User.displayName}</p>
                 </li>
                 <li class="flex items-center text-sm">
                     <figure class="w-10 h-10 p-2 self-start">
                         <img class="globalImgRules" src={darkMode ? emailIconDark : emailIcon} alt="">
                     </figure>
-                    <p>{$User.displayName}</p>
+                    <p>{$User.email}</p>
                 </li>
             </ul>
         </div>

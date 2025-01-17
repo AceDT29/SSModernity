@@ -1,7 +1,7 @@
 <script>
   import { User } from "../Stores/UserStore";
   import { onMount } from "svelte";
-  import { Link } from "svelte-routing";
+  import { navigate } from "svelte-routing";
   import imagenAni1 from "../assets/ImagenDinamica1.jpg";
   import imagenAni2 from "../assets/ImagenDinamica2.jpg";
   import imagenAni3 from "../assets/ImagenDinamica3.jpg";
@@ -11,20 +11,20 @@
 
   export let scrollHandler;
   let currentImage = 0;
+  let isScrolling = false
   let imgS = [imagenAni1, imagenAni2, imagenAni3, imagenAni4];
 
-  const goToSignUp = () => {
-    const targetScroll = 900;
-    const currentScroll = scrollHandler();
-    const distance = targetScroll - currentScroll;
-    if (currentScroll < targetScroll) {
-      const steps = distance / 10;
-      window.scrollTo(0, currentScroll + steps);
-      requestAnimationFrame(goToSignUp);
+  const navigateTo = () => {
+    const targetScroll = 900
+    const currentScroll = scrollHandler()
+    isScrolling = true 
+    if (isScrolling && targetScroll !== currentScroll) {
+      scrollTo(0, targetScroll)
+      navigate("/SignUp", {replace: true, preserveScroll: true})
     } else {
-      return;
+      isScrolling = false
     }
-  };
+  }
 
   const bannerAnim = () => {
     setInterval(() => {
@@ -96,14 +96,9 @@
             15% discount on our entire catalog, notification of new products in
             stock, and 5 gift coupons!
           </p>
-          <Link to="/SignUp">
-            <button
-              on:click={goToSignUp}
-              class="self-start w-14 h-10 p-1 active:scale-90 transition-all bg-red-400/60 rounded-md"
-            >
-              <p class="text-sm text-slate-50">Sign Up</p>
-            </button>
-          </Link>
+          <button on:click={navigateTo} class="self-start w-14 h-10 p-1 active:scale-90 transition-all bg-red-400/60 rounded-md" >
+            <p class="text-sm text-slate-50">Sign Up</p>
+          </button>
         </div>
       </div>
     {/if}
