@@ -2,8 +2,6 @@
     import { User } from "../Stores/UserStore"
     import { onMount } from "svelte"
     import { navigate } from "svelte-routing"
-    import { auth } from "../firebase/firebaseConfig"
-    import { signOut } from "firebase/auth"
     import userInfo from "../assets/UserInfo.svg"
     import userInfoDark from "../assets/UserInfoDark.svg"
     import nameIcon from "../assets/name.svg"
@@ -16,18 +14,14 @@
     import logOutDark from "../assets/LogoutDark.svg"
     import aboutIcon from "../assets/about.svg"
     import aboutIconDark from "../assets/aboutDark.svg"
+    import avatarImg from "../assets/avatar.png"
 
     export let getConfig
+    export let signOutSession
     const userMode = localStorage.getItem("mode");
     export let darkMode = getConfig(userMode)
     
-    const sessionOut = () => {
-        signOut(auth).then(() => {
-            User.addUser(null)
-            navigate("/Login", { replace: true, preserveScroll: true })
-        })
-    }
-
+    
     onMount(async() => {
         await User.currentUser()
         if(!$User) {
@@ -39,7 +33,7 @@
 {#if $User}
     <section class="LoginSecForm items-start gap-y-6 p-4 my-auto">
         <figure class="z-10 w-36 h-36 rounded-full border-2 border-gray-400 animFadeRight">
-            <img class="globalImgRules rounded-full" src={$User.photoURL} alt="">
+            <img class="globalImgRules rounded-full" src={$User.photoURL ? $User.photoURL : avatarImg} alt="">
         </figure>
         <h2 class="animFadeLeft">Bienvenido a tu perfil {$User.displayName}</h2>
         <div class="w-80 h-14 p-2 hover:bg-slate-300 transition-all hover:h-32 rounded-md cursor-pointer shadow-md animFadeDown overflow-hidden">
@@ -72,7 +66,7 @@
                 <p>About Us</p>
             </div>
         </button>
-        <button class="" on:click={sessionOut}>
+        <button class="" on:click={signOutSession}>
             <div class="flex items-center gap-x-3 w-80 h-14 p-2 hover:bg-slate-300 transition-all rounded-md shadow-md animFadeDown animate-delay-500">
                 <figure class="w-10 h-10 p-2">
                     <img class="globalImgRules" src={darkMode ? logOutDark : logOut} alt="">

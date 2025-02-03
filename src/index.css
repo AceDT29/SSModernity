@@ -64,7 +64,7 @@
         @apply flex mx-3 flex-col w-60 justify-center gap-6
     }
     .LoginInput {
-        @apply w-60 h-10 border rounded-lg text-base shadow-md bg-transparent p-1 
+        @apply w-60 h-10 border rounded-lg text-base shadow-md bg-slate-50 p-1 text-black
     }
     .labelForm {
         @apply flex flex-col items-center text-start

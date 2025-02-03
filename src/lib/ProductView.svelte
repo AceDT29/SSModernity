@@ -2,6 +2,7 @@
     import { afterUpdate, onMount } from "svelte"
     import { User } from "../Stores/UserStore"
     import { Link, navigate } from "svelte-routing"
+    import { productPkg } from "../Stores/ProductStore"
 
     export let discount
     export let myProduct 
@@ -19,11 +20,14 @@
 
 <article class="relative ml-3 flex p-2 overflow-hidden">
     {#if myProduct}
-    <div class="flex flex-col justify-center gap-y-6 gap-x-6 lg:flex-row lg:justify-start">
+    <div class="relative flex flex-col justify-center gap-y-6 gap-x-6 lg:flex-row lg:justify-start">
         {#each myProduct as prod}
         <figure class="basis-[60%] rounded-lg border w-[60vw] h-[70vh]">
             <img class="block w-full h-full rounded-lg" src={prod.photo} alt="">
         </figure>
+        <button  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-150 peer">
+            <img class="w-[90%] h-[90%]" src={$productPkg.includes(myProduct) ? prod.favIcon : prod.unFavIcon} alt="">
+        </button>
         <div class="basis-[40%] flex flex-col gap-y-5">
             <h2 class="text-lg">{prod.name}</h2>
         {#if $User}

@@ -19,7 +19,7 @@
     export let itemSelected
     const products = []
 
-    let modernMaleOut = new ItemsClass ("Modern Outfit Male", prodImg1, 55, "M")
+    let modernMaleOut = new ItemsClass ("Modern Outfit Male", prodImg1, 55, "M", [])
     let summerWomenOut = new ItemsClass ("Summer Outfit Women", prodImg6, 29.99, "S")
     let ofWhite = new ItemsClass ("OfWhite Headsets", prodImg4, 25, "Universal")
     let casualOut = new ItemsClass ("Casual Outfit for Men", prodImg3, 49.99, "L")

@@ -1,8 +1,10 @@
 <script>
   import { onMount } from "svelte";
   import { productPkg } from "./Stores/ProductStore";
-  import { Router, Route } from "svelte-routing";
+  import { Router, Route, navigate } from "svelte-routing";
   import { User } from "./Stores/UserStore";
+  import { auth, provider } from "./firebase/firebaseConfig";
+  import { signOut, signInWithPopup } from "firebase/auth";
   import SideNav from "./lib/SideBar.svelte";
   import Banner from "./lib/Banner.svelte";
   import HomeSec from "./lib/Home.svelte";
@@ -24,6 +26,7 @@
   let upBtn;
   let parsedProducts;
   let prodFromHome;
+  let timeoutId
 
   class Items {
     static userDiscount = 15;
@@ -66,6 +69,11 @@
 
   $: localStorage.setItem("products", JSON.stringify($productPkg));
 
+  function sessionSecureTemp() {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(sessionOut, 15 * 60 * 1000)
+  }
+
   function discountedStateChecker(arr){
     if($User) {
       arr.forEach((obj) => {
@@ -102,6 +110,38 @@
       scrollTo(0, currentValue - currentValue / 10);
     }
   }
+
+  const validateFields = (inputEmail, inputPass) =>  {
+    const patternValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    let confirmValue = false
+    let emailValue = inputEmail.value
+    let passValue = inputPass.value
+
+    if(patternValid.test(emailValue.trim())) {
+      inputEmail.style.borderColor = "green"
+    } else {
+      inputEmail.style.borderColor = "red"
+    }
+
+    if(passValue.trim().length < 8) {
+      inputPass.style.borderColor = "red"
+      inputPass.nextElementSibling.textContent = "The password is too short"
+    } else {
+      inputPass.style.borderColor = "green"
+      inputPass.nextElementSibling.textContent = ""
+    }
+    return confirmValue = patternValid.test(emailValue) && passValue.length >= 8
+  }
+
+  const googleProviderHandler = async () => {
+    try {
+      const response = await signInWithPopup(auth, provider)
+      User.addUser(response.user)
+      navigate("/", {replace: true, preserveScroll: true})
+    } catch (error) {
+        console.log("Ocurrio un error al iniciar sesion, vuelve a intentarlo", error)
+    }
+  }
    
   const enableDark = (value) => {
     if (value) {
@@ -111,9 +151,19 @@
     }
     return localStorage.setItem("mode", JSON.stringify(value));
   }
+
+  const sessionOut = () => {
+    signOut(auth).then(() => {
+      User.addUser(null)
+      navigate("/Login", { replace: true, preserveScroll: true })
+    })
+  }
   
   onMount( async () => {
     await User.currentUser()
+    if ($User) {
+      addEventListener('click', sessionSecureTemp)
+    }
     addEventListener("scroll", getScroll);
   });
   
@@ -140,13 +190,13 @@
           </button>
         </SideNav>
         <Route path="/Login">
-          <Login />
+          <Login signInWithGoogle={googleProviderHandler} validFunc={validateFields}/>
         </Route>
         <Route path="/SignUp">
-          <SignUp />
+          <SignUp signInWithGoogle={googleProviderHandler} validFunc={validateFields}/>
         </Route>
         <Route path="/Profile">
-          <MyProfile getConfig={getUserConfig} darkMode={isDarkMode}/>
+          <MyProfile getConfig={getUserConfig} signOutSession={sessionOut} darkMode={isDarkMode}/>
         </Route>
         <Route path="/Product">
           <Product discount={discountedStateChecker} myProduct={prodFromHome} />
