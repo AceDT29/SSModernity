@@ -5,6 +5,7 @@
   import { User } from "./Stores/UserStore";
   import { auth, provider } from "./firebase/firebaseConfig";
   import { signOut, signInWithPopup } from "firebase/auth";
+  import { svgIcons } from "./Imports/images";
   import SideNav from "./lib/SideBar.svelte";
   import Banner from "./lib/Banner.svelte";
   import HomeSec from "./lib/Home.svelte";
@@ -14,19 +15,15 @@
   import SignUp from "./lib/Registrer.svelte";
   import Product from "./lib/ProductView.svelte";
   import NotFound from "./lib/NotFound.svelte";
-  import upButton from "./assets/UpArrow.svg";
-  import fav from "./assets/FavouriteIcon.svg";
-  import unFav from "./assets/NotFavouriteIcon.svg";
   
   export let url = "";
   const storedProducts = localStorage.getItem("products");
-  let isDarkMode
   let checkFromNav = false;
   let btnScrollState = false;
+  let isDarkMode;
   let upBtn;
   let parsedProducts;
   let prodFromHome;
-  let timeoutId
 
   class Items {
     static userDiscount = 15;
@@ -38,8 +35,8 @@
       this.size = size;
       this.discounted = false;
       this.discountedPrice = price;
-      this.favIcon = fav;
-      this.unFavIcon = unFav;
+      this.favIcon = svgIcons.fav;
+      this.unFavIcon = svgIcons.unFav;
     }
 
     static setProductDiscount(item) {
@@ -67,12 +64,7 @@
     }
   }
 
-  $: localStorage.setItem("products", JSON.stringify($productPkg));
-
-  function sessionSecureTemp() {
-    clearTimeout(timeoutId)
-    timeoutId = setTimeout(sessionOut, 15 * 60 * 1000)
-  }
+   $: localStorage.setItem("products", JSON.stringify($productPkg));
 
   function discountedStateChecker(arr){
     if($User) {
@@ -139,7 +131,7 @@
       User.addUser(response.user)
       navigate("/", {replace: true, preserveScroll: true})
     } catch (error) {
-        console.log("Ocurrio un error al iniciar sesion, vuelve a intentarlo", error)
+      console.log(error)
     }
   }
    
@@ -158,12 +150,9 @@
       navigate("/Login", { replace: true, preserveScroll: true })
     })
   }
-  
+
   onMount( async () => {
     await User.currentUser()
-    if ($User) {
-      addEventListener('click', sessionSecureTemp)
-    }
     addEventListener("scroll", getScroll);
   });
   
@@ -184,16 +173,22 @@
             class={`${btnScrollState ? "SpecialButtons" : "hiddenClass"}`} bind:this={upBtn} on:click={backToTop}>
             <img
               class="w-full h-full block"
-              src={upButton}
+              src={svgIcons.upButton}
               alt="Volver al inicio"
             />
           </button>
         </SideNav>
         <Route path="/Login">
-          <Login signInWithGoogle={googleProviderHandler} validFunc={validateFields}/>
+          <Login 
+              signInWithGoogle={googleProviderHandler}
+              validFunc={validateFields}
+          />
         </Route>
         <Route path="/SignUp">
-          <SignUp signInWithGoogle={googleProviderHandler} validFunc={validateFields}/>
+          <SignUp 
+              signInWithGoogle={googleProviderHandler}
+              validFunc={validateFields}
+           />
         </Route>
         <Route path="/Profile">
           <MyProfile getConfig={getUserConfig} signOutSession={sessionOut} darkMode={isDarkMode}/>

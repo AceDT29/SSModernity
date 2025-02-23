@@ -4,17 +4,19 @@
     import { beforeUpdate } from "svelte"
     import { auth } from "../firebase/firebaseConfig"
     import { signInWithEmailAndPassword } from "firebase/auth"
-    import googleBtn from "../assets/Google.svg"
-    import eyeIcon from "../assets/eye.svg"
-    import eyeDontSeeIcon from "../assets/eye-dont-see.svg"
-   
+    import { svgIcons } from "../Imports/images"
+    import Advisor from "./Advisor.svelte"
+    
     export let signInWithGoogle
     export let validFunc
+    let isVisible = false
     let emailValue = ""
     let passValue = ""
     let emailField
     let passField
-    let isVisible = false
+    let showExcep = false; 
+    let excepResult = [];
+    
 
     async function userInfoHandler() {
         if(!validFunc(emailField, passField)) {
@@ -25,11 +27,34 @@
                 User.addUser(response.user)
                 navigate("/", {replace: true, preserveScroll: true})
             } catch (error) {
-                console.log("No se ha podido completar tu ingreso", error)
+                errorHandler(error.code)
             } 
         }
         emailValue = ""
         passValue = ""
+    }
+
+    const errorHandler = (err) => {
+    let errValue 
+        if(err == 'auth/network-request-failed' ) {
+            errValue = (generateMessage(404, 'Error de red al procesar tu solicitud'))
+            excepResult = [errValue] 
+        } else if(err == 'auth/invalid-credential') {
+            errValue = generateMessage(404, 'Email y/o contraseña incorrectos')
+            excepResult = [errValue]
+        } else if (err  == 'auth/email-already-in-use') {
+            errValue = (generateMessage(404, 'Este usuario ya ha sido registrado en SSmodernity'))
+            excepResult = [errValue]
+        }
+        showExcep = true
+    }
+
+    function generateMessage(code, message) {
+        const newMsg = {
+        code,
+        message
+        }
+        return newMsg
     }
 
     function showField(field) {
@@ -44,6 +69,7 @@
     })
 </script>
 
+<Advisor bind:displayExcep={showExcep} exception={excepResult} />
 <section class="LoginSecForm">
     <div class="flex animFadeDown animate-delay-100 gap-x-4">
         <div class="flex group flex-col cursor-pointer">
@@ -67,7 +93,7 @@
             <input bind:value={passValue} bind:this={passField} class="LoginInput" type="password" placeholder="******" autocomplete="off" id="passID" required/>
             <span class="text-sm text-slate-500"></span>
             <button on:click|preventDefault={() => showField(passField)} class="absolute top-8 left-[85%] cursor-pointer z-10 ">
-                <img class="globalImgRules w-6 h-6 transition-all" src={isVisible ? eyeDontSeeIcon : eyeIcon} alt="">
+                <img class="globalImgRules w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
             </button>
         </label>
         <button class="w-24 h-10 p-2 rounded-lg bg-gradient-to-r text-white self-center from-sky-700 to-blue-600 animFadeLeft animate-delay-500" type="submit">
@@ -78,7 +104,7 @@
     <div class="relative flex flex-col items-start gap-y-2 right-8 animFadeUp animate-delay-1000">
         <h3 class="text-lg dark:text-gray-400">Or SignIn with Google:</h3>
         <button class="w-10 h-10 p-2 bg-white active:scale-90 rounded-full transition-all" on:click={signInWithGoogle}>
-            <img class="block w-full h-full" src={googleBtn} alt="">
+            <img class="block w-full h-full" src={svgIcons.googleBtn} alt="">
         </button>
     </div>    
 </section>

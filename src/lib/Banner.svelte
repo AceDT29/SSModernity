@@ -2,17 +2,12 @@
   import { User } from "../Stores/UserStore";
   import { onMount } from "svelte";
   import { navigate } from "svelte-routing";
-  import imagenAni1 from "../assets/ImagenDinamica1.jpg";
-  import imagenAni2 from "../assets/ImagenDinamica2.jpg";
-  import imagenAni3 from "../assets/ImagenDinamica3.jpg";
-  import imagenAni4 from "../assets/ImagenDinamica4.jpg";
-  import bigSale from "../assets/BannerBeta.png";
-  import MobileBan from "../assets/BannerMobile.png";
+  import { backgrounds } from "../Imports/images";
 
   export let scrollHandler;
   let currentImage = 0;
   let isScrolling = false
-  let imgS = [imagenAni1, imagenAni2, imagenAni3, imagenAni4];
+  let imgS = [backgrounds.imagenAni1, backgrounds.imagenAni2, backgrounds.imagenAni3, backgrounds.imagenAni4];
 
   const navigateTo = () => {
     const targetScroll = 900
@@ -60,7 +55,7 @@
     <h2 class="text-4xl text-slate-50 drop-shadow-2xl">Summer!</h2>
     <p class="text-2x1 text-yellow-300 drop-shadow-2xl">SUPER SALE</p>
   </div>
-  <img class="BannerImgRules absolute top-0" src={MobileBan} alt="" />
+  <img class="BannerImgRules absolute top-0" src={backgrounds.MobileBan} alt="" />
 </figure>
 <section class="flex items-center gap-4 lg:flex-col">
   <div class="mt-4 w-[40%] hidden md:block lg:hidden">
@@ -120,6 +115,6 @@
     <h2 class="text-6xl text-cyan-400 drop-shadow-2xl animPulse">Summer!</h2>
     <p class="text-3xl text-red-500 drop-shadow-2xl">BIG SALE</p>
   </div>
-  <img class="BannerImgRules absolute top-0" src={bigSale} alt="" />
+  <img class="BannerImgRules absolute top-0" src={backgrounds.bigSale} alt="" />
 </figure>
 <slot />

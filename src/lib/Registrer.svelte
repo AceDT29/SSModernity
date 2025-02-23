@@ -4,19 +4,21 @@
     import { onMount } from "svelte"
     import { auth } from "../firebase/firebaseConfig"
     import { createUserWithEmailAndPassword } from "firebase/auth"
-    import googleBtn from "../assets/Google.svg"
-    import eyeIcon from "../assets/eye.svg"
-    import eyeDontSeeIcon from "../assets/eye-dont-see.svg"
+    import { svgIcons } from "../Imports/images";
+    import Advisor from "./Advisor.svelte"
 
     export let signInWithGoogle
     export let validFunc
+    let isVisible = false
     let email = ""
     let password = ""
     let confirmValue = ""
     let emailField
     let passField
     let confirmField
-    let isVisible = false
+    let showExcep = false; 
+    let excepResult = [];
+    
    
     async function finishRegister() {
         if(!validFunc(emailField, passField)){
@@ -30,12 +32,35 @@
                 User.addUser(newRegistrer)
                 navigate("/Profile", {replace: true, preserveScroll: true})
             } catch (error) {
-                console.log("Error al registrar tus datos", error)
+                errorHandler(error.code)
             } 
             email = ""
             password = ""
             confirmValue = ""
         }
+    }
+
+    const errorHandler = (err) => {
+    let errValue 
+        if(err == 'auth/network-request-failed') {
+            errValue = (generateMessage(404, 'Error de red al procesar tu solicitud'))
+            excepResult = [errValue] 
+        } else if(err == 'auth/invalid-credential') {
+            errValue = generateMessage(404, 'Email y/o contraseña incorrectos')
+            excepResult = [errValue]
+        } else if (err  == 'auth/email-already-in-use' ) {
+            errValue = (generateMessage(404, 'Este usuario ya ha sido registrado en SSmodernity'))
+            excepResult = [errValue]
+        }
+        showExcep = true
+    }
+
+    function generateMessage(code, message) {
+        const newMsg = {
+        code,
+        message
+        }
+        return newMsg
     }
 
     const matchingValue = (value, confirmValue, field) => {
@@ -63,6 +88,7 @@
 
 </script>
 
+<Advisor bind:displayExcep={showExcep} exception={excepResult} />
 <section class="LoginSecForm justify-around">
     <div class="flex animFadeDown gap-x-4">
         <div class="flex group flex-col cursor-pointer">
@@ -85,7 +111,7 @@
             <input bind:value={password} bind:this={passField} class="LoginInput" type="password"  id="userPass" required/>
             <span class="text-sm text-slate-500">The password must be at least 8 characters long</span>
             <button on:click|preventDefault={() => showField(passField, confirmField)} class="absolute top-8 left-[71%] cursor-pointer z-10 ">
-                <img class="globalImgRules w-6 h-6 transition-all" src={isVisible ? eyeDontSeeIcon : eyeIcon} alt="">
+                <img class="globalImgRules w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
             </button>
         </label>
         <label class="labelForm animFadeLeft relative animate-delay-500" for="confirmPass">
@@ -93,7 +119,7 @@
             <input bind:value={confirmValue} bind:this={confirmField} class="LoginInput" type="password" id="confirmPass" required/>
             <span class="text-sm text-slate-500">The passwords must be the same</span>
             <button on:click|preventDefault={() => showField(passField, confirmField)} class="absolute top-8 left-[71%] cursor-pointer z-10 ">
-                <img class="globalImgRules w-6 h-6 transition-all" src={isVisible ? eyeDontSeeIcon : eyeIcon} alt="">
+                <img class="globalImgRules w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
             </button>
         </label>
         <button class="text-sm self-center animFadeRight animate-delay-700 p-2 w-28 h-10 rounded-xl active:scale-90 bg-gradient-to-r from-red-500 to-orange-500 cursor-pointer transition-all" type="submit">
@@ -105,7 +131,7 @@
     <div class="relative flex flex-col items-start gap-y-2 right-8 animFadeUp animate-delay-1000 ml-8">
         <h3 class="text-lg dark:text-gray-400">Or create account with Google(recomended):</h3>
         <button class="w-10 h-10 p-2 bg-white active:scale-90 rounded-full transition-all" on:click={signInWithGoogle}>
-            <img class="block w-full h-full" src={googleBtn} alt="">
+            <img class="block w-full h-full" src={svgIcons.googleBtn} alt="">
         </button>
     </div>    
 </section>

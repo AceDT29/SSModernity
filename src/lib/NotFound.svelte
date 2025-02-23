@@ -1,7 +1,7 @@
 <script>
     import { navigate } from "svelte-routing"
     import { onMount } from "svelte"
-    import ghost from "../assets/Ghost404.svg"
+    import { svgIcons } from "../Imports/images";
 
     function backToHome() {
         setTimeout(() => {
@@ -17,7 +17,7 @@
 <section class="fixed inset-42 flex flex-col items-center w-full h-full p-4 bg-slate-50 backdrop-blur-sm z-50">
     <div class="flex flex-col items-center my-auto">
         <figure class="w-72 h-72">
-            <img class="globalImgRules" src={ghost} alt="">
+            <img class="globalImgRules" src={svgIcons.ghost} alt="">
         </figure>
         <h2 class="text-black text-3xl font-bold">Ups...</h2>
         <h3 class="text-black text-lg">Parece que lo que buscas no esta aqui</h3>

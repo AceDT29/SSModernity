@@ -3,31 +3,22 @@
     import { User } from "../Stores/UserStore"
     import { navigate } from "svelte-routing"
     import { beforeUpdate } from "svelte"
-    import prodImg1 from "../assets/imagen1.jpg"
-    import prodImg2 from "../assets/imagen2.jpg"
-    import prodImg3 from "../assets/imagen3.jpg"
-    import prodImg4 from "../assets/imagen4.jpg"
-    import prodImg5 from "../assets/imagen5.jpg"
-    import prodImg6 from "../assets/imagen6.jpg"
-    import prodImg7 from "../assets/imagen7.jpg"
-    import prodImg8 from "../assets/imagen8.jpg"
-    import prodImg9 from "../assets/imagen9.jpg"
-    import Offsale from "../assets/OffLogo.svg"
+    import { svgIcons, productImgs } from "../Imports/images";
     
     export let ItemsClass
     export let discount
     export let itemSelected
     const products = []
 
-    let modernMaleOut = new ItemsClass ("Modern Outfit Male", prodImg1, 55, "M", [])
-    let summerWomenOut = new ItemsClass ("Summer Outfit Women", prodImg6, 29.99, "S")
-    let ofWhite = new ItemsClass ("OfWhite Headsets", prodImg4, 25, "Universal")
-    let casualOut = new ItemsClass ("Casual Outfit for Men", prodImg3, 49.99, "L")
-    let sportOut = new ItemsClass ("Sporty outfit with accessories", prodImg2, 35, "L  and M")
-    let grungeOut = new ItemsClass ("Grunge Outfit For Girl", prodImg5, 20, "S, L  and M",)
-    let beachAcc = new ItemsClass ("Beach accessories for women", prodImg7, 19.99, "Universal")
-    let girlSport = new ItemsClass ("Sporty Oufit for Women", prodImg8, 29.99, "S")
-    let chicOut = new ItemsClass ("Fall outfit for a girl", prodImg9, 49.99, "S")
+    let modernMaleOut = new ItemsClass ("Modern Outfit Male", productImgs.Img1, 55, "M", [])
+    let summerWomenOut = new ItemsClass ("Summer Outfit Women", productImgs.Img6, 29.99, "S")
+    let ofWhite = new ItemsClass ("OfWhite Headsets", productImgs.Img4, 25, "Universal")
+    let casualOut = new ItemsClass ("Casual Outfit for Men", productImgs.Img2, 49.99, "L")
+    let sportOut = new ItemsClass ("Sporty outfit with accessories", productImgs.Img3, 35, "L  and M")
+    let grungeOut = new ItemsClass ("Grunge Outfit For Girl", productImgs.Img5, 20, "S, L  and M",)
+    let beachAcc = new ItemsClass ("Beach accessories for women", productImgs.Img7, 19.99, "Universal")
+    let girlSport = new ItemsClass ("Sporty Oufit for Women", productImgs.Img8, 29.99, "S")
+    let chicOut = new ItemsClass ("Fall outfit for a girl", productImgs.Img9, 49.99, "S")
 
     products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
 
@@ -51,7 +42,7 @@
                 <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? prod.favIcon : prod.unFavIcon} alt="">
             </button>
             <figure class="HomeHiddenFlag">
-                <img class={$User ? 'globalImgRules' : 'hidden'} src={Offsale} alt="">
+                <img class={$User ? 'globalImgRules' : 'hidden'} src={svgIcons.offSale} alt="">
             </figure>
             <div class="HomeHiddenInfo group-hover:opacity-100">
                 <h2 class="text-base">{prod.name}</h2>

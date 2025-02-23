@@ -2,18 +2,8 @@
     import { Link } from "svelte-routing";
     import { User } from "../Stores/UserStore";
     import { beforeUpdate } from "svelte";
-    import avatarImg from "../assets/avatar.png";
-    import sunIcon from "../assets/sun-regular.svg";
-    import moonIcon from "../assets/moon-regular.svg";
-    import homeLightIcon from "../assets/house-light.svg";
-    import homeDarkIcon from "../assets/house-dark.svg";
-    import messengerLightIcon from "../assets/messenger-light.svg";
-    import messengerDarkIcon from "../assets/messenger-dark.svg";
-    import loginSun from "../assets/login-Sun.svg";
-    import loginDark from "../assets/login-Dark.svg";
-    import wishListLightIcon from "../assets/wishList-light.svg";
-    import wishListDarkIcon from "../assets/wishList-dark.svg";
-
+    import { svgIcons, avatars } from "../Imports/images";
+    
     export let checkPlease;
     export let getConfig
     export let switchMode
@@ -39,7 +29,7 @@
                 />
                 <img
                     class="w-full h-full"
-                    src={darkMode ? moonIcon : sunIcon}
+                    src={darkMode ? svgIcons.moonIcon : svgIcons.sunIcon}
                     alt="Light/Dark"
                 />
             </label>
@@ -54,7 +44,7 @@
                 <a class="SideIconsConfig" href=".">
                     <img
                         class="w-full h-full"
-                        src={darkMode ? homeDarkIcon : homeLightIcon}
+                        src={darkMode ? svgIcons.homeDarkIcon : svgIcons.homeLightIcon}
                         alt=""
                     />
                 </a>
@@ -67,7 +57,7 @@
             <a class="SideIconsConfig" href=".">
                 <img
                     class="w-full h-full"
-                    src={darkMode ? messengerDarkIcon : messengerLightIcon}
+                    src={darkMode ? svgIcons.messengerDarkIcon : svgIcons.messengerLightIcon}
                     alt=""
                 />
             </a>
@@ -85,7 +75,7 @@
                 />
                 <img
                     class="w-full h-full"
-                    src={darkMode ? wishListDarkIcon : wishListLightIcon}
+                    src={darkMode ? svgIcons.wishListDarkIcon : svgIcons.wishListLightIcon}
                     alt=""
                 />
             </label>
@@ -101,7 +91,7 @@
                     <Link to="/Profile" preserveScroll>
                         <img
                             class="block w-full h-full rounded-full border border-slate-400"
-                            src={$User.photoURL ? $User.photoURL : avatarImg}
+                            src={$User.photoURL ? $User.photoURL : avatars.aceAvatar}
                             alt=""
                         />
                     </Link>
@@ -116,7 +106,7 @@
                     <Link to="/Login" preserveScroll>
                         <img
                             class="block w-full h-full"
-                            src={darkMode ? loginDark : loginSun}
+                            src={darkMode ? svgIcons.loginDark : svgIcons.loginSun}
                             alt=""
                         />
                     </Link>

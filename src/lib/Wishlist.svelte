@@ -2,8 +2,7 @@
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
     import { beforeUpdate } from "svelte"
-    import closeIcon from "../assets/CloseIcon.svg"
-    import garbage from "../assets/garbage.svg"
+    import { svgIcons } from "../Imports/images";
 
     export let checkValue
     export let discount 
@@ -19,7 +18,7 @@
         <div class="backdrop-filter backdrop-blur-xl border-b border-r rounded-md p-2 shadow-md lg:p-4 animFadeDown animate-duration-500">
             <label for="CloseBtn" class="relative left-[88%] bottom-6 w-10 h-10 z-10 p-2 cursor-pointer">
                 <input type="checkbox" class="hidden" id="CloseBtn" bind:checked={checkValue}>
-                <img class="w-8 h-8 block" src={closeIcon} alt="">
+                <img class="w-8 h-8 block" src={svgIcons.closeIcon} alt="">
             </label>
             <h2 class="relative text-lg bottom-20">Your WishList:</h2>
             {#each $productPkg as prod}
@@ -36,7 +35,7 @@
                         <h3 class="text-base lg:text-lg">{prod.price}$</h3>
                     {/if}
                         <button class="w-10 h-10 p-2 z-10 transition-all active:scale-90 lg:p-1" on:click={()=> productPkg.delete(prod.name)}>
-                            <img class="w-full h-full block" src={garbage} alt="Delete product">
+                            <img class="w-full h-full block" src={svgIcons.garbage} alt="Delete product">
                         </button>
                     </div>
                 </div>
