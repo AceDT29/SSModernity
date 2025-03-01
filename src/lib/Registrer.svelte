@@ -57,8 +57,8 @@
 
     function generateMessage(code, message) {
         const newMsg = {
-        code,
-        message
+            code,
+            message
         }
         return newMsg
     }
@@ -66,7 +66,7 @@
     const matchingValue = (value, confirmValue, field) => {
         let check = false
         if(value !== confirmValue) {
-           field.style.borderColor = "red"
+            field.style.borderColor = "red"
             field.nextElementSibling.textContent = "The Passwords don't match"
         } else {
             field.style.borderColor = "green"
@@ -101,7 +101,7 @@
         </div>
     </Link>
     </div>
-    <form on:submit|preventDefault={finishRegister} autocomplete="off" class="LoginForm w-96">
+    <form on:submit|preventDefault={finishRegister} autocomplete="off" class="LoginForm h-auto w-96">
         <label class="labelForm animFadeLeft animate-delay-200" for="userEmail">
             Your Email
             <input bind:value={email} bind:this={emailField} class="LoginInput" type="email" id="userEmail" required/>
@@ -125,12 +125,11 @@
         <button class="text-sm self-center animFadeRight animate-delay-700 p-2 w-28 h-10 rounded-xl active:scale-90 bg-gradient-to-r from-red-500 to-orange-500 cursor-pointer transition-all" type="submit">
             Done
         </button>
-        <hr class="drop-shadow-lg animFadeRight animate-delay-700">
+        <hr class="min-w-[50%] self-center drop-shadow-lg animFadeRight animate-delay-700 lg:w-[90%]">
     </form>
-    
-    <div class="relative flex flex-col items-start gap-y-2 right-8 animFadeUp animate-delay-1000 ml-8">
-        <h3 class="text-lg dark:text-gray-400">Or create account with Google(recomended):</h3>
-        <button class="w-10 h-10 p-2 bg-white active:scale-90 rounded-full transition-all" on:click={signInWithGoogle}>
+    <div class="relative flex flex-col items-center flex-wrap gap-y-2 right-8 animFadeUp animate-delay-1000 ml-8 lg:items-start">
+        <h3 class="text-lg text-center dark:text-gray-400">Or create account with Google(recomended):</h3>
+        <button class="w-10 ml-12 self-start h-10 p-2 bg-white active:scale-90 rounded-full transition-all md:ml-0" on:click={signInWithGoogle}>
             <img class="block w-full h-full" src={svgIcons.googleBtn} alt="">
         </button>
     </div>    

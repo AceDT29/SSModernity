@@ -45,7 +45,7 @@
     <p class="text-sm" translate="no">Your way, your style</p>
   </div>
 </nav>
-<figure class="BannerFigRules h-52 shadow-md md:hidden">
+<figure class="BannerFigRules h-64 shadow-md md:hidden">
   <div
     class="relative p-10 z-10 flex gap-2 flex-col justify-center items-center text-center"
   >
@@ -104,7 +104,7 @@
           ? 'translate-x-0 opacity-100 animFadeRight'
           : ''}"
       >
-        <img class="BannerImgRules animFadeLeft" src={img} alt="" />
+        <img class="BannerImgRules w-full h-full animFadeLeft" loading="lazy" src={img} alt="" />
       </figure>
     {/each}
   </div>

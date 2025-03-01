@@ -29,41 +29,41 @@ import wishListLightIcon from "../assets/wishList-light.svg";
 // @ts-ignore
 import wishListDarkIcon from "../assets/wishList-dark.svg";
 // @ts-ignore
-import closeIcon from "../assets/CloseIcon.svg"
+import closeIcon from "../assets/CloseIcon.svg";
 // @ts-ignore
-import garbage from "../assets/garbage.svg"
+import garbage from "../assets/garbage.svg";
 // @ts-ignore
-import userInfo from "../assets/UserInfo.svg"
+import userInfo from "../assets/UserInfo.svg";
 // @ts-ignore
-import userInfoDark from "../assets/UserInfoDark.svg"
+import userInfoDark from "../assets/UserInfoDark.svg";
 // @ts-ignore
-import nameIcon from "../assets/name.svg"
+import nameIcon from "../assets/name.svg";
 // @ts-ignore
-import nameIconDark from "../assets/name-dark.svg"
+import nameIconDark from "../assets/name-dark.svg";
 // @ts-ignore
-import emailIcon from "../assets/email.svg"
+import emailIcon from "../assets/email.svg";
 // @ts-ignore
-import emailIconDark from "../assets/email-dark.svg"
+import emailIconDark from "../assets/email-dark.svg";
 // @ts-ignore
-import userDelete from "../assets/UserDelete.svg"
+import userDelete from "../assets/UserDelete.svg";
 // @ts-ignore
-import userDeleteDark from "../assets/UserDeleteDark.svg"
+import userDeleteDark from "../assets/UserDeleteDark.svg";
 // @ts-ignore
-import logOut from "../assets/Logout.svg"
+import logOut from "../assets/Logout.svg";
 // @ts-ignore
-import logOutDark from "../assets/LogoutDark.svg"
+import logOutDark from "../assets/LogoutDark.svg";
 // @ts-ignore
-import aboutIcon from "../assets/about.svg"
+import aboutIcon from "../assets/about.svg";
 // @ts-ignore
-import aboutIconDark from "../assets/aboutDark.svg"
+import aboutIconDark from "../assets/aboutDark.svg";
 // @ts-ignore
-import ghost from "../assets/Ghost404.svg"
+import ghost from "../assets/Ghost404.svg";
 // @ts-ignore
-import googleBtn from "../assets/Google.svg"
+import googleBtn from "../assets/Google.svg";
 // @ts-ignore
-import eyeIcon from "../assets/eye.svg"
+import eyeIcon from "../assets/eye.svg";
 // @ts-ignore
-import eyeDontSeeIcon from "../assets/eye-dont-see.svg"
+import eyeDontSeeIcon from "../assets/eye-dont-see.svg";
 
 // -- FONDOS Y ASSETS
 
@@ -80,26 +80,37 @@ import bigSale from "../assets/BannerBeta.png";
 // @ts-ignore
 import MobileBan from "../assets/BannerMobile.png";
 
+
+// -- CATEGORIAS --
+
+// @ts-ignore
+import summerTag from "../assets/summer-category.jpg";
+// @ts-ignore
+import fitTag from "../assets/fit-category.jpg";
+// @ts-ignore
+import casualTag from "../assets/casual-category.jpg";
+
+
 // -- IMAGENES DE PRODCUSTOS --
 
 // @ts-ignore
-import Img1 from "../assets/imagen1.webp"
+import Img1 from "../assets/imagen1.webp";
 // @ts-ignore
-import Img2 from "../assets/imagen2.webp"
+import Img2 from "../assets/imagen2.webp";
 // @ts-ignore
-import Img3 from "../assets/imagen3.webp"
+import Img3 from "../assets/imagen3.webp";
 // @ts-ignore
-import Img4 from "../assets/imagen4.webp"
+import Img4 from "../assets/imagen4.webp";
 // @ts-ignore
-import Img5 from "../assets/imagen5.webp"
+import Img5 from "../assets/imagen5.webp";
 // @ts-ignore
-import Img6 from "../assets/imagen6.webp"
+import Img6 from "../assets/imagen6.webp";
 // @ts-ignore
-import Img7 from "../assets/imagen7.webp"
+import Img7 from "../assets/imagen7.webp";
 // @ts-ignore
-import Img8 from "../assets/imagen8.webp"
+import Img8 from "../assets/imagen8.webp";
 // @ts-ignore
-import Img9 from "../assets/imagen9.webp"
+import Img9 from "../assets/imagen9.webp";
 
 // -- AVATARES --
 
@@ -141,7 +152,7 @@ export const svgIcons = {
     googleBtn, 
     eyeDontSeeIcon,
     eyeIcon
-}
+};
 
 export const productImgs = {
     Img1,
@@ -153,11 +164,11 @@ export const productImgs = {
     Img7,
     Img8,
     Img9
-}
+};
 
 export const avatars = {
     aceAvatar
-}
+};
 
 export const backgrounds = {
     imagenAni1,
@@ -166,6 +177,12 @@ export const backgrounds = {
     imagenAni4,
     bigSale,
     MobileBan
-}
+};
+
+export const tags = {
+    summerTag,
+    fitTag,
+    casualTag
+};
 
 

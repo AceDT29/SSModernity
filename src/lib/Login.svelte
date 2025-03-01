@@ -18,7 +18,7 @@
     let excepResult = [];
     
 
-    async function userInfoHandler() {
+    async function LogIn() {
         if(!validFunc(emailField, passField)) {
             return
         } else {
@@ -83,7 +83,7 @@
     </Link>
     </div>
     
-    <form class="z-10 LoginForm h-auto" on:submit|preventDefault={userInfoHandler}>
+    <form class="z-10 LoginForm h-auto" on:submit|preventDefault={LogIn}>
         <label class="animFadeLeft animate-delay-200" for="emailID">
             Email
             <input bind:value={emailValue} bind:this={emailField} class="LoginInput" type="email" placeholder="Example@gmail.com" id="emailID" required/>
@@ -99,7 +99,7 @@
         <button class="w-24 h-10 p-2 rounded-lg bg-gradient-to-r text-white self-center from-sky-700 to-blue-600 animFadeLeft animate-delay-500" type="submit">
             Log in
         </button>
-        <hr class="drop-shadow-lg animFadeRight animate-delay-700">
+        <hr class="drop-shadow-lg animFadeRight animate-delay-700 ">
     </form>
     <div class="relative flex flex-col items-start gap-y-2 right-8 animFadeUp animate-delay-1000">
         <h3 class="text-lg dark:text-gray-400">Or SignIn with Google:</h3>

@@ -8,26 +8,37 @@
     export let ItemsClass
     export let discount
     export let itemSelected
+    export let tag
     const products = []
+    let stockProds = []
 
-    let modernMaleOut = new ItemsClass ("Modern Outfit Male", productImgs.Img1, 55, "M", [])
-    let summerWomenOut = new ItemsClass ("Summer Outfit Women", productImgs.Img6, 29.99, "S")
-    let ofWhite = new ItemsClass ("OfWhite Headsets", productImgs.Img4, 25, "Universal")
-    let casualOut = new ItemsClass ("Casual Outfit for Men", productImgs.Img2, 49.99, "L")
-    let sportOut = new ItemsClass ("Sporty outfit with accessories", productImgs.Img3, 35, "L  and M")
-    let grungeOut = new ItemsClass ("Grunge Outfit For Girl", productImgs.Img5, 20, "S, L  and M",)
-    let beachAcc = new ItemsClass ("Beach accessories for women", productImgs.Img7, 19.99, "Universal")
-    let girlSport = new ItemsClass ("Sporty Oufit for Women", productImgs.Img8, 29.99, "S")
-    let chicOut = new ItemsClass ("Fall outfit for a girl", productImgs.Img9, 49.99, "S")
+    let modernMaleOut = new ItemsClass ("Modern Outfit Male", productImgs.Img1, 55, "M", "Casual")
+    let summerWomenOut = new ItemsClass ("Summer Outfit Women", productImgs.Img6, 29.99, "S", "Summer")
+    let ofWhite = new ItemsClass ("OfWhite Headsets", productImgs.Img4, 25, "Universal", "Casual")
+    let casualOut = new ItemsClass ("Casual Outfit for Men", productImgs.Img2, 49.99, "L", "Casual")
+    let sportOut = new ItemsClass ("Sporty outfit with accessories", productImgs.Img3, 35, "L  and M", "Fit")
+    let grungeOut = new ItemsClass ("Grunge Outfit For Girl", productImgs.Img5, 20, "S, L  and M", "Casual")
+    let beachAcc = new ItemsClass ("Beach accessories for women", productImgs.Img7, 19.99, "Universal", "Summer")
+    let girlSport = new ItemsClass ("Sporty Oufit for Women", productImgs.Img8, 29.99, "S", "Fit")
+    let chicOut = new ItemsClass ("Fall outfit for a girl", productImgs.Img9, 49.99, "S", "Casual")
 
     products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
 
     function displayLargeView(item) {
         itemSelected = [item]
-        navigate("/Product", {replace: true, preserveScroll: true})
+        navigate(`/Product/${item.name}`, {replace: true, preserveScroll: true})
+    }
+
+    function displayByTag(tagParam) {
+        if(tagParam) {
+            stockProds = products.filter((type) => type.tag === tagParam)
+        } else {
+            stockProds = products
+        }
     }
 
     beforeUpdate(() => {
+        displayByTag(tag)
         discount(products)
     })
 </script>
@@ -35,10 +46,10 @@
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:mb-60 lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
     <h2 class="text-lg mb-2">Our Products:</h2>
     <div class="HomeDivSet">
-    {#each products as prod }
-        <figure class="HomefigSet group" on:dblclick={() => {displayLargeView(prod)}}>
+    {#each stockProds as prod }
+        <figure class="HomefigSet group animFadeDown" on:dblclick={() => {displayLargeView(prod)}}>
             <img class="HomeImgSet" src={prod.photo} loading="lazy" alt="">
-            <button on:click={() => productPkg.add(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:bg-slate-500/50 transition duration-150 peer">
+            <button on:click={() => productPkg.add(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
                 <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? prod.favIcon : prod.unFavIcon} alt="">
             </button>
             <figure class="HomeHiddenFlag">

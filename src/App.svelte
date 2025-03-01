@@ -15,6 +15,7 @@
   import SignUp from "./lib/Registrer.svelte";
   import Product from "./lib/ProductView.svelte";
   import NotFound from "./lib/NotFound.svelte";
+  import Categories from "./lib/Categories.svelte";
   
   export let url = "";
   const storedProducts = localStorage.getItem("products");
@@ -28,11 +29,12 @@
   class Items {
     static userDiscount = 15;
 
-    constructor(name, photo, price, size) {
+    constructor(name, photo, price, size, tag) {
       this.name = name;
       this.photo = photo;
       this.price = price;
       this.size = size;
+      this.tag = tag;
       this.discounted = false;
       this.discountedPrice = price;
       this.favIcon = svgIcons.fav;
@@ -87,8 +89,7 @@
   }
 
   function getScroll() {
-    const scrollValue =
-      document.body.scrollTop || document.documentElement.scrollTop;
+    const scrollValue = document.body.scrollTop || document.documentElement.scrollTop;
     if (scrollValue > 600) {
       btnScrollState = true;
     }
@@ -193,11 +194,14 @@
         <Route path="/Profile">
           <MyProfile getConfig={getUserConfig} signOutSession={sessionOut} darkMode={isDarkMode}/>
         </Route>
-        <Route path="/Product">
+        <Route path="/Product/:id">
           <Product discount={discountedStateChecker} myProduct={prodFromHome} />
         </Route>
         <Route path="/">
-          <HomeSec discount={discountedStateChecker} ItemsClass={Items} bind:itemSelected={prodFromHome} /> 
+          <Categories /> 
+        </Route>
+        <Route path="/:id" let:params>
+          <HomeSec tag={params.id} discount={discountedStateChecker} ItemsClass={Items} bind:itemSelected={prodFromHome} /> 
         </Route>
       </article>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">
