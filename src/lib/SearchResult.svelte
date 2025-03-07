@@ -1,41 +1,36 @@
 <script>
-    import { productPkg } from "../Stores/ProductStore"
-    import { User } from "../Stores/UserStore"
-    import { navigate } from "svelte-routing"
-    import { beforeUpdate } from "svelte"
-    import { svgIcons, productImgs } from "../Imports/images";
-    
-    export let ItemsClass
-    export let discount
+    import { beforeUpdate } from "svelte";
+    import { svgIcons } from "../Imports/images";
+    import { navigate } from "svelte-routing";
+    import { User } from "../Stores/UserStore";
+    import { productPkg } from "../Stores/ProductStore";
+    export let searchProds
+    export let tag
     export let itemSelected
-    export let products = []
+    let resultProds
 
-    let modernMaleOut = new ItemsClass ("Modern Outfit Male", productImgs.Img1, 55, "M", "Casual")
-    let summerWomenOut = new ItemsClass ("Summer Outfit Women", productImgs.Img6, 29.99, "S", "Summer")
-    let ofWhite = new ItemsClass ("OfWhite Headsets", productImgs.Img4, 25, "Universal", "Casual")
-    let casualOut = new ItemsClass ("Casual Outfit for Men", productImgs.Img2, 49.99, "L", "Casual")
-    let sportOut = new ItemsClass ("Sporty outfit with accessories", productImgs.Img3, 35, "L  and M", "Fit")
-    let grungeOut = new ItemsClass ("Grunge Outfit For Girl", productImgs.Img5, 20, "S, L  and M", "Casual")
-    let beachAcc = new ItemsClass ("Beach accessories for women", productImgs.Img7, 19.99, "Universal", "Summer")
-    let girlSport = new ItemsClass ("Sporty Oufit for Women", productImgs.Img8, 29.99, "S", "Fit")
-    let chicOut = new ItemsClass ("Fall outfit for a girl", productImgs.Img9, 49.99, "S", "Casual")
-
-    products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
+    function displayByTag(tagParam) {
+        if(tagParam) {
+            resultProds = searchProds.filter((type) => type.tag === tagParam)
+        } else {
+           navigate("/", {replace: true, preserveScroll: true})
+        }
+    }
 
     function displayLargeView(item) {
         itemSelected = [item]
         navigate(`/Product/${item.name}`, {replace: true, preserveScroll: true})
     }
-   
-    beforeUpdate(() => {
-        discount(products)
+
+    beforeUpdate( () => {
+        displayByTag(tag)
     })
 </script>
 
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
-    <h2 class="text-lg mb-2">Our Products:</h2>
+    <h2 class="text-lg mb-2">{tag} catalog:</h2>
     <div class="HomeDivSet">
-    {#each products as prod }
+    {#each resultProds as prod }
         <figure class="HomefigSet group animFadeDown" on:dblclick={() => {displayLargeView(prod)}}>
             <img class="HomeImgSet" src={prod.photo} loading="lazy" alt="">
             <button on:click={() => productPkg.add(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
@@ -62,5 +57,3 @@
     {/each}
     </div>
 </section>
-
-

@@ -3,12 +3,12 @@
   import { navigate } from "svelte-routing";
 
   const navTo = (tag) => {
-    navigate(`/${tag}`, {replace: true, preserveScroll: true})
+    navigate(`/Search/${tag}`, {replace: true, preserveScroll: true})
   }
   
 </script>
 
-<section class="LoginSecForm flex-row justify-center gap-5 flex-wrap items-start">
+<div class="LoginSecForm  w-full flex-row justify-center gap-7 flex-wrap  mx-auto my-2">
   <button 
     on:click={() => navTo("Fit")}
     class="group CategoriesCont"
@@ -45,4 +45,4 @@
       <p class="text-lg text-slate-800 lg:text-2xl">Summer</p>
     </div>
   </button>
-</section>
+</div>

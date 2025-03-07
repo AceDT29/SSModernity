@@ -101,7 +101,7 @@
                 </article>
             {:else}
                 <figure
-                    class="w-10 h-10 p-2 rounded-full ml-1 hover:scale-105 transition duration-200 md:w-12 md:h-12"
+                    class="w-10 h-10 p-2 rounded-full ml-1 hover:scale-105 transition duration-200 lg:w-12 lg:h-12"
                 >
                     <Link to="/Login" preserveScroll>
                         <img

@@ -109,12 +109,10 @@
     {/each}
   </div>
 </section>
-<figure class="BannerFigRules h-60 hidden mt-6 lg:block">
-  <div class="BannerDivRules p-7 gap-4">
-    <p class="text-2xl text-red-400 drop-shadow-2xl">Up to 15% OFF</p>
-    <h2 class="text-6xl text-cyan-400 drop-shadow-2xl animPulse">Summer!</h2>
-    <p class="text-3xl text-red-500 drop-shadow-2xl">BIG SALE</p>
+<figure class="BannerFigRules h-80 hidden mt-6 lg:block">
+  <div class="relative py-3 z-10 flex-col justify-center items-center text-center">
+    <h2 class="text-2xl text-slate-600 text-center">Looking for a specific style? Take a look at the categories!</h2>
   </div>
-  <img class="BannerImgRules absolute top-0" src={backgrounds.bigSale} alt="" />
+  <slot />
+  <img class="BannerImgRules object-cover absolute top-0" src={backgrounds.bigSale} alt="" />
 </figure>
-<slot />

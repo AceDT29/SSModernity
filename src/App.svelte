@@ -16,6 +16,7 @@
   import Product from "./lib/ProductView.svelte";
   import NotFound from "./lib/NotFound.svelte";
   import Categories from "./lib/Categories.svelte";
+  import SearchResult from "./lib/SearchResult.svelte";
   
   export let url = "";
   const storedProducts = localStorage.getItem("products");
@@ -25,6 +26,7 @@
   let upBtn;
   let parsedProducts;
   let prodFromHome;
+  let stockProds
 
   class Items {
     static userDiscount = 15;
@@ -163,47 +165,50 @@
   <Router {url}>
     <Route path="*" component={NotFound} />
     <main class="">
-      <header class="mb-10 p-0">
+      <header class="">
         <Banner scrollHandler={getScroll}>
-          <WishComp discount={discountedStateChecker} bind:checkValue={checkFromNav} />
+          <Categories /> 
         </Banner>
       </header>
-      <article class="flex md:gap-8 lg:gap-x-16 flex-grow">
-        <SideNav bind:checkPlease={checkFromNav} getConfig={getUserConfig} switchMode={enableDark} darkMode={isDarkMode}>
-          <button
-            class={`${btnScrollState ? "SpecialButtons" : "hiddenClass"}`} bind:this={upBtn} on:click={backToTop}>
-            <img
-              class="w-full h-full block"
-              src={svgIcons.upButton}
-              alt="Volver al inicio"
-            />
-          </button>
-        </SideNav>
-        <Route path="/Login">
-          <Login 
-              signInWithGoogle={googleProviderHandler}
-              validFunc={validateFields}
-          />
-        </Route>
-        <Route path="/SignUp">
-          <SignUp 
-              signInWithGoogle={googleProviderHandler}
-              validFunc={validateFields}
-           />
-        </Route>
-        <Route path="/Profile">
-          <MyProfile getConfig={getUserConfig} signOutSession={sessionOut} darkMode={isDarkMode}/>
-        </Route>
-        <Route path="/Product/:id">
-          <Product discount={discountedStateChecker} myProduct={prodFromHome} />
-        </Route>
-        <Route path="/">
-          <Categories /> 
-        </Route>
-        <Route path="/:id" let:params>
-          <HomeSec tag={params.id} discount={discountedStateChecker} ItemsClass={Items} bind:itemSelected={prodFromHome} /> 
-        </Route>
+      <article class="relative">
+        <WishComp discount={discountedStateChecker} bind:checkValue={checkFromNav} />
       </article>
+        <section class="flex py-10 md:gap-8 lg:gap-x-16 flex-grow ">
+          <SideNav bind:checkPlease={checkFromNav} getConfig={getUserConfig} switchMode={enableDark} darkMode={isDarkMode}>
+            <button
+              class={`${btnScrollState ? "SpecialButtons" : "hiddenClass"}`} bind:this={upBtn} on:click={backToTop}>
+              <img
+                class="w-full h-full block"
+                src={svgIcons.upButton}
+                alt="Volver al inicio"
+              />
+            </button>
+          </SideNav>
+          <Route path="/Login">
+            <Login 
+                signInWithGoogle={googleProviderHandler}
+                validFunc={validateFields}
+            />
+          </Route>
+          <Route path="/SignUp">
+            <SignUp 
+                signInWithGoogle={googleProviderHandler}
+                validFunc={validateFields}
+             />
+          </Route>
+          <Route path="/Profile">
+            <MyProfile getConfig={getUserConfig} signOutSession={sessionOut} darkMode={isDarkMode}/>
+          </Route>
+          <Route path="/Product/:id">
+            <Product discount={discountedStateChecker} myProduct={prodFromHome} />
+          </Route>
+          <Route path="/">
+            <HomeSec bind:products={stockProds} discount={discountedStateChecker} ItemsClass={Items} bind:itemSelected={prodFromHome} /> 
+          </Route>
+          <Route path="/Search/:id" let:params>
+            <SearchResult searchProds={stockProds} tag={params.id} bind:itemSelected={prodFromHome}/> 
+          </Route>
+        </section>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">
         <div class="flex flex-col items-center gap-3">
           <h1 class="font-extrabold text-4xl" translate="no">SS Modernity</h1>
