@@ -1,6 +1,7 @@
 <script>
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
+    import { Stock } from "../Stores/stockSearchStore";
     import { navigate } from "svelte-routing"
     import { beforeUpdate } from "svelte"
     import { svgIcons, productImgs } from "../Imports/images";
@@ -8,7 +9,7 @@
     export let ItemsClass
     export let discount
     export let itemSelected
-    export let products = []
+    const products = []
 
     let modernMaleOut = new ItemsClass ("Modern Outfit Male", productImgs.Img1, 55, "M", "Casual")
     let summerWomenOut = new ItemsClass ("Summer Outfit Women", productImgs.Img6, 29.99, "S", "Summer")
@@ -21,6 +22,7 @@
     let chicOut = new ItemsClass ("Fall outfit for a girl", productImgs.Img9, 49.99, "S", "Casual")
 
     products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
+    Stock.add(products)
 
     function displayLargeView(item) {
         itemSelected = [item]

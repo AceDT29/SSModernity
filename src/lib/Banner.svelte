@@ -7,17 +7,17 @@
   export let scrollHandler;
   let currentImage = 0;
   let isScrolling = false
+  let targetScroll = 950
   let imgS = [backgrounds.imagenAni1, backgrounds.imagenAni2, backgrounds.imagenAni3, backgrounds.imagenAni4];
 
-  const navigateTo = () => {
-    const targetScroll = 900
+  const navigateTo = (target, scrollState, route) => {
     const currentScroll = scrollHandler()
-    isScrolling = true 
-    if (isScrolling && targetScroll !== currentScroll) {
-      scrollTo(0, targetScroll)
-      navigate("/SignUp", {replace: true, preserveScroll: true})
+    scrollState = true 
+    if (scrollState && target !== currentScroll) {
+      scrollTo(0, target)
+      navigate(`/${route}`, {replace: true, preserveScroll: true})
     } else {
-      isScrolling = false
+      scrollState = false
     }
   }
 
@@ -91,7 +91,7 @@
             15% discount on our entire catalog, notification of new products in
             stock, and 5 gift coupons!
           </p>
-          <button on:click={navigateTo} class="self-start w-14 h-10 p-1 active:scale-90 transition-all bg-red-400/60 rounded-md" >
+          <button on:click={() => navigateTo(targetScroll, isScrolling, "SignUp" )} class="self-start w-14 h-10 p-1 active:scale-90 transition-all bg-red-400/60 rounded-md" >
             <p class="text-sm text-slate-50">Sign Up</p>
           </button>
         </div>

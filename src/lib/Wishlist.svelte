@@ -15,7 +15,7 @@
 
 {#if checkValue}
 <div class="absolute overflow-auto right-0 border-l border-b rounded-md shadow-md z-20 w-[265px] h-auto md:w-80 lg:w-96">
-    <div class="backdrop-filter backdrop-blur-2xl p-4 shadow-md animFadeLeft animate-duration-300">
+    <div class="backdrop-filter backdrop-blur-2xl p-2 shadow-md lg:p-4 animFadeLeft animate-duration-300">
         <label for="CloseBtn" class="absolute top-2 right-2 w-10 h-10 z-10 p-2 cursor-pointer">
             <input type="checkbox" class="hidden" id="CloseBtn" bind:checked={checkValue}>
             <img class="w-8 h-8 block" src={svgIcons.closeIcon} alt="">
@@ -26,8 +26,8 @@
                 <figure class="w-44 h-32 cursor-pointer hover:scale-110 transition-all">
                     <img class="w-full h-full block rounded-sm object-cover" src={prod.photo} alt="">
                 </figure>
-                <div class="flex-col">
-                    <p class="text-sm md:text-base lg:text-base">{prod.name}</p>
+                <div class="flex flex-col gap-y-1">
+                    <p class="text-sm md:text-base">{prod.name}</p>
                     {#if $User}
                         <h3 class="text-base text-gray-500 lg:text-lg line-through">Before {prod.price}$</h3>
                         <h3 class="text-base lg:text-lg">Now {prod.discountedPrice}$</h3>

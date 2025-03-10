@@ -98,7 +98,7 @@
     return scrollValue;
   }
 
-  function backToTop() {
+  const backToTop = () => {
     const currentValue = getScroll();
     if (currentValue > 0) {
       requestAnimationFrame(backToTop);
@@ -167,7 +167,7 @@
     <main class="">
       <header class="">
         <Banner scrollHandler={getScroll}>
-          <Categories /> 
+          <Categories scrollHandler={getScroll} /> 
         </Banner>
       </header>
       <article class="relative">
@@ -203,10 +203,10 @@
             <Product discount={discountedStateChecker} myProduct={prodFromHome} />
           </Route>
           <Route path="/">
-            <HomeSec bind:products={stockProds} discount={discountedStateChecker} ItemsClass={Items} bind:itemSelected={prodFromHome} /> 
+            <HomeSec discount={discountedStateChecker} ItemsClass={Items} bind:itemSelected={prodFromHome} /> 
           </Route>
           <Route path="/Search/:id" let:params>
-            <SearchResult searchProds={stockProds} tag={params.id} bind:itemSelected={prodFromHome}/> 
+            <SearchResult tag={params.id} bind:itemSelected={prodFromHome}/> 
           </Route>
         </section>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">

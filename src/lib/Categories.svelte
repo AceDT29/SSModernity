@@ -2,15 +2,26 @@
   import { tags } from "../Imports/images";
   import { navigate } from "svelte-routing";
 
-  const navTo = (tag) => {
-    navigate(`/Search/${tag}`, {replace: true, preserveScroll: true})
+  export let scrollHandler;
+  let isScrolling = false
+  let targetScroll = 950
+
+  const navTo = (target, scrollState, tag) => {
+      const currentScroll = scrollHandler()
+      scrollState = true 
+      if (scrollState && target !== currentScroll) {
+        scrollTo(0, target)
+        navigate(`/Search/${tag}`, {replace: true, preserveScroll: true})
+      } else {
+        scrollState = false
+      }
   }
-  
+
 </script>
 
 <div class="LoginSecForm  w-full flex-row justify-center gap-7 flex-wrap  mx-auto my-2">
   <button 
-    on:click={() => navTo("Fit")}
+    on:click={() => navTo(targetScroll, isScrolling, "Fit")}
     class="group CategoriesCont"
     >
     <figure class="w-full h-full group-hover:scale-110 transition duration-300">
@@ -22,7 +33,7 @@
     </div>
   </button>
   <button
-    on:click={() => navTo("Casual")}
+    on:click={() => navTo(targetScroll, isScrolling, "Casual")}
     class="group CategoriesCont"
     >
     <figure class="w-full h-full group-hover:scale-110 transition duration-300">
@@ -34,7 +45,7 @@
     </div>
   </button>
   <button
-    on:click={() => navTo("Summer")}
+    on:click={() => navTo(targetScroll, isScrolling, "Summer")}
     class="group CategoriesCont"
     >
     <figure class="w-full h-full group-hover:scale-110 transition duration-300">
