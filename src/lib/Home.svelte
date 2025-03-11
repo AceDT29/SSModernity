@@ -2,13 +2,12 @@
     import { productPkg } from "../Stores/ProductStore"
     import { User } from "../Stores/UserStore"
     import { Stock } from "../Stores/stockSearchStore";
-    import { navigate } from "svelte-routing"
     import { beforeUpdate } from "svelte"
     import { svgIcons, productImgs } from "../Imports/images";
     
     export let ItemsClass
     export let discount
-    export let itemSelected
+    export let displayProd
     const products = []
 
     let modernMaleOut = new ItemsClass ("Modern Outfit Male", productImgs.Img1, 55, "M", "Casual")
@@ -23,11 +22,6 @@
 
     products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
     Stock.add(products)
-
-    function displayLargeView(item) {
-        itemSelected = [item]
-        navigate(`/Product/${item.name}`, {replace: true, preserveScroll: true})
-    }
    
     beforeUpdate(() => {
         discount(products)
@@ -38,7 +32,7 @@
     <h2 class="text-lg mb-2">Our Products:</h2>
     <div class="HomeDivSet">
     {#each products as prod }
-        <figure class="HomefigSet group animFadeDown" on:dblclick={() => {displayLargeView(prod)}}>
+        <figure class="HomefigSet group animFadeDown" on:dblclick={() => {displayProd(prod)}}>
             <img class="HomeImgSet" src={prod.photo} loading="lazy" alt="">
             <button on:click={() => productPkg.add(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
                 <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? prod.favIcon : prod.unFavIcon} alt="">

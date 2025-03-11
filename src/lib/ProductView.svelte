@@ -1,18 +1,20 @@
 <script>
-    import { afterUpdate, onMount } from "svelte"
+    import { beforeUpdate, onMount } from "svelte"
     import { User } from "../Stores/UserStore"
+    import { Stock } from "../Stores/stockSearchStore";
     import { Link, navigate } from "svelte-routing"
     import { productPkg } from "../Stores/ProductStore"
 
     export let discount
-    export let myProduct 
+    let myProduct = []
+    $: myProduct = $Stock.filteredProducts.length > 0 ? $Stock.filteredProducts : $Stock.allProducts;
 
-    afterUpdate(() => {
+    beforeUpdate(() => {
         discount(myProduct)
     })
 
     onMount(() => {
-        if (!myProduct) {
+        if (myProduct.length == 0) {
             navigate("/", {replace: true, preserveScroll: true})
         }
     })

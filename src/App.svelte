@@ -3,6 +3,7 @@
   import { productPkg } from "./Stores/ProductStore";
   import { Router, Route, navigate } from "svelte-routing";
   import { User } from "./Stores/UserStore";
+  import { Stock } from "./Stores/stockSearchStore";
   import { auth, provider } from "./firebase/firebaseConfig";
   import { signOut, signInWithPopup } from "firebase/auth";
   import { svgIcons } from "./Imports/images";
@@ -25,8 +26,6 @@
   let isDarkMode;
   let upBtn;
   let parsedProducts;
-  let prodFromHome;
-  let stockProds
 
   class Items {
     static userDiscount = 15;
@@ -98,6 +97,37 @@
     return scrollValue;
   }
 
+  const navigateTo = (target, scrollState, tag) => {
+    const currentScroll = getScroll()
+    scrollState = true 
+    if (scrollState && target !== currentScroll) {
+      smoothScrollTo(target, 600)
+      navigate(`${tag}`, {replace: true, preserveScroll: true})
+    } else {
+      scrollState = false
+    }
+  }
+
+  const smoothScrollTo = (target, duration) => {
+    const start = window.scrollY; 
+    const change = target - start; 
+    const startTime = performance.now(); 
+    const animateScroll = (currentTime) => {
+      const elapsedTime = currentTime - startTime; 
+      const progress = Math.min(elapsedTime / duration, 1); 
+      const easeInOutQuad = (t) => {
+          return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      };
+      const position = start + change * easeInOutQuad(progress); 
+      window.scrollTo(0, position); 
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll); 
+      }
+    };
+    requestAnimationFrame(animateScroll); 
+  };
+
+
   const backToTop = () => {
     const currentValue = getScroll();
     if (currentValue > 0) {
@@ -105,6 +135,7 @@
       scrollTo(0, currentValue - currentValue / 10);
     }
   }
+
 
   const validateFields = (inputEmail, inputPass) =>  {
     const patternValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -154,6 +185,11 @@
     })
   }
 
+  const displayLargeView = (item) => {
+      Stock.findProd(item)
+      navigate(`/Product/${item.name}`, {replace: true, preserveScroll: true})
+  }
+
   onMount( async () => {
     await User.currentUser()
     addEventListener("scroll", getScroll);
@@ -166,8 +202,8 @@
     <Route path="*" component={NotFound} />
     <main class="">
       <header class="">
-        <Banner scrollHandler={getScroll}>
-          <Categories scrollHandler={getScroll} /> 
+        <Banner navTo={navigateTo}>
+          <Categories navTo={navigateTo} /> 
         </Banner>
       </header>
       <article class="relative">
@@ -200,13 +236,13 @@
             <MyProfile getConfig={getUserConfig} signOutSession={sessionOut} darkMode={isDarkMode}/>
           </Route>
           <Route path="/Product/:id">
-            <Product discount={discountedStateChecker} myProduct={prodFromHome} />
+            <Product discount={discountedStateChecker} />
           </Route>
           <Route path="/">
-            <HomeSec discount={discountedStateChecker} ItemsClass={Items} bind:itemSelected={prodFromHome} /> 
+            <HomeSec discount={discountedStateChecker} displayProd={displayLargeView} ItemsClass={Items} /> 
           </Route>
           <Route path="/Search/:id" let:params>
-            <SearchResult tag={params.id} bind:itemSelected={prodFromHome}/> 
+            <SearchResult tag={params.id} displayProd={displayLargeView}/> 
           </Route>
         </section>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">
