@@ -28,19 +28,22 @@
         @apply w-full h-full object-cover 
     }
     .SideLiConfig {
-        @apply grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md active:scale-90 transition duration-200
+        @apply grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md active:scale-90 transition duration-200 overflow-hidden
     }
     .SideIconsConfig {
-        @apply block cursor-pointer
+        @apply relative flex cursor-pointer flex-grow-0 
     }
     .SideFigureConfig {
-        @apply block w-10 h-10 p-2 bg-transparent rounded-lg  cursor-pointer lg:w-12 lg:h-12
+        @apply block w-10 h-10 p-2 bg-transparent rounded-lg cursor-pointer lg:w-12 lg:h-12
     }
     .SideArtConfig {
-        @apply overflow-hidden group-hover:block relative
+        @apply hidden group-hover:block col-span-1
     }
     .SideTextConfig {
-        @apply text-center text-sm font-extralight py-3 absolute lg:text-base whitespace-nowrap 
+        @apply text-start text-sm font-extralight mt-3 lg:text-base whitespace-nowrap  
+    }
+    .SideLiConfig:hover .SideTextConfig {
+        @apply block
     }
     .SideRezise {
         @apply fixed 

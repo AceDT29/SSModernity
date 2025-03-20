@@ -4,6 +4,7 @@
     import { User } from "../Stores/UserStore";
     import { productPkg } from "../Stores/ProductStore";
     import { Stock } from "../Stores/stockSearchStore";
+    import { onMount } from "svelte";
 
     export let tag
     export let displayProd
@@ -14,6 +15,11 @@
         navigate("/", {replace: true, preserveScroll: true})
     }
 
+    onMount(() => {
+        if ($Stock.filteredProducts.length == 0) {
+            navigate("/", {replace: true, preserveScroll: true})
+        }
+    })
 </script>
 
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:w-[80%] transition-all drop-shadow-lg shadow-lg">

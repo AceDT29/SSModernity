@@ -34,12 +34,12 @@
                     alt="Light/Dark"
                     />
                 </figure>
+                <article class="SideArtConfig">
+                    <p class="SideTextConfig whitespace-nowrap" id="AccText">
+                        {darkMode ? "Light Mode" : "Dark Mode"}
+                    </p>
+                </article>
             </label>
-            <article class="SideArtConfig">
-                <p class="SideTextConfig whitespace-nowrap" id="AccText">
-                    {darkMode ? "Light Mode" : "Dark Mode"}
-                </p>
-            </article>
         </li>
         <Link to="/" preserveScroll>
             <li class="SideLiConfig">
@@ -86,10 +86,10 @@
                     alt=""
                     />
                 </figure>
+                <article class="SideArtConfig">
+                    <p class="SideTextConfig" translate="no">Wish list</p>
+                </article>
             </label>
-            <article class="SideArtConfig">
-                <p class="SideTextConfig" translate="no">Wish list</p>
-            </article>
         </li>
         {#if $User}
             <Link to="/Profile" preserveScroll>
