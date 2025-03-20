@@ -27,11 +27,13 @@
                     id="switch"
                     bind:checked={darkMode}
                 />
-                <img
+                <figure class="SideFigureConfig">
+                    <img
                     class="w-full h-full"
                     src={darkMode ? svgIcons.moonIcon : svgIcons.sunIcon}
                     alt="Light/Dark"
-                />
+                    />
+                </figure>
             </label>
             <article class="SideArtConfig">
                 <p class="SideTextConfig whitespace-nowrap" id="AccText">
@@ -42,11 +44,13 @@
         <Link to="/" preserveScroll>
             <li class="SideLiConfig">
                 <a class="SideIconsConfig" href=".">
-                    <img
+                    <figure class="SideFigureConfig">
+                        <img
                         class="w-full h-full"
                         src={darkMode ? svgIcons.homeDarkIcon : svgIcons.homeLightIcon}
                         alt=""
-                    />
+                        />
+                    </figure>
                 </a>
                 <article class="SideArtConfig">
                     <p class="SideTextConfig">Home</p>
@@ -55,11 +59,13 @@
         </Link>
         <li class="SideLiConfig">
             <a class="SideIconsConfig" href=".">
-                <img
+                <figure class="SideFigureConfig">
+                    <img
                     class="w-full h-full"
                     src={darkMode ? svgIcons.messengerDarkIcon : svgIcons.messengerLightIcon}
                     alt=""
                 />
+                </figure>
             </a>
             <article class="SideArtConfig">
                 <p class="SideTextConfig">Messages</p>
@@ -73,49 +79,52 @@
                     id="checkWish"
                     bind:checked={checkPlease}
                 />
-                <img
+                <figure class="SideFigureConfig">
+                    <img
                     class="w-full h-full"
                     src={darkMode ? svgIcons.wishListDarkIcon : svgIcons.wishListLightIcon}
                     alt=""
-                />
+                    />
+                </figure>
             </label>
             <article class="SideArtConfig">
                 <p class="SideTextConfig" translate="no">Wish list</p>
             </article>
         </li>
-        <li class="SideLiConfig">
-            {#if $User}
-                <figure
-                    class="w-12 h-12 p-2 rounded-full  hover:scale-105 transition duration-200 lg:w-[52px] lg:h-[52px] "
-                >
-                    <Link to="/Profile" preserveScroll>
-                        <img
-                            class="block w-full h-full rounded-full border border-slate-400"
-                            src={$User.photoURL ? $User.photoURL : avatars.aceAvatar}
-                            alt=""
-                        />
-                    </Link>
-                </figure>
-                <article class="SideArtConfig">
-                    <p class=" SideTextConfig text-[12px] lg:text-base">My Profile</p>
-                </article>
-            {:else}
-                <figure
-                    class="w-10 h-10 p-2 rounded-full ml-1 hover:scale-105 transition duration-200 lg:w-12 lg:h-12"
-                >
-                    <Link to="/Login" preserveScroll>
+        {#if $User}
+            <Link to="/Profile" preserveScroll>
+                <li class="SideLiConfig">
+                
+                    <figure class="w-12 h-12 p-2 rounded-full hover:scale-105 transition duration-200 lg:w-[52px] lg:h-[52px] ">
+                    
+                            <img
+                                class="block w-full h-full rounded-full border border-slate-400"
+                                src={$User.photoURL ? $User.photoURL : avatars.aceAvatar}
+                                alt=""
+                            />
+                    
+                    </figure>
+                    <article class="SideArtConfig">
+                        <p class=" SideTextConfig text-[12px] lg:text-base">My Profile</p>
+                    </article>
+                </li>
+            </Link>
+        {:else}
+            <Link to="/Login" preserveScroll>
+            <li class="SideLiConfig">
+                <figure class="w-10 h-10 p-2 rounded-full ml-1 hover:scale-105 transition duration-200 lg:w-12 lg:h-12">
                         <img
                             class="block w-full h-full"
                             src={darkMode ? svgIcons.loginDark : svgIcons.loginSun}
                             alt=""
                         />
-                    </Link>
                 </figure>
                 <article class="SideArtConfig">
                     <p class="SideTextConfig ">Log In</p>
                 </article>
-            {/if}
-        </li>
+            </li>
+            </Link>
+         {/if}
     </ul>
     <slot />
 </div>

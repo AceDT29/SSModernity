@@ -28,10 +28,13 @@
         @apply w-full h-full object-cover 
     }
     .SideLiConfig {
-        @apply grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md
+        @apply grid grid-cols-[max-content,_0fr] group-hover:grid-cols-[max-content,_2fr] rounded-md active:scale-90 transition duration-200
     }
     .SideIconsConfig {
-        @apply block w-10 h-10 p-2 bg-transparent rounded-lg active:scale-90 transition duration-200 cursor-pointer lg:w-12 lg:h-12
+        @apply block cursor-pointer
+    }
+    .SideFigureConfig {
+        @apply block w-10 h-10 p-2 bg-transparent rounded-lg  cursor-pointer lg:w-12 lg:h-12
     }
     .SideArtConfig {
         @apply overflow-hidden group-hover:block relative
