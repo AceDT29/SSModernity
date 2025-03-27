@@ -4,7 +4,7 @@
 
 @layer base {
     body {
-       @apply font-lobster transition duration-150
+       @apply font-Lexend  transition duration-150
     }
     body.darkMode {
         @apply bg-slate-900 text-white 

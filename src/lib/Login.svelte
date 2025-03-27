@@ -4,7 +4,7 @@
     import { beforeUpdate } from "svelte"
     import { auth } from "../firebase/firebaseConfig"
     import { signInWithEmailAndPassword } from "firebase/auth"
-    import { svgIcons } from "../Imports/images"
+    import { svgIcons } from "../Imports/images.d.js"
     import Advisor from "./Advisor.svelte"
     
     export let signInWithGoogle
@@ -71,7 +71,7 @@
 
 <Advisor bind:displayExcep={showExcep} exception={excepResult} />
 <section class="LoginSecForm">
-    <div class="flex animFadeDown animate-delay-100 gap-x-4">
+    <div class="flex animFadeDown animate-delay-100 gap-x-4 font-lobster">
         <div class="flex group flex-col cursor-pointer">
             <h2 class="text-2xl">SignIn</h2>
             <span class="w-full h-1 rounded-md bg-blue-700/70 shadow-lg animFadeLeft"></span> 
@@ -96,12 +96,12 @@
                 <img class="globalImgRules w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
             </button>
         </label>
-        <button class="w-24 h-10 p-2 rounded-lg bg-gradient-to-r text-white self-center from-sky-700 to-blue-600 animFadeLeft animate-delay-500" type="submit">
+        <button class="w-24 h-10 p-2 rounded-lg bg-gradient-to-r text-white self-center from-sky-700 to-blue-600 animFadeLeft animate-delay-500 font-lobster" type="submit">
             Log in
         </button>
         <hr class="drop-shadow-lg animFadeRight animate-delay-700 ">
     </form>
-    <div class="relative flex flex-col items-start gap-y-2 right-8 animFadeUp animate-delay-1000">
+    <div class="relative flex flex-col items-start gap-y-2 right-8 animFadeUp animate-delay-1000 font-lobster">
         <h3 class="text-lg dark:text-gray-400">Or SignIn with Google:</h3>
         <button class="w-10 h-10 p-2 bg-white active:scale-90 rounded-full transition-all" on:click={signInWithGoogle}>
             <img class="block w-full h-full" src={svgIcons.googleBtn} alt="">

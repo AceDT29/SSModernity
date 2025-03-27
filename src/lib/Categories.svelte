@@ -1,5 +1,5 @@
 <script>
-  import { tags } from "../Imports/images";
+  import { tags } from "../Imports/images.d";
 
   export let navTo;
   let isScrolling = false
@@ -7,7 +7,7 @@
 
 </script>
 
-<div class="LoginSecForm  w-full flex-row justify-center gap-7 flex-wrap  mx-auto my-2">
+<div class="LoginSecForm  w-full flex-row justify-center gap-7 flex-wrap font-lobster mx-auto my-2">
   <button 
     on:click={() => navTo(targetScroll, isScrolling, "/Search/Fit")}
     class="group CategoriesCont"

@@ -1,5 +1,5 @@
 <script>
-    import { svgIcons } from "../Imports/images";
+    import { svgIcons } from "../Imports/images.d.js";
     import { navigate } from "svelte-routing";
     import { User } from "../Stores/UserStore";
     import { productPkg } from "../Stores/ProductStore";
@@ -23,7 +23,7 @@
 </script>
 
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
-    <h2 class="text-lg mb-2">{tag} catalog:</h2>
+    <h2 class="text-lg font-lobster mb-2">{tag} catalog:</h2>
     <div class="HomeDivSet">
     {#each $Stock.filteredProducts as prod }
         <figure class="HomefigSet group animFadeDown" on:dblclick={() => {displayProd(prod)}}>

@@ -1,7 +1,7 @@
 <script>
   import { User } from "../Stores/UserStore";
   import { onMount } from "svelte";
-  import { backgrounds } from "../Imports/images";
+  import { backgrounds } from "../Imports/images.d.js";
 
   export let navTo;
   let currentImage = 0;
@@ -24,7 +24,7 @@
 <nav
   class="sticky inset-0 z-30 w-full h-20 px-5 py-2 backdrop-filter backdrop-blur-sm border-b drop-shadow-2xl shadow-md md:py-5 md:h-28"
 >
-  <div class="flex flex-col gap-2 items-center">
+  <div class="flex flex-col gap-2 items-center font-lobster">
     <h1 class="font-extrabold text-2xl md:text-4xl" translate="no">
       SS Modernity
     </h1>
@@ -33,7 +33,7 @@
 </nav>
 <figure class="BannerFigRules h-64 shadow-md md:hidden">
   <div
-    class="relative p-10 z-10 flex gap-2 flex-col justify-center items-center text-center"
+    class="relative p-10 z-10 flex gap-2 flex-col justify-center items-center text-center font-lobster"
   >
     <p class="text-lg text-slate-50 drop-shadow-2xl">
       The best quality at the best price.
@@ -51,15 +51,15 @@
       <div
         class="w-[90%] h-[90%] flex flex-col gap-3 items-center rounded-sm mt-2 mx-auto p-4 shadow-lg bg-slate-400/60"
       >
-        <h4 class="self-start text-2xl">Join the SS club</h4>
-        <p class="">
+        <h4 class="self-start font-lobster text-2xl">Join the SS club</h4>
+        <p class="font-lexend">
           15% discount on our entire catalog, notification of new products in
           stock, and 5 gift coupons!
         </p>
         <button
           class="self-start w-16 h-10 active:scale-90 transition-all bg-red-400/60 rounded-md"
         >
-          <p class="text-sm text-slate-50">Sign Up</p>
+          <p class="text-sm font-lobster text-slate-50">Sign Up</p>
         </button>
       </div>
     </figure>
@@ -71,9 +71,9 @@
       <div
         class="hidden left-[70%] z-10 w-96 h-48 p-3 lg:absolute lg:block lg:top-[60%] rounded-md transition-all backdrop-filter backdrop-blur-lg border animFadeLeft animate-delay-1000 animate-ease-out"
       >
-        <div class="flex flex-col items-start gap-y-3">
+        <div class="flex flex-col items-start gap-y-3 font-lobster">
           <h4 class="self-start text-2xl">Join the SS club</h4>
-          <p class="text-sm">
+          <p class="text-sm font-Lexend">
             15% discount on our entire catalog, notification of new products in
             stock, and 5 gift coupons!
           </p>
@@ -97,7 +97,7 @@
 </section>
 <figure class="BannerFigRules h-80 hidden mt-6 lg:block">
   <div class="relative py-3 z-10 flex-col justify-center items-center text-center">
-    <h2 class="text-2xl text-slate-600 text-center">Looking for a specific style? Take a look at the categories!</h2>
+    <h2 class="text-2xl font-lobster text-slate-600 text-center">Looking for a specific style? Take a look at the categories!</h2>
   </div>
   <slot />
   <img class="BannerImgRules object-cover absolute top-0" src={backgrounds.bigSale} alt="" />

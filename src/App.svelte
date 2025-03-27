@@ -6,7 +6,7 @@
   import { Stock } from "./Stores/stockSearchStore";
   import { auth, provider } from "./firebase/firebaseConfig";
   import { signOut, signInWithPopup } from "firebase/auth";
-  import { svgIcons } from "./Imports/images";
+  import { svgIcons } from "./Imports/images.d.js";
   import SideNav from "./lib/SideBar.svelte";
   import Banner from "./lib/Banner.svelte";
   import HomeSec from "./lib/Home.svelte";
@@ -30,7 +30,7 @@
   class Items {
     static userDiscount = 15;
 
-    constructor(name, photo, price, size, tag) {
+    constructor(name, photo, price, size, tag, colors) {
       this.name = name;
       this.photo = photo;
       this.price = price;
@@ -40,6 +40,7 @@
       this.discountedPrice = price;
       this.favIcon = svgIcons.fav;
       this.unFavIcon = svgIcons.unFav;
+      this.colors = colors
     }
 
     static setProductDiscount(item) {

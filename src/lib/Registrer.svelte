@@ -4,7 +4,7 @@
     import { onMount } from "svelte"
     import { auth } from "../firebase/firebaseConfig"
     import { createUserWithEmailAndPassword } from "firebase/auth"
-    import { svgIcons } from "../Imports/images";
+    import { svgIcons } from "../Imports/images.d";
     import Advisor from "./Advisor.svelte"
 
     export let signInWithGoogle
@@ -90,7 +90,7 @@
 
 <Advisor bind:displayExcep={showExcep} exception={excepResult} />
 <section class="LoginSecForm justify-around">
-    <div class="flex animFadeDown gap-x-4">
+    <div class="flex animFadeDown gap-x-4 font-lobster">
         <div class="flex group flex-col cursor-pointer">
             <h2 class="text-2xl">SignUp</h2>
             <span class="w-full h-1 rounded-md bg-blue-700/70 shadow-lg animFadeLeft"></span>
@@ -122,12 +122,12 @@
                 <img class="globalImgRules w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
             </button>
         </label>
-        <button class="text-sm self-center animFadeRight animate-delay-700 p-2 w-28 h-10 rounded-xl active:scale-90 bg-gradient-to-r from-red-500 to-orange-500 cursor-pointer transition-all" type="submit">
+        <button class="text-sm self-center animFadeRight animate-delay-700 p-2 w-28 h-10 rounded-xl active:scale-90 bg-gradient-to-r from-red-500 to-orange-500 cursor-pointer transition-all font-lobster" type="submit">
             Done
         </button>
         <hr class="min-w-[50%] self-center drop-shadow-lg animFadeRight animate-delay-700 lg:w-[90%]">
     </form>
-    <div class="relative flex flex-col items-center flex-wrap gap-y-2 right-8 animFadeUp animate-delay-1000 ml-8 lg:items-start">
+    <div class="relative flex flex-col items-center flex-wrap gap-y-2 right-8 animFadeUp animate-delay-1000 ml-8 lg:items-start font-lobster">
         <h3 class="text-lg text-center dark:text-gray-400">Or create account with Google(recomended):</h3>
         <button class="w-10 ml-12 self-start h-10 p-2 bg-white active:scale-90 rounded-full transition-all md:ml-0" on:click={signInWithGoogle}>
             <img class="block w-full h-full" src={svgIcons.googleBtn} alt="">

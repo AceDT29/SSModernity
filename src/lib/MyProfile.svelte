@@ -2,7 +2,7 @@
     import { User } from "../Stores/UserStore"
     import { onMount } from "svelte"
     import { navigate } from "svelte-routing"
-    import { svgIcons, avatars } from "../Imports/images";
+    import { svgIcons, avatars } from "../Imports/images.d.js";
 
     export let getConfig
     export let signOutSession
@@ -22,7 +22,7 @@
         <figure class="z-10 w-36 h-36 rounded-full border-2 border-gray-400 animFadeRight">
             <img class="globalImgRules rounded-full" src={$User.photoURL ? $User.photoURL : avatars.aceAvatar} alt="">
         </figure>
-        <h2 class="animFadeLeft">Bienvenido a tu perfil {$User.displayName}</h2>
+        <h2 class="animFadeLeft text-lg font-light font-lobster">Bienvenido a tu perfil {$User.displayName}</h2>
         <div class="min-w-60 w-[45%] h-14 p-1 hover:bg-slate-300 transition-all hover:h-32 rounded-md cursor-pointer shadow-md animFadeDown overflow-hidden">
             <div class="flex justify-start items-center gap-x-2">
                 <figure class="w-10 h-10 p-2 self-start">

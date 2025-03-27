@@ -2,7 +2,7 @@
     import { Link } from "svelte-routing";
     import { User } from "../Stores/UserStore";
     import { beforeUpdate } from "svelte";
-    import { svgIcons, avatars } from "../Imports/images";
+    import { svgIcons, avatars } from "../Imports/images.d.js";
     
     export let checkPlease;
     export let getConfig
@@ -16,7 +16,7 @@
 </script>
 
 <div
-    class="sticky inset-0 top-28 z-40 w-16 h-72 p-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-36 drop-shadow-2xl shadow-lg md:sticky lg:w-20 lg:h-[340px] animFadeRight animate-delay-200"
+    class="sticky inset-0 top-28 z-40 w-16 h-72 p-2 border-r bg-transparent rounded-lg cursor-pointer transition-all duration-200 group hover:w-36 drop-shadow-2xl shadow-lg md:sticky lg:w-20 lg:h-[340px] animFadeRight animate-delay-200 font-lobster"
 >
     <ul class="flex flex-col p-0 space-y-4 ml-1 mr-1">
         <li class="SideLiConfig">

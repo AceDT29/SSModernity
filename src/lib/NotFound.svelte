@@ -1,7 +1,7 @@
 <script>
     import { navigate } from "svelte-routing"
     import { onMount } from "svelte"
-    import { svgIcons } from "../Imports/images";
+    import { svgIcons } from "../Imports/images.d.js";
 
     function backToHome() {
         setTimeout(() => {
@@ -19,7 +19,7 @@
         <figure class="w-72 h-72">
             <img class="globalImgRules" src={svgIcons.ghost} alt="">
         </figure>
-        <h2 class="text-black text-3xl font-bold">Ups...</h2>
+        <h2 class="text-black text-3xl font-lobster font-bold">Ups...</h2>
         <h3 class="text-black text-lg">Parece que lo que buscas no esta aqui</h3>
         <p class="text-black">Volviendo a Home</p>
         <div class="animBounce flex justify-around w-24 mt-4">
@@ -29,6 +29,6 @@
         </div>
     </div>
     <div class="relative self-start px-2">
-        <h1 class="font-extrabold text-black text-2xl md:text-4xl">SS Modernity</h1>
+        <h1 class="font-extrabold text-black text-2xl font-lobster md:text-4xl">SS Modernity</h1>
     </div>
 </section>

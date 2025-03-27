@@ -5,7 +5,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        "lobster": ["'Lobster'", "sans-serif"]
+        "lobster": ["'Lobster'", "sans-serif"],
+        'Lexend': ['Lexend Deca', 'sans-serif']
       }
     },
   },
@@ -13,4 +14,3 @@ export default {
     require('tailwindcss-animated')
   ],
 }
-

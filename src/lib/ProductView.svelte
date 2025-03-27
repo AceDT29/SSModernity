@@ -31,7 +31,9 @@
             <img class="w-[90%] h-[90%]" src={$productPkg.includes(myProduct) ? prod.favIcon : prod.unFavIcon} alt="">
         </button>
         <div class="basis-[40%] flex flex-col gap-y-5">
-            <h2 class="text-lg">{prod.name}</h2>
+            <h2 class="text-2xl">{prod.name}</h2>
+            <p class="text-base">Size: {prod.size}</p>
+            <p>Categorie: {prod.tag}</p>
         {#if $User}
             <div class="w-12 h-10 p-2 rounded-2xl bg-gradient-to-r from-red-500/60 to-orange-500/60 cursor-pointer lg:w-16 lg:h-12">
                 <h3 class="text-lg md:text-2xl">${prod.discountedPrice}</h3>
