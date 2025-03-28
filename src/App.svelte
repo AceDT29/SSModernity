@@ -68,7 +68,7 @@
     }
   }
 
-   $: localStorage.setItem("products", JSON.stringify($productPkg));
+  $: localStorage.setItem("products", JSON.stringify($productPkg));
 
   function discountedStateChecker(arr){
     if($User) {
@@ -237,7 +237,7 @@
             <MyProfile getConfig={getUserConfig} signOutSession={sessionOut} darkMode={isDarkMode}/>
           </Route>
           <Route path="/Product/:id">
-            <Product discount={discountedStateChecker} />
+            <Product discount={discountedStateChecker} explorerProds={displayLargeView}/>
           </Route>
           <Route path="/">
             <HomeSec discount={discountedStateChecker} displayProd={displayLargeView} ItemsClass={Items} /> 
@@ -247,7 +247,7 @@
           </Route>
         </section>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">
-        <div class="flex flex-col items-center gap-3">
+        <div class="flex flex-col items-center gap-3 font-lobster">
           <h1 class="font-extrabold text-4xl" translate="no">SS Modernity</h1>
           <p class="text-sm" translate="no">Your way, your style</p>
         </div>

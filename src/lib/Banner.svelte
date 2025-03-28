@@ -24,7 +24,7 @@
 <nav
   class="sticky inset-0 z-30 w-full h-20 px-5 py-2 backdrop-filter backdrop-blur-sm border-b drop-shadow-2xl shadow-md md:py-5 md:h-28"
 >
-  <div class="flex flex-col gap-2 items-center font-lobster">
+  <div class="flex flex-col gap-2 items-center font-lobster textShadow">
     <h1 class="font-extrabold text-2xl md:text-4xl" translate="no">
       SS Modernity
     </h1>
@@ -71,7 +71,7 @@
       <div
         class="hidden left-[70%] z-10 w-96 h-48 p-3 lg:absolute lg:block lg:top-[60%] rounded-md transition-all backdrop-filter backdrop-blur-lg border animFadeLeft animate-delay-1000 animate-ease-out"
       >
-        <div class="flex flex-col items-start gap-y-3 font-lobster">
+        <div class="flex flex-col items-start gap-y-3 font-lobster textShadow">
           <h4 class="self-start text-2xl">Join the SS club</h4>
           <p class="text-sm font-Lexend">
             15% discount on our entire catalog, notification of new products in

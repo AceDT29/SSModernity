@@ -17,7 +17,7 @@
     </figure>
     <div
       class="CategoriesHiddenInfo">
-      <p class="text-lg text-slate-200 lg:text-2xl">Fit</p>
+      <p class="text-lg text-slate-200 textShadow lg:text-2xl ">Fit</p>
     </div>
   </button>
   <button
@@ -29,7 +29,7 @@
     </figure>
     <div
       class="CategoriesHiddenInfo">
-      <p class="text-lg text-slate-200 lg:text-2xl">Casual</p>
+      <p class="text-lg text-slate-200 textShadow lg:text-2xl ">Casual</p>
     </div>
   </button>
   <button
@@ -41,7 +41,7 @@
     </figure>
     <div
       class="CategoriesHiddenInfo">
-      <p class="text-lg text-slate-800 lg:text-2xl">Summer</p>
+      <p class="text-lg text-slate-800 textShadow lg:text-2xl">Summer</p>
     </div>
   </button>
 </div>

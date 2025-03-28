@@ -42,12 +42,12 @@
                 <img class={$User ? 'globalImgRules' : 'hidden'} src={svgIcons.offSale} alt="">
             </figure>
             <div class="HomeHiddenInfo group-hover:opacity-100">
-                <h2 class="text-base">{prod.name}</h2>
-                <p class="text-sm">Size: {prod.size}</p>
+                <h2 class="text-sm font-light md:text-base md:font-normal">{prod.name}</h2>
+                <p class="text-sm font-light md:text-base md:font-normal">Size: {prod.size}</p>
             {#if $User}
                 <div class="flex gap-x-2 lg:gap-x-4">
-                    <h3 class="text-base line-through whitespace-nowrap lg:text-lg">Before ${prod.price}</h3>
-                    <h3 class="text-base lg:text-lg whitespace-nowrap text-red-500/85">Now ${prod.discountedPrice}</h3>
+                    <h3 class="text-sm line-through whitespace-nowrap lg:text-lg">Before ${prod.price}</h3>
+                    <h3 class="text-sm whitespace-nowrap textShadow text-red-500/85 lg:text-lg ">Now ${prod.discountedPrice}</h3>
                 </div>
             {:else}
                 <div>
