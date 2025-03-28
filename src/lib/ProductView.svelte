@@ -57,10 +57,10 @@
             <h2 class="text-lg font-lobster textShadow my-4 lg:text-2xl">Explore more options:</h2>
         </div>
         <section class="w-[80%] mt-2 rounded-lg p-2 shadow-md">
-            <div class="flex overflow-x-auto w-full h-full justify-around"> <!-- Cambia h-auto a h-52 o cualquier altura fija -->
+            <div class="flex overflow-x-auto w-full h-full justify-around"> 
                 {#each interestedProds as item}
                     <button on:click={() => explorerProds(item)} class="w-96 h-auto min-h-52 flex flex-col items-start gap-2 cursor-pointer group">
-                        <figure class="w-64 h-52 p-2 group-hover:scale-105 group-active:scale-90 transition-all">
+                        <figure class="w-44 h-36  p-2 group-hover:scale-110 group-active:scale-90 transition-all md:w-64 md:h-52">
                             <img class="w-full h-full object-cover rounded-md" src={item.photo} alt={item.name}>
                         </figure>
                         <p class="text-center text-sm font-light ml-1">{item.name}</p>
