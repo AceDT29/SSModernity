@@ -1,14 +1,17 @@
 <script>
-    import { User } from "../Stores/UserStore"
-    import { navigate, Link } from "svelte-routing"
+    import { Link } from "svelte-routing"
     import { onMount } from "svelte"
-    import { auth } from "../firebase/firebaseConfig"
-    import { createUserWithEmailAndPassword } from "firebase/auth"
     import { svgIcons } from "../Imports/images.d";
     import Advisor from "./Advisor.svelte"
 
+    export let user
+    export let auth
+    export let createUser
+    export let newUser
     export let signInWithGoogle
     export let validFunc
+    export let navTo
+    
     let isVisible = false
     let email = ""
     let password = ""
@@ -27,10 +30,10 @@
             return
         } else {
             try {
-                const registrerRequest = await createUserWithEmailAndPassword(auth, email, password)
+                const registrerRequest = await createUser(auth, email, password)
                 const newRegistrer = registrerRequest.user
-                User.addUser(newRegistrer)
-                navigate("/Profile", {replace: true, preserveScroll: true})
+                newUser(newRegistrer)
+                navTo("/Profile")
             } catch (error) {
                 errorHandler(error.code)
             } 
@@ -81,8 +84,8 @@
     }
 
     onMount(() =>{
-        if($User) {
-            navigate("/", { replace: true, preserveScroll: true })
+        if(user) {
+            navTo("/")
         }
     })
 

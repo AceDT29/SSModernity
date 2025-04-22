@@ -1,12 +1,12 @@
 <script>
-    import { productPkg } from "../Stores/ProductStore"
-    import { User } from "../Stores/UserStore"
-    import { Stock } from "../Stores/stockSearchStore";
     import { beforeUpdate } from "svelte"
     import { svgIcons, productImgs } from "../Imports/images.d.js";
     import { colorsPalette } from "../Imports/Palette.d.js";
-    
+    import { productPkg } from "../Stores/ProductStore.js";
+
+    export let user
     export let ItemsClass
+    export let addNewStock
     export let discount
     export let displayProd
     const products = []
@@ -22,29 +22,31 @@
     let chicOut = new ItemsClass ("Fall outfit for a girl", productImgs.Img9, 49.99, "S", "Casual", colorsPalette.chicOut)
 
     products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
-    Stock.add(products)
+    addNewStock(products)
    
     beforeUpdate(() => {
-        discount(products)
+        if (user) {
+            discount(products)
+        }
     })
 </script>
 
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
     <h2 class="text-lg font-lobster mb-2">Our Products:</h2>
     <div class="HomeDivSet">
-    {#each products as prod }
+    {#each products as prod (prod.name)}
         <figure class="HomefigSet group animFadeDown" on:dblclick={() => {displayProd(prod)}}>
             <img class="HomeImgSet" src={prod.photo} loading="lazy" alt="">
             <button on:click={() => productPkg.add(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
                 <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? prod.favIcon : prod.unFavIcon} alt="">
             </button>
             <figure class="HomeHiddenFlag">
-                <img class={$User ? 'globalImgRules' : 'hidden'} src={svgIcons.offSale} alt="">
+                <img class={user ? 'globalImgRules' : 'hidden'} src={svgIcons.offSale} alt="">
             </figure>
             <div class="HomeHiddenInfo group-hover:opacity-100">
                 <h2 class="text-sm font-light md:text-base md:font-normal">{prod.name}</h2>
                 <p class="text-sm font-light md:text-base md:font-normal">Size: {prod.size}</p>
-            {#if $User}
+            {#if user}
                 <div class="flex gap-x-2 lg:gap-x-4">
                     <h3 class="text-sm line-through whitespace-nowrap lg:text-lg">Before ${prod.price}</h3>
                     <h3 class="text-sm whitespace-nowrap textShadow text-red-500/85 lg:text-lg ">Now ${prod.discountedPrice}</h3>

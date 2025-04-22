@@ -1,11 +1,11 @@
 <script>
   import { onMount } from "svelte";
   import { productPkg } from "./Stores/ProductStore";
-  import { Router, Route, navigate } from "svelte-routing";
   import { User } from "./Stores/UserStore";
   import { Stock } from "./Stores/stockSearchStore";
   import { auth, provider } from "./firebase/firebaseConfig";
-  import { signOut, signInWithPopup } from "firebase/auth";
+  import { signOut, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+  import { Router, Route, navigate } from "svelte-routing";
   import { svgIcons } from "./Imports/images.d.js";
   import SideNav from "./lib/SideBar.svelte";
   import Banner from "./lib/Banner.svelte";
@@ -98,7 +98,7 @@
     return scrollValue;
   }
 
-  const navigateTo = (target, scrollState, tag) => {
+  const navWithScroll = (target, scrollState, tag) => {
     const currentScroll = getScroll()
     scrollState = true 
     if (scrollState && target !== currentScroll) {
@@ -117,7 +117,7 @@
       const elapsedTime = currentTime - startTime; 
       const progress = Math.min(elapsedTime / duration, 1); 
       const easeInOutQuad = (t) => {
-          return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
       };
       const position = start + change * easeInOutQuad(progress); 
       window.scrollTo(0, position); 
@@ -128,13 +128,16 @@
     requestAnimationFrame(animateScroll); 
   };
 
-
   const backToTop = () => {
     const currentValue = getScroll();
     if (currentValue > 0) {
       requestAnimationFrame(backToTop);
       scrollTo(0, currentValue - currentValue / 10);
     }
+  }
+
+  const handleNavi = (target) => {
+    navigate(`${target}`, {replace: true, preserveScroll: true})
   }
 
 
@@ -200,18 +203,33 @@
 
 <body class="relative">
   <Router {url}>
-    <Route path="*" component={NotFound} />
+    <Route path="*">
+      <NotFound navTo={handleNavi}/>
+    </Route>
     <main class="">
       <header class="">
-        <Banner navTo={navigateTo}>
-          <Categories navTo={navigateTo} /> 
+        <Banner navTo={navWithScroll}>
+          <Categories navTo={navWithScroll} /> 
         </Banner>
       </header>
       <article class="relative">
-        <WishComp discount={discountedStateChecker} bind:checkValue={checkFromNav} />
+        <WishComp 
+          user={$User} 
+          product={$productPkg}
+          bind:checkValue={checkFromNav}
+          onDelete={productPkg.delete}
+          discount={discountedStateChecker} 
+          prodView={displayLargeView} 
+        />
       </article>
         <section class="flex py-10 md:gap-8 lg:gap-x-16 flex-grow ">
-          <SideNav bind:checkPlease={checkFromNav} getConfig={getUserConfig} switchMode={enableDark} darkMode={isDarkMode}>
+          <SideNav 
+            user={$User}
+            bind:checkPlease={checkFromNav}
+            getConfig={getUserConfig}
+            switchMode={enableDark} 
+            darkMode={isDarkMode}
+            >
             <button
               class={`${btnScrollState ? "SpecialButtons" : "hiddenClass"}`} bind:this={upBtn} on:click={backToTop}>
               <img
@@ -223,27 +241,67 @@
           </SideNav>
           <Route path="/Login">
             <Login 
+                user={$User}
+                auth={auth}
+                signInUser={signInWithEmailAndPassword}
+                getUser={User.addUser}
                 signInWithGoogle={googleProviderHandler}
                 validFunc={validateFields}
+                navTo={handleNavi}
             />
           </Route>
           <Route path="/SignUp">
             <SignUp 
+                user={$User}
+                auth={auth}
+                createUser={createUserWithEmailAndPassword}
+                newUser={User.addUser}
                 signInWithGoogle={googleProviderHandler}
                 validFunc={validateFields}
+                navTo={handleNavi}
              />
           </Route>
           <Route path="/Profile">
-            <MyProfile getConfig={getUserConfig} signOutSession={sessionOut} darkMode={isDarkMode}/>
+            <MyProfile 
+                user={$User}
+                darkMode={isDarkMode}
+                currentUserState={User.currentUser}
+                getConfig={getUserConfig} 
+                signOutSession={sessionOut} 
+                navTo={handleNavi}
+              />
           </Route>
           <Route path="/Product/:id">
-            <Product discount={discountedStateChecker} explorerProds={displayLargeView}/>
+            <Product 
+                allProds={$Stock.allProducts}
+                filterProds={$Stock.filteredProducts}
+                user={$User}
+                onUpdate={productPkg.add}
+                discount={discountedStateChecker} 
+                explorerProds={displayLargeView}
+                navTo={handleNavi}
+            />
           </Route>
           <Route path="/">
-            <HomeSec discount={discountedStateChecker} displayProd={displayLargeView} ItemsClass={Items} /> 
+            <HomeSec 
+                user={$User}
+                addNewStock={Stock.add}
+                discount={discountedStateChecker} 
+                displayProd={displayLargeView} 
+                ItemsClass={Items} 
+            /> 
           </Route>
           <Route path="/Search/:id" let:params>
-            <SearchResult tag={params.id} displayProd={displayLargeView}/> 
+            <SearchResult 
+                filterProds={$Stock.filteredProducts}
+                user={$User}
+                prodWish={$productPkg}
+                tag={params.id}
+                search={Stock.search}
+                addProdWish={productPkg.add}
+                displayProd={displayLargeView}
+                navTo={handleNavi}
+            /> 
           </Route>
         </section>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">

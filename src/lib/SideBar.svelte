@@ -1,9 +1,9 @@
 <script>
     import { Link } from "svelte-routing";
-    import { User } from "../Stores/UserStore";
     import { beforeUpdate } from "svelte";
     import { svgIcons, avatars } from "../Imports/images.d.js";
     
+    export let user
     export let checkPlease;
     export let getConfig
     export let switchMode
@@ -91,18 +91,15 @@
                 </article>
             </label>
         </li>
-        {#if $User}
+        {#if user}
             <Link to="/Profile" preserveScroll>
                 <li class="SideLiConfig">
-                
                     <figure class="w-12 h-12 p-2 rounded-full hover:scale-105 transition duration-200 lg:w-[52px] lg:h-[52px] ">
-                    
                             <img
                                 class="block w-full h-full rounded-full border border-slate-400"
-                                src={$User.photoURL ? $User.photoURL : avatars.aceAvatar}
+                                src={user && user.photoURL ? user.photoURL : avatars.aceAvatar}
                                 alt=""
                             />
-                    
                     </figure>
                     <article class="SideArtConfig">
                         <p class=" SideTextConfig text-[12px] lg:text-base">My Profile</p>

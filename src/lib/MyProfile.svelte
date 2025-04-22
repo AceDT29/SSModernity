@@ -1,28 +1,29 @@
 <script>
-    import { User } from "../Stores/UserStore"
     import { onMount } from "svelte"
-    import { navigate } from "svelte-routing"
     import { svgIcons, avatars } from "../Imports/images.d.js";
 
+    export let user
+    export let currentUserState
     export let getConfig
     export let signOutSession
+    export let navTo
     const userMode = localStorage.getItem("mode");
     export let darkMode = getConfig(userMode)
     
     onMount(async() => {
-        await User.currentUser()
-        if(!$User) {
-            navigate("/", { replace: true, preserveScroll: true })
+        await currentUserState()
+        if(!user) {
+            navTo("/")
         }
     })
 </script>
 
-{#if $User}
+{#if user}
     <section class="LoginSecForm items-start gap-y-6 p-4 my-auto">
         <figure class="z-10 w-36 h-36 rounded-full border-2 border-gray-400 animFadeRight">
-            <img class="globalImgRules rounded-full" src={$User.photoURL ? $User.photoURL : avatars.aceAvatar} alt="">
+            <img class="globalImgRules rounded-full" src={user && user.photoURL ? user.photoURL : avatars.aceAvatar} alt="">
         </figure>
-        <h2 class="animFadeLeft text-lg font-light font-lobster">Bienvenido a tu perfil {$User.displayName}</h2>
+        <h2 class="animFadeLeft text-lg font-light font-lobster">Bienvenido a tu perfil {user.displayName}</h2>
         <div class="min-w-60 w-[45%] h-14 p-1 hover:bg-slate-300 transition-all hover:h-32 rounded-md cursor-pointer shadow-md animFadeDown overflow-hidden">
             <div class="flex justify-start items-center gap-x-2">
                 <figure class="w-10 h-10 p-2 self-start">
@@ -35,13 +36,13 @@
                     <figure class="w-10 h-10 p-2 self-start">
                         <img class="globalImgRules" src={darkMode ? svgIcons.nameIconDark : svgIcons.nameIcon} alt="">
                     </figure>
-                    <p>{$User.displayName}</p>
+                    <p>{user.displayName}</p>
                 </li>
                 <li class="flex items-center text-sm">
                     <figure class="w-10 h-10 p-2 self-start">
                         <img class="globalImgRules" src={darkMode ? svgIcons.emailIconDark : svgIcons.emailIcon} alt="">
                     </figure>
-                    <p>{$User.email}</p>
+                    <p>{user.email}</p>
                 </li>
             </ul>
         </div>

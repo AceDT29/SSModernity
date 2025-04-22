@@ -1,14 +1,17 @@
 <script>
-    import { Link, navigate } from "svelte-routing"
-    import { User } from "../Stores/UserStore"
+    import { Link } from "svelte-routing"
     import { beforeUpdate } from "svelte"
-    import { auth } from "../firebase/firebaseConfig"
-    import { signInWithEmailAndPassword } from "firebase/auth"
     import { svgIcons } from "../Imports/images.d.js"
     import Advisor from "./Advisor.svelte"
     
+    export let user
+    export let auth
+    export let signInUser
+    export let getUser
+    export let navTo
     export let signInWithGoogle
     export let validFunc
+    
     let isVisible = false
     let emailValue = ""
     let passValue = ""
@@ -23,9 +26,9 @@
             return
         } else {
             try {
-                const response = await signInWithEmailAndPassword(auth, emailValue, passValue)
-                User.addUser(response.user)
-                navigate("/", {replace: true, preserveScroll: true})
+                const response = await signInUser(auth, emailValue, passValue)
+                getUser(response.user)
+                navTo("/")
             } catch (error) {
                 errorHandler(error.code)
             } 
@@ -63,8 +66,8 @@
     }
 
     beforeUpdate(() =>{
-        if($User) {
-            navigate("/", { replace: true, preserveScroll: true })
+        if(user) {
+            navTo("/")
         }
     })
 </script>

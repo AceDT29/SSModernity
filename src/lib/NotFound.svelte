@@ -1,11 +1,12 @@
 <script>
-    import { navigate } from "svelte-routing"
     import { onMount } from "svelte"
     import { svgIcons } from "../Imports/images.d.js";
+    
+    export let navTo
 
     function backToHome() {
         setTimeout(() => {
-            navigate("/", {replace: true, preserveScroll: false})
+            navTo("/")
         }, 8000)
     }
 
