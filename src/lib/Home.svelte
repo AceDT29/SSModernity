@@ -2,9 +2,10 @@
     import { beforeUpdate } from "svelte"
     import { svgIcons, productImgs } from "../Imports/images.d.js";
     import { colorsPalette } from "../Imports/Palette.d.js";
-    import { productPkg } from "../Stores/ProductStore.js";
 
     export let user
+    export let prodList
+    export let addToList
     export let ItemsClass
     export let addNewStock
     export let discount
@@ -34,11 +35,11 @@
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
     <h2 class="text-lg font-lobster mb-2">Our Products:</h2>
     <div class="HomeDivSet">
-    {#each products as prod (prod.name)}
+    {#each products as prod (prod.id)}
         <figure class="HomefigSet group animFadeDown" on:dblclick={() => {displayProd(prod)}}>
             <img class="HomeImgSet" src={prod.photo} loading="lazy" alt="">
-            <button on:click={() => productPkg.add(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
-                <img class="w-[90%] h-[90%]" src={$productPkg.includes(prod) ? prod.favIcon : prod.unFavIcon} alt="">
+            <button on:click={() => addToList(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
+                <img class="w-[90%] h-[90%]" src={prodList.includes(prod) ? prod.favIcon : prod.unFavIcon} alt="">
             </button>
             <figure class="HomeHiddenFlag">
                 <img class={user ? 'globalImgRules' : 'hidden'} src={svgIcons.offSale} alt="">

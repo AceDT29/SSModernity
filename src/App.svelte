@@ -32,6 +32,7 @@
 
     constructor(name, photo, price, size, tag, colors) {
       this.name = name;
+      this.id = name;
       this.photo = photo;
       this.price = price;
       this.size = size;
@@ -286,6 +287,8 @@
             <HomeSec 
                 user={$User}
                 addNewStock={Stock.add}
+                prodList={$productPkg}
+                addToList={productPkg.add}
                 discount={discountedStateChecker} 
                 displayProd={displayLargeView} 
                 ItemsClass={Items} 
