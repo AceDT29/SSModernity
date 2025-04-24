@@ -3,7 +3,7 @@
     import { svgIcons, avatars } from "../Imports/images.d.js";
 
     export let user
-    export let currentUserState
+    export let userMethods
     export let getConfig
     export let signOutSession
     export let navTo
@@ -11,7 +11,7 @@
     export let darkMode = getConfig(userMode)
     
     onMount(async() => {
-        await currentUserState()
+        await userMethods.current()
         if(!user) {
             navTo("/")
         }

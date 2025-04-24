@@ -7,7 +7,7 @@
     export let user
     export let auth
     export let createUser
-    export let newUser
+    export let userMethods
     export let signInWithGoogle
     export let validFunc
     export let navTo
@@ -32,7 +32,7 @@
             try {
                 const registrerRequest = await createUser(auth, email, password)
                 const newRegistrer = registrerRequest.user
-                newUser(newRegistrer)
+                userMethods.addUser(newRegistrer)
                 navTo("/Profile")
             } catch (error) {
                 errorHandler(error.code)

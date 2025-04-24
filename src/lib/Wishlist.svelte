@@ -3,14 +3,14 @@
     import { svgIcons } from "../Imports/images.d.js"
 
     export let user
-    export let product
+    export let prodList
     export let checkValue
     export let discount 
-    export let onDelete
+    export let prodListMethods
     export let prodView
 
     beforeUpdate(() => {
-        discount(product)
+        discount(prodList)
     })
 
 </script>
@@ -23,7 +23,7 @@
             <img class="w-8 h-8 block" src={svgIcons.closeIcon} alt="">
         </label>
         <h2 class="text-lg font-lobster mb-4">Your WishList:</h2>
-        {#each product as prod}
+        {#each prodList as prod}
             <div class="flex items-start gap-2 mb-4 transition lg:w-full animFadeLeft animate-duration-500">
                 <button on:click={() => prodView(prod)} class=" active:scale-90 transition-all cursor-pointer">
                     <figure class="w-44 h-32 cursor-pointer hover:scale-110 transition-all">
@@ -38,7 +38,7 @@
                     {:else}
                         <h3 class="text-basee font-light">{prod.price}$</h3>
                     {/if}
-                    <button class="w-7 h-7 z-10 transition-all active:scale-90 lg:h-8 lg:w-8 lg:p-1" on:click={() => onDelete(prod.name)}>
+                    <button on:click={() => prodListMethods.delete(prod.name)} class="w-7 h-7 z-10 transition-all active:scale-90 lg:h-8 lg:w-8 lg:p-1">
                         <img class="w-full h-full block" src={svgIcons.garbage} alt="Delete product">
                     </button>
                 </div>

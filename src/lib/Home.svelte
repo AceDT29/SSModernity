@@ -1,16 +1,16 @@
 <script>
-    import { beforeUpdate } from "svelte"
+    import { beforeUpdate, onMount } from "svelte"
     import { svgIcons, productImgs } from "../Imports/images.d.js";
     import { colorsPalette } from "../Imports/Palette.d.js";
 
     export let user
     export let prodList
-    export let addToList
     export let ItemsClass
-    export let addNewStock
+    export let newStock
     export let discount
     export let displayProd
     const products = []
+    let wishState = []
 
     let modernMaleOut = new ItemsClass ("Modern Outfit Male", productImgs.Img1, 55, "M", "Casual", colorsPalette.modernMaleOut)
     let summerWomenOut = new ItemsClass ("Summer Outfit Women", productImgs.Img6, 29.99, "S", "Summer", colorsPalette.summerWomenOut)
@@ -23,13 +23,21 @@
     let chicOut = new ItemsClass ("Fall outfit for a girl", productImgs.Img9, 49.99, "S", "Casual", colorsPalette.chicOut)
 
     products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
-    addNewStock(products)
+    newStock.add(products)
    
+    const unsubscribe = prodList.subscribe(value => {
+        wishState = value; 
+    });
+
     beforeUpdate(() => {
         if (user) {
             discount(products)
         }
     })
+
+    onMount(() => {
+        return () => unsubscribe();
+    });
 </script>
 
 <section class="basis-[80%] relative bg-transparent w-[60%] h-auto p-4 border-r border-b rounded-md lg:w-[80%] transition-all drop-shadow-lg shadow-lg">
@@ -38,8 +46,8 @@
     {#each products as prod (prod.id)}
         <figure class="HomefigSet group animFadeDown" on:dblclick={() => {displayProd(prod)}}>
             <img class="HomeImgSet" src={prod.photo} loading="lazy" alt="">
-            <button on:click={() => addToList(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
-                <img class="w-[90%] h-[90%]" src={prodList.includes(prod) ? prod.favIcon : prod.unFavIcon} alt="">
+            <button on:click={() => prodList.add(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
+                <img class="w-[90%] h-[90%]" src={wishState.some(item => item.id === prod.id) ? prod.favIcon : prod.unFavIcon} alt="">
             </button>
             <figure class="HomeHiddenFlag">
                 <img class={user ? 'globalImgRules' : 'hidden'} src={svgIcons.offSale} alt="">

@@ -4,7 +4,12 @@
   import { User } from "./Stores/UserStore";
   import { Stock } from "./Stores/stockSearchStore";
   import { auth, provider } from "./firebase/firebaseConfig";
-  import { signOut, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+  import {
+    signOut,
+    signInWithPopup,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+  } from "firebase/auth";
   import { Router, Route, navigate } from "svelte-routing";
   import { svgIcons } from "./Imports/images.d.js";
   import SideNav from "./lib/SideBar.svelte";
@@ -18,7 +23,7 @@
   import NotFound from "./lib/NotFound.svelte";
   import Categories from "./lib/Categories.svelte";
   import SearchResult from "./lib/SearchResult.svelte";
-  
+
   export let url = "";
   const storedProducts = localStorage.getItem("products");
   let checkFromNav = false;
@@ -41,7 +46,7 @@
       this.discountedPrice = price;
       this.favIcon = svgIcons.fav;
       this.unFavIcon = svgIcons.unFav;
-      this.colors = colors
+      this.colors = colors;
     }
 
     static setProductDiscount(item) {
@@ -56,7 +61,7 @@
       return item.discountedPrice;
     }
   }
-  
+
   if (storedProducts) {
     try {
       parsedProducts = JSON.parse(storedProducts);
@@ -64,19 +69,21 @@
     } catch (error) {
       console.error(
         "Error al analizar los productos desde localStorage:",
-        error,
+        error
       );
     }
   }
 
   $: localStorage.setItem("products", JSON.stringify($productPkg));
 
-  function discountedStateChecker(arr){
-    if($User) {
+  $: console.log($productPkg)
+
+  function discountedStateChecker(arr) {
+    if ($User) {
       arr.forEach((obj) => {
-        Items.setProductDiscount(obj)
-      })
-        return
+        Items.setProductDiscount(obj);
+      });
+      return;
     }
   }
 
@@ -84,7 +91,7 @@
     if (configValue) {
       try {
         const parsedValue = JSON.parse(configValue);
-        return parsedValue
+        return parsedValue;
       } catch (error) {
         console.error("No se pudo recuperar tu configuracion", error);
       }
@@ -92,7 +99,8 @@
   }
 
   function getScroll() {
-    const scrollValue = document.body.scrollTop || document.documentElement.scrollTop;
+    const scrollValue =
+      document.body.scrollTop || document.documentElement.scrollTop;
     if (scrollValue > 600) {
       btnScrollState = true;
     }
@@ -100,33 +108,33 @@
   }
 
   const navWithScroll = (target, scrollState, tag) => {
-    const currentScroll = getScroll()
-    scrollState = true 
+    const currentScroll = getScroll();
+    scrollState = true;
     if (scrollState && target !== currentScroll) {
-      smoothScrollTo(target, 600)
-      navigate(`${tag}`, {replace: true, preserveScroll: true})
+      smoothScrollTo(target, 600);
+      navigate(`${tag}`, { replace: true, preserveScroll: true });
     } else {
-      scrollState = false
+      scrollState = false;
     }
-  }
+  };
 
   const smoothScrollTo = (target, duration) => {
-    const start = window.scrollY; 
-    const change = target - start; 
-    const startTime = performance.now(); 
+    const start = window.scrollY;
+    const change = target - start;
+    const startTime = performance.now();
     const animateScroll = (currentTime) => {
-      const elapsedTime = currentTime - startTime; 
-      const progress = Math.min(elapsedTime / duration, 1); 
+      const elapsedTime = currentTime - startTime;
+      const progress = Math.min(elapsedTime / duration, 1);
       const easeInOutQuad = (t) => {
         return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
       };
-      const position = start + change * easeInOutQuad(progress); 
-      window.scrollTo(0, position); 
+      const position = start + change * easeInOutQuad(progress);
+      window.scrollTo(0, position);
       if (progress < 1) {
-        requestAnimationFrame(animateScroll); 
+        requestAnimationFrame(animateScroll);
       }
     };
-    requestAnimationFrame(animateScroll); 
+    requestAnimationFrame(animateScroll);
   };
 
   const backToTop = () => {
@@ -135,45 +143,45 @@
       requestAnimationFrame(backToTop);
       scrollTo(0, currentValue - currentValue / 10);
     }
-  }
+  };
 
   const handleNavi = (target) => {
-    navigate(`${target}`, {replace: true, preserveScroll: true})
-  }
+    navigate(`${target}`, { replace: true, preserveScroll: true });
+  };
 
+  const validateFields = (inputEmail, inputPass) => {
+    const patternValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let confirmValue = false;
+    let emailValue = inputEmail.value;
+    let passValue = inputPass.value;
 
-  const validateFields = (inputEmail, inputPass) =>  {
-    const patternValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    let confirmValue = false
-    let emailValue = inputEmail.value
-    let passValue = inputPass.value
-
-    if(patternValid.test(emailValue.trim())) {
-      inputEmail.style.borderColor = "green"
+    if (patternValid.test(emailValue.trim())) {
+      inputEmail.style.borderColor = "green";
     } else {
-      inputEmail.style.borderColor = "red"
+      inputEmail.style.borderColor = "red";
     }
 
-    if(passValue.trim().length < 8) {
-      inputPass.style.borderColor = "red"
-      inputPass.nextElementSibling.textContent = "The password is too short"
+    if (passValue.trim().length < 8) {
+      inputPass.style.borderColor = "red";
+      inputPass.nextElementSibling.textContent = "The password is too short";
     } else {
-      inputPass.style.borderColor = "green"
-      inputPass.nextElementSibling.textContent = ""
+      inputPass.style.borderColor = "green";
+      inputPass.nextElementSibling.textContent = "";
     }
-    return confirmValue = patternValid.test(emailValue) && passValue.length >= 8
-  }
+    return (confirmValue =
+      patternValid.test(emailValue) && passValue.length >= 8);
+  };
 
   const googleProviderHandler = async () => {
     try {
-      const response = await signInWithPopup(auth, provider)
-      User.addUser(response.user)
-      navigate("/", {replace: true, preserveScroll: true})
+      const response = await signInWithPopup(auth, provider);
+      User.addUser(response.user);
+      navigate("/", { replace: true, preserveScroll: true });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-   
+  };
+
   const enableDark = (value) => {
     if (value) {
       document.body.classList.add("darkMode");
@@ -181,132 +189,132 @@
       document.body.classList.remove("darkMode");
     }
     return localStorage.setItem("mode", JSON.stringify(value));
-  }
+  };
 
   const sessionOut = () => {
     signOut(auth).then(() => {
-      User.addUser(null)
-      navigate("/Login", { replace: true, preserveScroll: true })
-    })
-  }
+      User.addUser(null);
+      navigate("/Login", { replace: true, preserveScroll: true });
+    });
+  };
 
   const displayLargeView = (item) => {
-      Stock.findProd(item)
-      navigate(`/Product/${item.name}`, {replace: true, preserveScroll: true})
-  }
+    Stock.findProd(item);
+    navigate(`/Product/${item.name}`, { replace: true, preserveScroll: true });
+  };
 
-  onMount( async () => {
-    await User.currentUser()
+  onMount(async () => {
+    await User.currentUser();
     addEventListener("scroll", getScroll);
   });
-  
 </script>
 
 <body class="relative">
   <Router {url}>
     <Route path="*">
-      <NotFound navTo={handleNavi}/>
+      <NotFound navTo={handleNavi} />
     </Route>
     <main class="">
       <header class="">
         <Banner navTo={navWithScroll}>
-          <Categories navTo={navWithScroll} /> 
+          <Categories navTo={navWithScroll} />
         </Banner>
       </header>
       <article class="relative">
-        <WishComp 
-          user={$User} 
-          product={$productPkg}
+        <WishComp
+          user={$User}
+          prodList={$productPkg}
           bind:checkValue={checkFromNav}
-          onDelete={productPkg.delete}
-          discount={discountedStateChecker} 
-          prodView={displayLargeView} 
+          prodListMethods={productPkg}
+          discount={discountedStateChecker}
+          prodView={displayLargeView}
         />
       </article>
-        <section class="flex py-10 md:gap-8 lg:gap-x-16 flex-grow ">
-          <SideNav 
+      <section class="flex py-10 md:gap-8 lg:gap-x-16 flex-grow">
+        <SideNav
+          user={$User}
+          bind:checkPlease={checkFromNav}
+          getConfig={getUserConfig}
+          switchMode={enableDark}
+          darkMode={isDarkMode}
+        >
+          <button
+            class={`${btnScrollState ? "SpecialButtons" : "hiddenClass"}`}
+            bind:this={upBtn}
+            on:click={backToTop}
+          >
+            <img
+              class="w-full h-full block"
+              src={svgIcons.upButton}
+              alt="Volver al inicio"
+            />
+          </button>
+        </SideNav>
+        <Route path="/Login">
+          <Login
             user={$User}
-            bind:checkPlease={checkFromNav}
-            getConfig={getUserConfig}
-            switchMode={enableDark} 
+            {auth}
+            signInUser={signInWithEmailAndPassword}
+            userMethods={User}
+            signInWithGoogle={googleProviderHandler}
+            validFunc={validateFields}
+            navTo={handleNavi}
+          />
+        </Route>
+        <Route path="/SignUp">
+          <SignUp
+            user={$User}
+            {auth}
+            createUser={createUserWithEmailAndPassword}
+            userMethods={User}
+            signInWithGoogle={googleProviderHandler}
+            validFunc={validateFields}
+            navTo={handleNavi}
+          />
+        </Route>
+        <Route path="/Profile">
+          <MyProfile
+            user={$User}
             darkMode={isDarkMode}
-            >
-            <button
-              class={`${btnScrollState ? "SpecialButtons" : "hiddenClass"}`} bind:this={upBtn} on:click={backToTop}>
-              <img
-                class="w-full h-full block"
-                src={svgIcons.upButton}
-                alt="Volver al inicio"
-              />
-            </button>
-          </SideNav>
-          <Route path="/Login">
-            <Login 
-                user={$User}
-                auth={auth}
-                signInUser={signInWithEmailAndPassword}
-                getUser={User.addUser}
-                signInWithGoogle={googleProviderHandler}
-                validFunc={validateFields}
-                navTo={handleNavi}
-            />
-          </Route>
-          <Route path="/SignUp">
-            <SignUp 
-                user={$User}
-                auth={auth}
-                createUser={createUserWithEmailAndPassword}
-                newUser={User.addUser}
-                signInWithGoogle={googleProviderHandler}
-                validFunc={validateFields}
-                navTo={handleNavi}
-             />
-          </Route>
-          <Route path="/Profile">
-            <MyProfile 
-                user={$User}
-                darkMode={isDarkMode}
-                currentUserState={User.currentUser}
-                getConfig={getUserConfig} 
-                signOutSession={sessionOut} 
-                navTo={handleNavi}
-              />
-          </Route>
-          <Route path="/Product/:id">
-            <Product 
-                allProds={$Stock.allProducts}
-                filterProds={$Stock.filteredProducts}
-                user={$User}
-                onUpdate={productPkg.add}
-                discount={discountedStateChecker} 
-                explorerProds={displayLargeView}
-                navTo={handleNavi}
-            />
-          </Route>
-          <Route path="/">
-            <HomeSec 
-                user={$User}
-                addNewStock={Stock.add}
-                prodList={$productPkg}
-                addToList={productPkg.add}
-                discount={discountedStateChecker} 
-                displayProd={displayLargeView} 
-                ItemsClass={Items} 
-            /> 
-          </Route>
-          <Route path="/Search/:id" let:params>
-            <SearchResult 
-                filterProds={$Stock.filteredProducts}
-                user={$User}
-                prodWish={$productPkg}
-                tag={params.id}
-                search={Stock.search}
-                addProdWish={productPkg.add}
-                displayProd={displayLargeView}
-                navTo={handleNavi}
-            /> 
-          </Route>
-        </section>
+            userMethods={User}
+            getConfig={getUserConfig}
+            signOutSession={sessionOut}
+            navTo={handleNavi}
+          />
+        </Route>
+        <Route path="/Product/:id">
+          <Product
+            allProds={$Stock.allProducts}
+            filterProds={$Stock.filteredProducts}
+            user={$User}
+            prodList={productPkg}
+            discount={discountedStateChecker}
+            explorerProds={displayLargeView}
+            navTo={handleNavi}
+          />
+        </Route>
+        <Route path="/">
+          <HomeSec
+            user={$User}
+            prodList={productPkg}
+            newStock={Stock}
+            discount={discountedStateChecker}
+            displayProd={displayLargeView}
+            ItemsClass={Items}
+          />
+        </Route>
+        <Route path="/Search/:id" let:params>
+          <SearchResult
+            filterProds={$Stock.filteredProducts}
+            user={$User}
+            prodList={productPkg}
+            tag={params.id}
+            stockMethods={Stock}
+            displayProd={displayLargeView}
+            navTo={handleNavi}
+          />
+        </Route>
+      </section>
       <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">
         <div class="flex flex-col items-center gap-3 font-lobster">
           <h1 class="font-extrabold text-4xl" translate="no">SS Modernity</h1>

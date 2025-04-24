@@ -3,16 +3,21 @@
     import { onMount } from "svelte";
 
     export let filterProds
-    export let search
+    export let stockMethods
     export let user 
-    export let prodWish
-    export let addProdWish
+    export let prodList
     export let tag
     export let displayProd
     export let navTo
 
+    let wishState = []
+
+    const unsubscribe = prodList.subscribe(value => {
+        wishState = value;
+    });
+
     $: if (tag) {
-        search(tag);
+        stockMethods.search(tag);
     } else {
         navTo("/")
     }
@@ -21,6 +26,8 @@
         if (filterProds.length == 0) {
             navTo("/")
         }
+
+        return () => unsubscribe();
     })
 </script>
 
@@ -30,8 +37,8 @@
     {#each filterProds as prod }
         <figure class="HomefigSet group animFadeDown" on:dblclick={() => {displayProd(prod)}}>
             <img class="HomeImgSet" src={prod.photo} loading="lazy" alt="">
-            <button on:click={() => addProdWish(prod)}  class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
-                <img class="w-[90%] h-[90%]" src={prodWish.includes(prod) ? prod.favIcon : prod.unFavIcon} alt="">
+            <button on:click={() => prodList.add(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
+                <img class="w-[90%] h-[90%]" src={wishState.some(item => item.id === prod.id) ? prod.favIcon : prod.unFavIcon} alt="">
             </button>
             <figure class="HomeHiddenFlag">
                 <img class={user ? 'globalImgRules' : 'hidden'} src={svgIcons.offSale} alt="">

@@ -13,7 +13,7 @@ const createProduct = () => {
                 if (!Array.isArray(productPkg)) {
                     return []
                 }
-                const prodExists = productPkg.some((item) => item.name === prodItem.name)
+                const prodExists = productPkg.some((item) => item.id === prodItem.id)
                 if (!prodExists && productPkg.length < 7) {
                     return [...productPkg, prodItem]
                 }

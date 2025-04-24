@@ -7,7 +7,7 @@
     export let user
     export let auth
     export let signInUser
-    export let getUser
+    export let userMethods
     export let navTo
     export let signInWithGoogle
     export let validFunc
@@ -27,7 +27,7 @@
         } else {
             try {
                 const response = await signInUser(auth, emailValue, passValue)
-                getUser(response.user)
+                userMethods.addUser(response.user)
                 navTo("/")
             } catch (error) {
                 errorHandler(error.code)
