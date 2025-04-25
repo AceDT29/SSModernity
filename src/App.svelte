@@ -76,8 +76,6 @@
 
   $: localStorage.setItem("products", JSON.stringify($productPkg));
 
-  $: console.log($productPkg)
-
   function discountedStateChecker(arr) {
     if ($User) {
       arr.forEach((obj) => {

@@ -11,7 +11,7 @@
     export let darkMode = getConfig(userMode)
     
     onMount(async() => {
-        await userMethods.current()
+        await userMethods.currentUser()
         if(!user) {
             navTo("/")
         }
