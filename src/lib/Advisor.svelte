@@ -15,7 +15,7 @@
           {#each exception as err}
             <div class="flex flex-col gap-y-2 items-center">
               <figure class="w-20 h-20 lg:w-36 lg:h-36">
-                <img class="globalImgRules" src={svgIcons.ghost} alt="">
+                <img class="globalImgs" src={svgIcons.ghost} alt="">
               </figure>
               <h1 class="text-lg text-black md:text-2xl font-lobster">Error {err.code}</h1>
               <p class="text-black text-sm md:text-base">{err.message}</p>

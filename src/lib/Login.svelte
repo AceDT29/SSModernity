@@ -96,7 +96,7 @@
             <input bind:value={passValue} bind:this={passField} class="LoginInput" type="password" placeholder="******" autocomplete="off" id="passID" required/>
             <span class="text-sm text-slate-500"></span>
             <button on:click|preventDefault={() => showField(passField)} class="absolute top-8 left-[85%] cursor-pointer z-10 ">
-                <img class="globalImgRules w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
+                <img class="globalImgs w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
             </button>
         </label>
         <button class="w-24 h-10 p-2 rounded-lg bg-gradient-to-r text-white self-center from-sky-700 to-blue-600 animFadeLeft animate-delay-500 font-lobster" type="submit">

@@ -27,7 +27,7 @@
             <div class="flex items-start gap-2 mb-4 transition lg:w-full animFadeLeft animate-duration-500">
                 <button on:click={() => prodView(prod)} class=" active:scale-90 transition-all cursor-pointer">
                     <figure class="w-44 h-32 cursor-pointer hover:scale-110 transition-all">
-                        <img class="w-full h-full block rounded-sm object-cover" src={prod.photo} alt="">
+                        <img class="globalImgs rounded-sm" src={prod.photo} alt="">
                     </figure>
                 </button>
                 <div class="flex flex-col gap-y-1">
@@ -39,7 +39,7 @@
                         <h3 class="text-basee font-light">{prod.price}$</h3>
                     {/if}
                     <button on:click={() => prodListMethods.delete(prod.name)} class="w-7 h-7 z-10 transition-all active:scale-90 lg:h-8 lg:w-8 lg:p-1">
-                        <img class="w-full h-full block" src={svgIcons.garbage} alt="Delete product">
+                        <img class="globalImgs object-none" src={svgIcons.garbage} alt="Delete product">
                     </button>
                 </div>
             </div>

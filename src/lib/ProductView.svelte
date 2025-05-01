@@ -41,7 +41,7 @@
  {#if myProduct.length}
     <article class="relative ml-3 flex-col p-2 mx-auto overflow-hidden">
         <div class="relative flex flex-col justify-center gap-y-6 gap-x-6 lg:flex-row lg:justify-start">
-            {#each myProduct as prod}
+            {#each myProduct as prod (prod.id)}
             <figure class="basis-[60%] rounded-lg border w-[60vw] h-[70vh] animFadeDown">
                 <img class="block w-full h-full rounded-lg" src={prod.photo} alt="">
             </figure>
@@ -66,7 +66,7 @@
         <div class="p-2">
             <h2 class="text-lg font-lobster textShadow my-4 lg:text-2xl">Explore more options:</h2>
         </div>
-        <section class="w-[80%] mt-2 rounded-lg p-2 shadow-md">
+        <section class="w-[90%] mt-2 rounded-lg p-2 shadow-md">
             <div class="flex overflow-x-auto w-full h-full justify-around"> 
                 {#each interestedProds as item}
                     <button on:click={() => explorerProds(item)} class="w-96 h-auto min-h-52 flex flex-col items-start gap-2 cursor-pointer group">

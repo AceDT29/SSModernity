@@ -114,7 +114,7 @@
             <input bind:value={password} bind:this={passField} class="LoginInput" type="password"  id="userPass" required/>
             <span class="text-sm text-slate-500">The password must be at least 8 characters long</span>
             <button on:click|preventDefault={() => showField(passField, confirmField)} class="absolute top-8 left-[71%] cursor-pointer z-10 ">
-                <img class="globalImgRules w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
+                <img class="globalImgs w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
             </button>
         </label>
         <label class="labelForm animFadeLeft relative animate-delay-500" for="confirmPass">
@@ -122,7 +122,7 @@
             <input bind:value={confirmValue} bind:this={confirmField} class="LoginInput" type="password" id="confirmPass" required/>
             <span class="text-sm text-slate-500">The passwords must be the same</span>
             <button on:click|preventDefault={() => showField(passField, confirmField)} class="absolute top-8 left-[71%] cursor-pointer z-10 ">
-                <img class="globalImgRules w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
+                <img class="globalImgs w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
             </button>
         </label>
         <button class="text-sm self-center animFadeRight animate-delay-700 p-2 w-28 h-10 rounded-xl active:scale-90 bg-gradient-to-r from-red-500 to-orange-500 cursor-pointer transition-all font-lobster" type="submit">

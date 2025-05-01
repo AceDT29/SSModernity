@@ -13,7 +13,7 @@
     class="group CategoriesCont"
     >
     <figure class="w-full h-full group-hover:scale-110 transition duration-300">
-      <img class="globalImgRules" src={tags.fitTag} alt="" />
+      <img class="globalImgs" src={tags.fitTag} alt="" />
     </figure>
     <div
       class="CategoriesHiddenInfo">
@@ -25,7 +25,7 @@
     class="group CategoriesCont"
     >
     <figure class="w-full h-full group-hover:scale-110 transition duration-300">
-      <img class="globalImgRules" src={tags.casualTag} alt="" />
+      <img class="globalImgs" src={tags.casualTag} alt="" />
     </figure>
     <div
       class="CategoriesHiddenInfo">
@@ -37,7 +37,7 @@
     class="group CategoriesCont"
     >
     <figure class="w-full h-full group-hover:scale-110 transition duration-300">
-      <img class="globalImgRules" src={tags.summerTag} alt="" />
+      <img class="globalImgs" src={tags.summerTag} alt="" />
     </figure>
     <div
       class="CategoriesHiddenInfo">

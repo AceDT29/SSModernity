@@ -99,7 +99,7 @@
   function getScroll() {
     const scrollValue =
       document.body.scrollTop || document.documentElement.scrollTop;
-    if (scrollValue > 600) {
+    if (scrollValue > 900) {
       btnScrollState = true;
     }
     return scrollValue;
@@ -214,7 +214,7 @@
     </Route>
     <main class="">
       <header class="">
-        <Banner navTo={navWithScroll}>
+        <Banner navTo={navWithScroll} mode={isDarkMode}>
           <Categories navTo={navWithScroll} />
         </Banner>
       </header>
@@ -228,7 +228,7 @@
           prodView={displayLargeView}
         />
       </article>
-      <section class="flex py-10 md:gap-8 lg:gap-x-16 flex-grow">
+      <section class="flex py-8 md:gap-8 lg:gap-x-16 flex-grow">
         <SideNav
           user={$User}
           bind:checkPlease={checkFromNav}
@@ -237,7 +237,7 @@
           darkMode={isDarkMode}
         >
           <button
-            class={`${btnScrollState ? "SpecialButtons" : "hiddenClass"}`}
+            class={`${btnScrollState ? "SpecialButtons" : "hidden"}`}
             bind:this={upBtn}
             on:click={backToTop}
           >
@@ -313,7 +313,7 @@
           />
         </Route>
       </section>
-      <footer class="w-full h-auto mt-14 border drop-shadow-2xl p-10">
+      <footer class="w-full h-auto mt-20 border shadow-2xl drop p-10">
         <div class="flex flex-col items-center gap-3 font-lobster">
           <h1 class="font-extrabold text-4xl" translate="no">SS Modernity</h1>
           <p class="text-sm" translate="no">Your way, your style</p>
