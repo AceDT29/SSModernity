@@ -58,7 +58,14 @@
                     <span class="ProdSpanColors" style="background-color: {prod.colors.accent}"></span>
                 </div>
                 <div class="w-12 h-10 p-2 cursor-pointer lg:w-16 lg:h-12 animFadeRight animate-delay-700">
-                    <h3 class="text-2xl md:text-3xl">${user ? prod.discountedPrice : prod.price}</h3>
+                    <div class="flex flex-col gap-y-1">
+                        {#if user}
+                            <h3 class=" text-slate-400/80 text-nowrap line-through lg:text-2xl">Before ${prod.price}</h3>
+                            <h3 class="text-nowrap  lg:text-2xl">Now for ${prod.discountedPrice}</h3>
+                        {:else}
+                            <h3 class="text-nowrap lg:text-2xl">For ${prod.price}</h3>
+                        {/if}
+                    </div>
                 </div>
             </div>
             {/each}

@@ -53,18 +53,20 @@
                 <img class={user ? 'globalImgs' : 'hidden'} src={svgIcons.offSale} alt="">
             </figure>
             <div class="HomeHiddenInfo group-hover:opacity-100">
-                <h2 class="text-sm font-light md:text-base md:font-normal">{prod.name}</h2>
-                <p class="text-sm font-light md:text-base md:font-normal">Size: {prod.size}</p>
-            {#if user}
-                <div class="flex gap-x-2 lg:gap-x-4">
-                    <h3 class="text-sm line-through whitespace-nowrap lg:text-lg">Before ${prod.price}</h3>
-                    <h3 class="text-sm whitespace-nowrap textShadow text-red-500/85 lg:text-lg ">Now ${prod.discountedPrice}</h3>
+                <figure class="w-[60%] h-[60%]">
+                    <img class="globalImgs" src={svgIcons.hiddenInfo} alt="">
+                </figure>
+            </div>
+            <div class="flex justify-between gap-x-2 p-1">
+                <h3 class="font-light text-wrap text-start lg:text-lg">{prod.name}</h3>
+                <div class="flex flex-col gap-y-1">
+                {#if user}
+                    <h3 class=" text-slate-400/80 line-through lg:text-lg">${prod.price}</h3>
+                    <h3 class="font-semibold lg:text-lg">${prod.discountedPrice}</h3>
+                {:else}
+                    <h3 class="font-semibold lg:text-lg">${prod.price}</h3>
+                {/if}
                 </div>
-            {:else}
-                <div>
-                    <h3 class="text-base whitespace-nowrap lg:text-lg">Price ${prod.price}</h3>
-                </div>
-            {/if}
             </div>
         </figure>
     {/each}

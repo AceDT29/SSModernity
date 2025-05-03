@@ -64,6 +64,8 @@ import googleBtn from "../assets/Google.svg";
 import eyeIcon from "../assets/eye.svg";
 // @ts-ignore
 import eyeDontSeeIcon from "../assets/eye-dont-see.svg";
+// @ts-ignore
+import hiddenInfo from "../assets/hidden-info.svg";
 
 // -- FONDOS Y ASSETS
 
@@ -151,7 +153,8 @@ export const svgIcons = {
     ghost,
     googleBtn, 
     eyeDontSeeIcon,
-    eyeIcon
+    eyeIcon,
+    hiddenInfo
 };
 
 export const productImgs = {
