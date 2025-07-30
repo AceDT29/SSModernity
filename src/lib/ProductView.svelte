@@ -1,5 +1,5 @@
 <script>
-    import { onMount, beforeUpdate } from "svelte"
+    import { onMount, beforeUpdate, onDestroy } from "svelte"
 
     export let user
     export let prodList
@@ -36,6 +36,11 @@
         return () => unsubscribe();
     })
 
+    onDestroy(() => {
+        unsubscribe()
+    })
+
+
 </script>
 
  {#if myProduct.length}
@@ -61,7 +66,7 @@
                     <div class="flex flex-col gap-y-1">
                         {#if user}
                             <h3 class=" text-slate-400/80 text-nowrap line-through lg:text-2xl">Before ${prod.price}</h3>
-                            <h3 class="text-nowrap  lg:text-2xl">Now for ${prod.discountedPrice}</h3>
+                            <h3 class="text-nowrap lg:text-2xl">Now for ${prod.discountedPrice}</h3>
                         {:else}
                             <h3 class="text-nowrap lg:text-2xl">For ${prod.price}</h3>
                         {/if}

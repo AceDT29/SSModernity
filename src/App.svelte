@@ -170,22 +170,17 @@
       patternValid.test(emailValue) && passValue.length >= 8);
   };
 
-  const googleProviderHandler = async () => {
+  const googleProviderHandler = async (callback) => {
     try {
       const response = await signInWithPopup(auth, provider);
       User.addUser(response.user);
       navigate("/", { replace: true, preserveScroll: true });
     } catch (error) {
-      console.log(error);
+      callback(error.code)
     }
   };
 
   const enableDark = (value) => {
-    if (value) {
-      document.body.classList.add("darkMode");
-    } else {
-      document.body.classList.remove("darkMode");
-    }
     return localStorage.setItem("mode", JSON.stringify(value));
   };
 
@@ -207,7 +202,7 @@
   });
 </script>
 
-<body class="relative">
+<body class={ isDarkMode ? 'darkMode' : '' }>
   <Router {url}>
     <Route path="*">
       <NotFound navTo={handleNavi} />
@@ -234,7 +229,7 @@
           bind:checkPlease={checkFromNav}
           getConfig={getUserConfig}
           switchMode={enableDark}
-          darkMode={isDarkMode}
+          bind:darkMode={isDarkMode}
         >
           <button
             class={`${btnScrollState ? "SpecialButtons" : "hidden"}`}

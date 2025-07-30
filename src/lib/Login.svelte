@@ -22,6 +22,7 @@
     
 
     async function LogIn() {
+        const abortController = new AbortController();
         if(!validFunc(emailField, passField)) {
             return
         } else {
@@ -30,7 +31,12 @@
                 userMethods.addUser(response.user)
                 navTo("/")
             } catch (error) {
-                errorHandler(error.code)
+                if (abortController.signal.aborted) {
+                    console.log(error)
+                } else {
+                    errorHandler(error.code)
+                }
+                
             } 
         }
         emailValue = ""
@@ -38,17 +44,25 @@
     }
 
     const errorHandler = (err) => {
-    let errValue 
-        if(err == 'auth/network-request-failed' ) {
-            errValue = (generateMessage(404, 'Error de red al procesar tu solicitud'))
-            excepResult = [errValue] 
-        } else if(err == 'auth/invalid-credential') {
-            errValue = generateMessage(404, 'Email y/o contraseña incorrectos')
-            excepResult = [errValue]
-        } else if (err  == 'auth/email-already-in-use') {
-            errValue = (generateMessage(404, 'Este usuario ya ha sido registrado en SSmodernity'))
-            excepResult = [errValue]
-        }
+        let errValue 
+        switch (err) {
+            case 'auth/network-request-failed':
+                errValue = generateMessage(404, 'Error de red al procesar tu solicitud')
+                excepResult = [errValue]
+                break;
+            case 'auth/invalid-credential':
+                errValue = generateMessage(400, 'Email y/o contraseña incorrectos')
+                excepResult = [errValue]
+                break;
+            case 'auth/email-already-in-use':
+                errValue = generateMessage(409, 'Este usuario ya ha sido registrado en SSmodernity')
+                excepResult = [errValue]
+                break;
+            case 'auth/popup-closed-by-user':
+                errValue = generateMessage(499, 'El popup fue cerrado antes de completar la autenticación')
+                excepResult = [errValue]
+                break;
+        }  
         showExcep = true
     }
 
@@ -106,7 +120,7 @@
     </form>
     <div class="relative flex flex-col items-start gap-y-2 right-8 animFadeUp animate-delay-1000 font-lobster">
         <h3 class="text-lg dark:text-gray-400">Or SignIn with Google:</h3>
-        <button class="w-10 h-10 p-2 bg-white active:scale-90 rounded-full transition-all" on:click={signInWithGoogle}>
+        <button class="w-10 h-10 p-2 bg-white active:scale-90 rounded-full transition-all" on:click={signInWithGoogle(errorHandler)}>
             <img class="block w-full h-full" src={svgIcons.googleBtn} alt="">
         </button>
     </div>    

@@ -44,19 +44,28 @@
     }
 
     const errorHandler = (err) => {
-    let errValue 
-        if(err == 'auth/network-request-failed') {
-            errValue = (generateMessage(404, 'Error de red al procesar tu solicitud'))
-            excepResult = [errValue] 
-        } else if(err == 'auth/invalid-credential') {
-            errValue = generateMessage(404, 'Email y/o contraseña incorrectos')
-            excepResult = [errValue]
-        } else if (err  == 'auth/email-already-in-use' ) {
-            errValue = (generateMessage(404, 'Este usuario ya ha sido registrado en SSmodernity'))
-            excepResult = [errValue]
-        }
+        let errValue 
+        switch (err) {
+            case 'auth/network-request-failed':
+                errValue = generateMessage(404, 'Error de red al procesar tu solicitud')
+                excepResult = [errValue]
+                break;
+            case 'auth/invalid-credential':
+                errValue = generateMessage(400, 'Email y/o contraseña incorrectos')
+                excepResult = [errValue]
+                break;
+            case 'auth/email-already-in-use':
+                errValue = generateMessage(409, 'Este usuario ya ha sido registrado en SSmodernity')
+                excepResult = [errValue]
+                break;
+            case 'auth/popup-closed-by-user':
+                errValue = generateMessage(499, 'El popup fue cerrado antes de completar la autenticación')
+                excepResult = [errValue]
+                break;
+        }  
         showExcep = true
     }
+
 
     function generateMessage(code, message) {
         const newMsg = {
@@ -132,7 +141,7 @@
     </form>
     <div class="relative flex flex-col items-center flex-wrap gap-y-2 right-8 animFadeUp animate-delay-1000 ml-8 lg:items-start font-lobster">
         <h3 class="text-lg text-center dark:text-gray-400">Or create account with Google(recomended):</h3>
-        <button class="w-10 ml-12 self-start h-10 p-2 bg-white active:scale-90 rounded-full transition-all md:ml-0" on:click={signInWithGoogle}>
+        <button class="w-10 ml-12 self-start h-10 p-2 bg-white active:scale-90 rounded-full transition-all md:ml-0" on:click={signInWithGoogle(errorHandler)}>
             <img class="block w-full h-full" src={svgIcons.googleBtn} alt="">
         </button>
     </div>    
