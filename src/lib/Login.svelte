@@ -113,7 +113,8 @@
                 <img class="globalImgs w-6 h-6 transition-all" src={isVisible ? svgIcons.eyeDontSeeIcon : svgIcons.eyeIcon} alt="">
             </button>
         </label>
-        <button class="w-24 h-10 p-2 rounded-lg bg-gradient-to-r text-white self-center from-sky-700 to-blue-600 animFadeLeft animate-delay-500 font-lobster" type="submit">
+        <button class="w-24 h-10 p-2 rounded-lg bg-gradient-to-r text-white self-center
+         from-sky-700 to-blue-600 animFadeLeft animate-delay-500 font-lobster" type="submit">
             Log in
         </button>
         <hr class="drop-shadow-lg animFadeRight animate-delay-700 ">

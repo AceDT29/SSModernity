@@ -81,6 +81,8 @@ import imagenAni4 from "../assets/ImagenDinamica4.jpg";
 import bigSale from "../assets/BannerBeta.png";
 // @ts-ignore
 import MobileBan from "../assets/BannerMobile.png";
+// @ts-ignore
+import vinylIcon from "../assets/vinyl-hidden.png";
 
 
 // -- CATEGORIAS --
@@ -179,7 +181,8 @@ export const backgrounds = {
     imagenAni3,
     imagenAni4,
     bigSale,
-    MobileBan
+    MobileBan,
+    vinylIcon
 };
 
 export const tags = {
