@@ -10,6 +10,8 @@
     const userMode = localStorage.getItem("mode");
     export let darkMode = getConfig(userMode);
     let vinilExists = false;
+    let mobileViewPort = (window.innerWidth < 768) ? true : false;
+    console.log("Mobile Viewport:", mobileViewPort);
 
     onMount(async () => {
         await userMethods.currentUser();
@@ -19,17 +21,27 @@
     });
 </script>
 
+
 {#if user}
     <section class="LoginSecForm relative items-start gap-y-6 p-4 my-auto">
-        <div class="absolute left-0 top-0 w-full h-56 cursor-pointer">
-            <figure class="relative w-full h-full border-2 bg-gradient-to-r from-cyan-400/70 to-green-400/80">
-                <figcaption class='HomeHiddenInfo w-full h-full hover:opacity-100'>
-                    <img class="globalImgs active:scale-90 transition-all" src={backgrounds.vinylIcon} alt="">
-                </figcaption>
+        <div class="absolute left-0 top-0 w-full h-64 cursor-pointer">
+            <figure class="relative w-full h-full border-2 rounded-md bg-gradient-to-r from-cyan-400/70 to-green-400/80">
+                <button class='HomeHiddenInfo active:scale-90 w-full h-full hover:opacity-100'>
+                    <img
+                     class="globalImgs transition-all rounded-md"
+                      src={mobileViewPort ? backgrounds.vinylBgMobile : backgrounds.vinylBg} 
+                      alt=""
+                    />
+                </button>
+                <div>
+                    <button class="absolute w-10 h-10 right-2 bottom-1 p-1 shadow-md active:scale-90 transition-all">
+                        <img class="globalImgs" src={svgIcons.editIcon} alt="">
+                    </button>
+                </div>
             </figure>
         </div>
         <figure
-            class="z-10 w-36 h-36 mt-28 rounded-full animFadeRight profile-gradient-border"
+            class="z-10 w-36 h-36 mt-40 rounded-full animFadeRight profile-gradient-border cursor-pointer"
             style="background: {darkMode
                 ? 'linear-gradient(135deg, #e0e0e0 0%, #bdbdbd 100%)'
                 : 'linear-gradient(135deg, #232526 0%, #414345 100%)'}; padding: 3px;"
@@ -45,7 +57,7 @@
             Bienvenido a tu perfil {user.displayName}
         </h2>
         <div
-            class={`min-w-60 w-[45%] h-14 p-1 ${darkMode ? "hover:bg-slate-800/70" : "hover:bg-slate-400/80"} transition-all hover:h-32 rounded-md cursor-pointer shadow-md animFadeDown overflow-hidden`}
+            class={`w-full h-14 p-1 ${darkMode ? "hover:bg-slate-800/70" : "hover:bg-slate-400/80"} transition-all hover:h-36 rounded-md cursor-pointer shadow-md animFadeDown overflow-hidden lg:w-[45%]`}
         >
             <div class="flex justify-start items-center gap-x-2">
                 <figure class="w-10 h-10 p-2 self-start">
@@ -59,8 +71,8 @@
                 </figure>
                 <h3 class="">Your account info:</h3>
             </div>
-            <ul class="flex flex-col self-start px-4">
-                <li class="flex items-center text-sm">
+            <ul class="flex flex-col self-start px-2 gap-y-3 lg:px-4 lg:gap-y-1">
+                <li class="flex items-center text-sm mt-2">
                     <figure class="w-10 h-10 p-2 self-start">
                         <img
                             class="globalImgs"
@@ -71,6 +83,12 @@
                         />
                     </figure>
                     <p>{user.displayName}</p>
+                    <button class="w-8 h-8 p-2 active:scale-90 transition-all z-10 peer">
+                        <img class="globalImgs" src={darkMode ? svgIcons.editIconDark : svgIcons.editIcon} alt="">
+                    </button>
+                    <div class="opacity-0 peer-hover:opacity-100 transition-all">
+                        <p>Edit Name</p>
+                    </div>
                 </li>
                 <li class="flex items-center text-sm">
                     <figure class="w-10 h-10 p-2 self-start">

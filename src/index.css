@@ -109,7 +109,7 @@
         @apply animate-flip-down animate-once animate-duration-[1900ms] animate-delay-200
     } 
     .profileButtons {
-      @apply min-w-60 w-[45%] h-14 p-2 transition-all rounded-md shadow-md animFadeDown animate-delay-300
+      @apply min-w-60 w-full h-14 p-2 transition-all rounded-md shadow-md animFadeDown animate-delay-300 lg:w-[45%]
     }
 }
 

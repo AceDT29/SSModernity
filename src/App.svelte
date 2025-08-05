@@ -31,6 +31,8 @@
   let isDarkMode;
   let upBtn;
   let parsedProducts;
+  let scrollAnimationId = null;
+  let userInterrupted = false;
 
   class Items {
     static userDiscount = 15;
@@ -116,6 +118,8 @@
     }
   };
 
+  
+
   const smoothScrollTo = (target, duration) => {
     const start = window.scrollY;
     const change = target - start;
@@ -135,12 +139,42 @@
     requestAnimationFrame(animateScroll);
   };
 
+  let backToTopAnimationId = null;
+  let backToTopInterrupted = false;
+
   const backToTop = () => {
     const currentValue = getScroll();
-    if (currentValue > 0) {
-      requestAnimationFrame(backToTop);
-      scrollTo(0, currentValue - currentValue / 10);
+    backToTopInterrupted = false;
+
+    function onUserScroll() {
+      backToTopInterrupted = true;
+      if (backToTopAnimationId) {
+        cancelAnimationFrame(backToTopAnimationId);
+        backToTopAnimationId = null;
+      }
+      window.removeEventListener('wheel', onUserScroll);
+      window.removeEventListener('touchstart', onUserScroll);
+      window.removeEventListener('keydown', onUserScroll);
     }
+
+    window.addEventListener('wheel', onUserScroll);
+    window.addEventListener('touchstart', onUserScroll);
+    window.addEventListener('keydown', onUserScroll);
+
+    function animateBackToTop() {
+      if (backToTopInterrupted) return;
+      const value = getScroll();
+      if (value > 0) {
+        scrollTo(0, value - value / 10);
+        backToTopAnimationId = requestAnimationFrame(animateBackToTop);
+      } else {
+        window.scrollTo(0, 0);
+        window.removeEventListener('wheel', onUserScroll);
+        window.removeEventListener('touchstart', onUserScroll);
+        window.removeEventListener('keydown', onUserScroll);
+      }
+    }
+    animateBackToTop();
   };
 
   const handleNavi = (target) => {

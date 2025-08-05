@@ -66,6 +66,10 @@ import eyeIcon from "../assets/eye.svg";
 import eyeDontSeeIcon from "../assets/eye-dont-see.svg";
 // @ts-ignore
 import hiddenInfo from "../assets/hidden-info.svg";
+// @ts-ignore
+import editIcon from "../assets/edit-icon.svg";
+// @ts-ignore
+import editIconDark from "../assets/edit-iconDark.svg";
 
 // -- FONDOS Y ASSETS
 
@@ -82,8 +86,9 @@ import bigSale from "../assets/BannerBeta.png";
 // @ts-ignore
 import MobileBan from "../assets/BannerMobile.png";
 // @ts-ignore
-import vinylIcon from "../assets/vinyl-hidden.png";
-
+import vinylBg from "../assets/vinyl-hidden.png";
+// @ts-ignore
+import vinylBgMobile from "../assets/vinyl-hiddenMobile.png";
 
 // -- CATEGORIAS --
 
@@ -156,7 +161,9 @@ export const svgIcons = {
     googleBtn, 
     eyeDontSeeIcon,
     eyeIcon,
-    hiddenInfo
+    hiddenInfo, 
+    editIcon,
+    editIconDark
 };
 
 export const productImgs = {
@@ -182,7 +189,8 @@ export const backgrounds = {
     imagenAni4,
     bigSale,
     MobileBan,
-    vinylIcon
+    vinylBg,
+    vinylBgMobile
 };
 
 export const tags = {
