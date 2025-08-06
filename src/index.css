@@ -85,7 +85,7 @@
        @apply w-8 h-8 rounded-full border border-gray-500
     }
     .animFade {
-       @apply animate-fade animate-once animate-duration-[600ms] animate-ease-in animate-fill-both
+       @apply animate-fade animate-once ease-out animate-duration-500
     }
     .animFadeLeft {
         @apply animate-fade-left animate-once animate-duration-[800ms] animate-ease-out
@@ -109,7 +109,7 @@
         @apply animate-flip-down animate-once animate-duration-[1900ms] animate-delay-200
     } 
     .profileButtons {
-      @apply min-w-60 w-full h-14 p-2 transition-all rounded-md shadow-md animFadeDown animate-delay-300 lg:w-[45%]
+      @apply min-w-60 w-full h-14 p-2 transition-all rounded-md shadow-2xl animFadeDown animate-delay-300 lg:w-[45%]
     }
 }
 

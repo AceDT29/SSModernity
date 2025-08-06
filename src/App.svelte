@@ -31,8 +31,8 @@
   let isDarkMode;
   let upBtn;
   let parsedProducts;
-  let scrollAnimationId = null;
-  let userInterrupted = false;
+  let backToTopAnimationId = null;
+  let backToTopInterrupted = false;
 
   class Items {
     static userDiscount = 15;
@@ -118,8 +118,6 @@
     }
   };
 
-  
-
   const smoothScrollTo = (target, duration) => {
     const start = window.scrollY;
     const change = target - start;
@@ -139,9 +137,7 @@
     requestAnimationFrame(animateScroll);
   };
 
-  let backToTopAnimationId = null;
-  let backToTopInterrupted = false;
-
+ 
   const backToTop = () => {
     const currentValue = getScroll();
     backToTopInterrupted = false;

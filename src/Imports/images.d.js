@@ -89,6 +89,8 @@ import MobileBan from "../assets/BannerMobile.png";
 import vinylBg from "../assets/vinyl-hidden.png";
 // @ts-ignore
 import vinylBgMobile from "../assets/vinyl-hiddenMobile.png";
+// @ts-ignore
+import editProfilePic from "../assets/edit-profile-pic.png";
 
 // -- CATEGORIAS --
 
@@ -126,7 +128,16 @@ import Img9 from "../assets/imagen9.webp";
 // @ts-ignore
 import aceAvatar from "../assets/avatar.png";
 
-// --  --
+// -- COVERS --
+
+// @ts-ignore
+import kittySmall from "../assets/backgrounds/hidden-kitty-small.jpg";
+// @ts-ignore
+import kittyMedium from "../assets/backgrounds/hidden-kitty-medium.jpg";
+// @ts-ignore
+import kittyLarge from "../assets/backgrounds/hidden-kitty-large.jpg";
+
+// -- COVERS --
 
 export const svgIcons = {
     upButton,
@@ -190,13 +201,20 @@ export const backgrounds = {
     bigSale,
     MobileBan,
     vinylBg,
-    vinylBgMobile
+    vinylBgMobile,
+    editProfilePic
 };
 
 export const tags = {
     summerTag,
     fitTag,
     casualTag
+};
+
+export const coversExample = {
+    kittySmall,
+    kittyMedium,
+    kittyLarge
 };
 
 
