@@ -131,11 +131,11 @@ import aceAvatar from "../assets/avatar.png";
 // -- COVERS --
 
 // @ts-ignore
-import kittySmall from "../assets/backgrounds/hidden-kitty-small.jpg";
+import kittySmall from "../assets/hidden-kitty-small.jpg";
 // @ts-ignore
-import kittyMedium from "../assets/backgrounds/hidden-kitty-medium.jpg";
+import kittyMedium from "../assets/hidden-kitty-medium.jpg";
 // @ts-ignore
-import kittyLarge from "../assets/backgrounds/hidden-kitty-large.jpg";
+import kittyLarge from "../assets/hidden-kitty-large.jpg";
 
 // -- COVERS --
 
