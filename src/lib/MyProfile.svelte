@@ -71,7 +71,7 @@
             Welcome to your profile {user.displayName}
         </h2>
         <div
-            class={`w-full h-14 p-1 ${darkMode ? "hover:bg-slate-800/70" : "hover:bg-slate-400/80"} transition-all hover:h-36 rounded-md cursor-pointer shadow-md animFadeDown overflow-hidden lg:w-[45%]`}
+            class={`w-full h-14 p-1 ${darkMode ? "hover:bg-slate-800/70" : "hover:bg-slate-400/80"} transition-all hover:h-36 rounded-md cursor-pointer shadow-lg animFadeDown overflow-hidden lg:w-[45%]`}
         >
             <div class="flex justify-start items-center gap-x-2">
                 <figure class="w-10 h-10 p-2 self-start">
@@ -146,7 +146,7 @@
                         alt=""
                     />
                 </figure>
-                <p>Cerrar sesion</p>
+                <p>Log Out</p>
             </div>
         </button>
         <button
@@ -162,7 +162,7 @@
                         alt=""
                     />
                 </figure>
-                <p>Eliminar perfil</p>
+                <p>Delete Profile</p>
             </div>
         </button>
     </section>
