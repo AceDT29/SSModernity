@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app"
 import { getAuth } from "firebase/auth"
+import { getDatabase, ref, set, onValue, get } from "firebase/database"
 import { GoogleAuthProvider } from "firebase/auth"
 
 const firebaseConfig = {
@@ -14,6 +15,7 @@ const firebaseConfig = {
 initializeApp(firebaseConfig)
 
 const auth = getAuth()
+const fireDb = getDatabase()
 const provider = new GoogleAuthProvider()
 
 const getCurrentUser = () => {
@@ -24,5 +26,5 @@ const getCurrentUser = () => {
     })
 }
 
-export { auth, provider, getCurrentUser}
+export { auth, provider, getCurrentUser, fireDb, set as dbSet, ref as dbRef, onValue as dbOnValue, get as dbGet }
 

@@ -77,6 +77,7 @@
   }
 
   $: localStorage.setItem("products", JSON.stringify($productPkg));
+  $: console.log("New SSUser:", $User);
 
   function discountedStateChecker(arr) {
     if ($User) {
