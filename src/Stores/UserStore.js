@@ -10,13 +10,13 @@ class SSUser {
     this.displayName = displayName || "";
     this.email = email || "";
     this.photoURL = photoURL || "";
-    this.wishlist = null;
+    this.wishlist = [];
     this.coverUrl = null;
   }
 }
 
 const createUser = () => {
-const { subscribe, set } = writable({});
+const { subscribe, set } = writable(null);
     return {
         subscribe,
         addUser: async (firebaseUser) => {
@@ -29,8 +29,7 @@ const { subscribe, set } = writable({});
                     displayName,
                     email,
                     photoURL
-                }); 
-                user.wishlist = get(productPkg);
+                });
                 const userQueryExists = await userExists(uid);
                 if (userQueryExists === false) {
                     await dbSet(dbRef(fireDb, `users/${user.uid}`), user);
@@ -50,7 +49,6 @@ const { subscribe, set } = writable({});
                     email,
                     photoURL
                 });
-                user.wishlist = get(productPkg);
                 set(user);
             }
         },

@@ -1,4 +1,12 @@
-import { writable } from "svelte/store"
+import { writable, get } from "svelte/store"
+import { User } from "./UserStore"
+import { itemExists } from "../Utilities/dbQuery"
+
+let userUid = "";
+
+User.subscribe((user) => {
+    userUid = user?.uid || "";
+}); 
 
 const createProduct = () => {
     const {subscribe, update, set} = writable([])
@@ -8,11 +16,13 @@ const createProduct = () => {
         local: (productPkg) => {
             set(productPkg)
         },
-        add: (prodItem) => {
-            update(productPkg => {
-                if (!Array.isArray(productPkg)) {
-                    return []
-                }
+        add: async (prodItem) => {
+            if (userUid.length) {
+                const onExists = await itemExists(userUid, prodItem.id);
+                console.log(onExists)
+            }
+            update( (productPkg) => {
+                if (!Array.isArray(productPkg)) return []
                 const prodExists = productPkg.some((item) => item.id === prodItem.id)
                 if (!prodExists && productPkg.length < 7) {
                     return [...productPkg, prodItem]

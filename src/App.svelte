@@ -1,5 +1,5 @@
 <script>
-  import { onMount } from "svelte";
+  import { afterUpdate, onMount } from "svelte";
   import { productPkg } from "./Stores/ProductStore";
   import { User } from "./Stores/UserStore";
   import { Stock } from "./Stores/stockSearchStore";
@@ -10,6 +10,7 @@
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
   } from "firebase/auth";
+  import { fireDb, dbOnValue, dbRef } from "./firebase/firebaseConfig";
   import { Router, Route, navigate } from "svelte-routing";
   import { svgIcons } from "./Imports/images.d.js";
   import SideNav from "./lib/SideBar.svelte";
@@ -33,6 +34,7 @@
   let parsedProducts;
   let backToTopAnimationId = null;
   let backToTopInterrupted = false;
+  let wishlistUnsubscribe;
 
   class Items {
     static userDiscount = 15;
@@ -64,20 +66,19 @@
     }
   }
 
-  if (storedProducts) {
-    try {
-      parsedProducts = JSON.parse(storedProducts);
-      productPkg.local(parsedProducts);
-    } catch (error) {
-      console.error(
-        "Error al analizar los productos desde localStorage:",
-        error
-      );
-    }
+  $: if ($User) {
+    if (wishlistUnsubscribe) wishlistUnsubscribe();
+    const wishListRef = dbRef(fireDb, `users/${$User.uid}/wishlist`);
+    wishlistUnsubscribe = dbOnValue(wishListRef, async (snapshot) => {
+      if (snapshot.exists()) {
+        const wishList = await snapshot.val();
+        productPkg.local(wishList);
+      };
+    });
+  } else if (wishlistUnsubscribe) {
+    wishlistUnsubscribe();
+    wishlistUnsubscribe = null;
   }
-
-  $: localStorage.setItem("products", JSON.stringify($productPkg));
-  $: console.log("New SSUser:", $User);
 
   function discountedStateChecker(arr) {
     if ($User) {
@@ -231,6 +232,9 @@
     await User.currentUser();
     addEventListener("scroll", getScroll);
   });
+
+
+
 </script>
 
 <body class={ isDarkMode ? 'darkMode' : '' }>
