@@ -1,6 +1,6 @@
 import { writable, get } from "svelte/store"
 import { User } from "./UserStore"
-import { itemExists } from "../Utilities/dbQuery"
+import { itemExists, addToWishlistOnDb } from "../Utilities/dbQuery"
 
 let userUid = "";
 
@@ -10,22 +10,31 @@ User.subscribe((user) => {
 
 const createProduct = () => {
     const {subscribe, update, set} = writable([])
-
     return {
         subscribe,
         local: (productPkg) => {
             set(productPkg)
         },
         add: async (prodItem) => {
-            if (userUid.length) {
-                const onExists = await itemExists(userUid, prodItem.id);
-                console.log(onExists)
-            }
-            update( (productPkg) => {
+            if (!userUid) return
+            const onExists = await itemExists(userUid, prodItem.id);
+            if (onExists) return;
+            update((productPkg) => {
                 if (!Array.isArray(productPkg)) return []
                 const prodExists = productPkg.some((item) => item.id === prodItem.id)
                 if (!prodExists && productPkg.length < 7) {
-                    return [...productPkg, prodItem]
+                    return [...productPkg, prodItem];
+                }
+                return productPkg
+            })
+            addToWishlistOnDb(userUid, prodItem);
+        },
+        addWithoutUser: (prodItem) => {
+            update((productPkg) => {
+                if (!Array.isArray(productPkg)) return []
+                const prodExists = productPkg.some((item) => item.id === prodItem.id)
+                if (!prodExists && productPkg.length < 7) {
+                    return [...productPkg, prodItem];   
                 }
                 return productPkg
             })

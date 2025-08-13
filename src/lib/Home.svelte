@@ -46,9 +46,15 @@
     {#each products as prod (prod.id)}
         <figure class="HomefigSet group animFadeDown" on:dblclick={() => {displayProd(prod)}}>
             <img class="globalImgs" src={prod.photo} loading="lazy" alt="">
+        {#if user}
             <button on:click={() => prodList.add(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
                 <img class="w-[90%] h-[90%]" src={wishState.some(item => item.id === prod.id) ? prod.favIcon : prod.unFavIcon} alt="">
             </button>
+        {:else}
+             <button on:click={() => prodList.addWithoutUser(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
+                <img class="w-[90%] h-[90%]" src={wishState.some(item => item.id === prod.id) ? prod.favIcon : prod.unFavIcon} alt="">
+             </button>
+        {/if}
             <figure class="HomeHiddenFlag">
                 <img class={user ? 'globalImgs' : 'hidden'} src={svgIcons.offSale} alt="">
             </figure>

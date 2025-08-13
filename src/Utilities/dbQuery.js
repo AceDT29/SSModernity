@@ -1,4 +1,4 @@
-import { dbGet, dbRef } from "../firebase/firebaseConfig";
+import { dbGet, dbRef, dbSet } from "../firebase/firebaseConfig";
 import { fireDb } from "../firebase/firebaseConfig";
 
 export async function userExists(uid) {
@@ -8,7 +8,7 @@ export async function userExists(uid) {
   return userQueryState;
 }
 
-export async function itemExists(uid, productName) {
+export async function itemExists(uid, productId) {
   const prodRef = dbRef(fireDb, `users/${uid}/wishlist`);
   const snapshot = await dbGet(prodRef);
   if (!snapshot.exists()) return false;
@@ -17,13 +17,36 @@ export async function itemExists(uid, productName) {
 
   // Si wishlist es un array
   if (Array.isArray(wishlist)) {
-    return wishlist.some(item => item && item.name === productName);
+    return wishlist.some(item => item && item.id === productId);
   }
 
   // Si wishlist es un objeto (por ejemplo, guardado como {0: {...}, 1: {...}})
   if (typeof wishlist === "object") {
-    return Object.values(wishlist).some(item => item && item.name === productName);
+    return Object.values(wishlist).some(item => item && item.id === productId);
   }
 
   return false;
+}
+
+export async function addToWishlistOnDb(uid, item) {
+  const wishlistRef = dbRef(fireDb, `users/${uid}/wishlist`);
+  const snapshot = await dbGet(wishlistRef);
+  let wishlist = [];
+  if (snapshot.exists()) {
+    const data = snapshot.val();
+    if (Array.isArray(data)) {
+      wishlist = data;
+    } else if (typeof data === "object") {
+      wishlist = Object.values(data);
+    } else if (typeof data === "string") {
+      wishlist = [data];
+    }
+  }
+  if (wishlist.some(prod => prod && prod.id === item.id)) {
+    console.log("This item is already in the wishlist:");
+    return false;
+  }
+  wishlist.push(item);
+  await dbSet(wishlistRef, wishlist);
+  return true;
 }
