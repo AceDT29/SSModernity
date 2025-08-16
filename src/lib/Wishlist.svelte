@@ -8,6 +8,7 @@
     export let discount 
     export let prodListMethods
     export let prodView
+    const prodAction = "DELETE";
 
     beforeUpdate(() => {
         discount(prodList)
@@ -38,7 +39,7 @@
                     {:else}
                         <h3 class="text-basee font-light">{prod.price}$</h3>
                     {/if}
-                    <button on:click={() => prodListMethods.delete(prod.name)} class="w-7 h-7 z-10 transition-all active:scale-90 lg:h-8 lg:w-8 lg:p-1">
+                    <button on:click={() => prodListMethods.delete(prod, prodAction)} class="w-7 h-7 z-10 transition-all active:scale-90 lg:h-8 lg:w-8 lg:p-1">
                         <img class="globalImgs object-none" src={svgIcons.garbage} alt="Delete product">
                     </button>
                 </div>

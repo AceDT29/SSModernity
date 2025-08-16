@@ -1,6 +1,7 @@
-import { writable, get } from "svelte/store"
+import { writable } from "svelte/store"
 import { User } from "./UserStore"
-import { itemExists, addToWishlistOnDb } from "../Utilities/dbQuery"
+import { fireDb, dbRef, dbSet} from "../firebase/firebaseConfig";
+import { itemExists, updateWishlistOnDb } from "../Utilities/dbQuery"
 
 let userUid = "";
 
@@ -15,10 +16,10 @@ const createProduct = () => {
         local: (productPkg) => {
             set(productPkg)
         },
-        add: async (prodItem) => {
+        add: async (prodItem, action) => {
             if (!userUid) return
             const onExists = await itemExists(userUid, prodItem.id);
-            if (onExists) return;
+            if (onExists) return 
             update((productPkg) => {
                 if (!Array.isArray(productPkg)) return []
                 const prodExists = productPkg.some((item) => item.id === prodItem.id)
@@ -27,7 +28,7 @@ const createProduct = () => {
                 }
                 return productPkg
             })
-            addToWishlistOnDb(userUid, prodItem);
+            updateWishlistOnDb(userUid, prodItem, action);
         },
         addWithoutUser: (prodItem) => {
             update((productPkg) => {
@@ -39,8 +40,9 @@ const createProduct = () => {
                 return productPkg
             })
         },
-        delete: (name) => {
-            update(productPkg => productPkg = productPkg.filter((item) => item.name !== name))
+        delete: (prodItem, action) => {
+            update(productPkg => productPkg = productPkg.filter((item) => item.id !== prodItem.id))
+            updateWishlistOnDb(userUid, prodItem, action);
         }
     }   
 }

@@ -12,23 +12,15 @@ export async function itemExists(uid, productId) {
   const prodRef = dbRef(fireDb, `users/${uid}/wishlist`);
   const snapshot = await dbGet(prodRef);
   if (!snapshot.exists()) return false;
-
   const wishlist = snapshot.val();
-
-  // Si wishlist es un array
   if (Array.isArray(wishlist)) {
     return wishlist.some(item => item && item.id === productId);
   }
-
-  // Si wishlist es un objeto (por ejemplo, guardado como {0: {...}, 1: {...}})
-  if (typeof wishlist === "object") {
-    return Object.values(wishlist).some(item => item && item.id === productId);
-  }
-
   return false;
 }
 
-export async function addToWishlistOnDb(uid, item) {
+
+export async function updateWishlistOnDb(uid, item, action) {
   const wishlistRef = dbRef(fireDb, `users/${uid}/wishlist`);
   const snapshot = await dbGet(wishlistRef);
   let wishlist = [];
@@ -42,11 +34,20 @@ export async function addToWishlistOnDb(uid, item) {
       wishlist = [data];
     }
   }
-  if (wishlist.some(prod => prod && prod.id === item.id)) {
-    console.log("This item is already in the wishlist:");
-    return false;
+  switch (action) {
+    case "ADD":
+      if (wishlist.some(prod => prod && prod.id === item.id) || wishlist.length > 6) {
+        return false;
+      }
+      wishlist.push(item);
+      await dbSet(wishlistRef, wishlist);
+      return true;
+    case "DELETE":
+      wishlist = wishlist.filter(prod => prod && prod.id !== item.id);
+      await dbSet(wishlistRef, wishlist);
+      return true;
+    default:
+      console.warn("Acción no reconocida:", action);
+      return false;
   }
-  wishlist.push(item);
-  await dbSet(wishlistRef, wishlist);
-  return true;
 }

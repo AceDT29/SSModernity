@@ -12,6 +12,7 @@
     let myProduct = []
     let interestedProds = []
     let wishState = []
+    let prodAction = "ADD";
     $: myProduct = filterProds.length > 0 ? filterProds : allProds
 
     const unsubscribe = prodList.subscribe(value => {
@@ -50,7 +51,7 @@
             <figure class="basis-[60%] rounded-lg border w-[60vw] h-[70vh] animFadeDown">
                 <img class="block w-full h-full rounded-lg" src={prod.photo} alt="">
             </figure>
-            <button on:click={() => prodList.add(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl hover:bg-slate-500/50 active:scale-75 transition duration-150 peer">
+            <button on:click={() => prodList.add(prod, prodAction)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl hover:bg-slate-500/50 active:scale-75 transition duration-150 peer">
                 <img class="w-[90%] h-[90%]" src={wishState.some(item => item.id === prod.id) ? prod.favIcon : prod.unFavIcon} alt="">
             </button>
             <div class="basis-[40%] flex flex-col gap-y-5">
