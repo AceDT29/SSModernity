@@ -32,9 +32,8 @@
   let isDarkMode;
   let upBtn;
   let parsedProducts;
-  let backToTopAnimationId = null;
-  let backToTopInterrupted = false;
   let wishlistUnsubscribe;
+  let headerOnTop;
 
   class Items {
     static userDiscount = 15;
@@ -139,40 +138,8 @@
     requestAnimationFrame(animateScroll);
   };
 
- 
-  const backToTop = () => {
-    const currentValue = getScroll();
-    backToTopInterrupted = false;
-
-    function onUserScroll() {
-      backToTopInterrupted = true;
-      if (backToTopAnimationId) {
-        cancelAnimationFrame(backToTopAnimationId);
-        backToTopAnimationId = null;
-      }
-      window.removeEventListener('wheel', onUserScroll);
-      window.removeEventListener('touchstart', onUserScroll);
-      window.removeEventListener('keydown', onUserScroll);
-    }
-
-    window.addEventListener('wheel', onUserScroll);
-    window.addEventListener('touchstart', onUserScroll);
-    window.addEventListener('keydown', onUserScroll);
-
-    function animateBackToTop() {
-      if (backToTopInterrupted) return;
-      const value = getScroll();
-      if (value > 0) {
-        scrollTo(0, value - value / 10);
-        backToTopAnimationId = requestAnimationFrame(animateBackToTop);
-      } else {
-        window.scrollTo(0, 0);
-        window.removeEventListener('wheel', onUserScroll);
-        window.removeEventListener('touchstart', onUserScroll);
-        window.removeEventListener('keydown', onUserScroll);
-      }
-    }
-    animateBackToTop();
+  const backToTop = (target)  => {
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const handleNavi = (target) => {
@@ -233,8 +200,6 @@
     addEventListener("scroll", getScroll);
   });
 
-
-
 </script>
 
 <body class={ isDarkMode ? 'darkMode' : '' }>
@@ -243,7 +208,7 @@
       <NotFound navTo={handleNavi} />
     </Route>
     <main class="">
-      <header class="">
+      <header class="" bind:this={headerOnTop}>
         <Banner navTo={navWithScroll} mode={isDarkMode}>
           <Categories navTo={navWithScroll} />
         </Banner>
@@ -269,7 +234,7 @@
           <button
             class={`${btnScrollState ? "SpecialButtons" : "hidden"}`}
             bind:this={upBtn}
-            on:click={backToTop}
+            on:click={() => backToTop(headerOnTop)}
           >
             <img
               class="w-full h-full block"
