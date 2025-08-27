@@ -1,16 +1,19 @@
 <script>
-    import { beforeUpdate, onMount } from "svelte"
+    import { onMount } from "svelte"
     import { svgIcons, productImgs } from "../Imports/images.d.js";
     import { colorsPalette } from "../Imports/Palette.d.js";
 
-    export let user
-    export let prodList
-    export let ItemsClass
-    export let newStock
-    export let discount
-    export let displayProd
-    const products = []
-    let wishState = []
+    export let user;
+    export let ItemsClass;
+    export let newStock;
+    export let wishlistRef;
+    export let discount;
+    export let displayProd;
+    export let darkMode;
+    const instanceProds = [];
+    let products = [];
+    let wishState = [];
+    let searchEntry = "";
     let prodAction = "ADD";
 
     let modernMaleOut = new ItemsClass ("Modern Outfit Male", productImgs.Img1, 55, "M", "Casual", colorsPalette.modernMaleOut)
@@ -23,36 +26,57 @@
     let girlSport = new ItemsClass ("Sporty Oufit for Women", productImgs.Img8, 29.99, "S", "Fit", colorsPalette.girlSport)
     let chicOut = new ItemsClass ("Fall outfit for a girl", productImgs.Img9, 49.99, "S", "Casual", colorsPalette.chicOut)
 
-    products.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
-    newStock.add(products)
-   
-    const unsubscribe = prodList.subscribe(value => {
-        wishState = value; 
+    instanceProds.push(modernMaleOut, summerWomenOut, casualOut, ofWhite, sportOut, grungeOut, beachAcc, girlSport, chicOut)
+    newStock.add(instanceProds)
+
+    const unsubscribe = wishlistRef.subscribe(value => {
+        wishState = value;
     });
 
-    beforeUpdate(() => {
-        if (user) {
-            discount(products)
-        }
-    })
+    const stockUnsubscribe = newStock.subscribe(value => {
+        products = value.filteredProducts;
+    });
 
     onMount(() => {
-        return () => unsubscribe();
+        return () => {
+            unsubscribe();
+            stockUnsubscribe();
+        };
     });
+
+    $: if (user) {
+        discount(products);
+    };
 </script>
 
 <section class="HomeSection">
-    <h2 class="text-lg font-lobster mb-2">Our Products:</h2>
+    <div class="w-full h-auto flex flex-col justify-center items-start my-1 gap-y-3">
+        <nav class="w-56 h-auto p-2 flex bg-transparent shadow-md rounded-md gap-x-1">
+            <input
+                type="text"
+                placeholder="Buscar producto..."
+                maxlength="25"
+                style=""
+                class="w-44 h-10 focus:border-blue-400 bg-transparent border border-gray-300 rounded-md"
+                bind:value={searchEntry}
+                on:input={() => newStock.searchByName(searchEntry)}
+            />
+            <figure class="w-7 h-7 self-center">
+                <img class="globalImgs" src={darkMode ? svgIcons.searchIconDark : svgIcons.searchIcon} alt="">
+            </figure>
+        </nav>
+        <h2 class="text-lg font-lobster md:text-2xl">Our Products:</h2>
+    </div>
     <div class="HomeDivSet">
     {#each products as prod (prod.id)}
         <figure class="HomefigSet group animFadeDown" on:dblclick={() => {displayProd(prod)}}>
             <img class="globalImgs" src={prod.photo} loading="lazy" alt="">
         {#if user}
-            <button on:click={() => prodList.add(prod, prodAction)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
+            <button on:click={() => wishlistRef.add(prod, prodAction)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
                 <img class="w-[90%] h-[90%]" src={wishState.some(item => item.id === prod.id) ? prod.favIcon : prod.unFavIcon} alt="">
             </button>
         {:else}
-             <button on:click={() => prodList.addWithoutUser(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
+             <button on:click={() => wishlistRef.addWithoutUser(prod)} class="absolute z-10 top-3 left-3 flex justify-center items-center w-10 h-10 p-1 bg-slate-200/50 border rounded-2xl active:scale-75 transition duration-150 peer">
                 <img class="w-[90%] h-[90%]" src={wishState.some(item => item.id === prod.id) ? prod.favIcon : prod.unFavIcon} alt="">
              </button>
         {/if}

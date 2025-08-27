@@ -8,7 +8,7 @@ const createSearch = () => {
         add: (products) => {
             set({ allProducts: products, filteredProducts: products });
         },
-        search: (searchKey) => {
+        fillProds: (searchKey) => {
             update(({ allProducts }) => {
                 const result = allProducts.filter((type) => type.tag === searchKey);
                 return { allProducts, filteredProducts: result };
@@ -21,6 +21,17 @@ const createSearch = () => {
                 const result = resultFromAll || resultFromFiltered;
                 return { allProducts, filteredProducts: result ? [result] : [] }
             })
+        },
+        searchByName: (textEntry) => {
+            update(({ allProducts }) => {
+                if (!textEntry || textEntry.trim() === "") {
+                    return { allProducts, filteredProducts: allProducts };
+                }
+                const filtered = allProducts.filter(prod =>
+                    prod.name.toLowerCase().includes(textEntry.toLowerCase())
+                );
+                return { allProducts, filteredProducts: filtered };
+            });
         }
     }
 }

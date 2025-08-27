@@ -1,6 +1,6 @@
 <script>
-  import { afterUpdate, onMount } from "svelte";
-  import { productPkg } from "./Stores/ProductStore";
+  import { onMount } from "svelte";
+  import { wishListPkg } from "./Stores/WishlistStore";
   import { User } from "./Stores/UserStore";
   import { Stock } from "./Stores/stockSearchStore";
   import { auth, provider } from "./firebase/firebaseConfig";
@@ -26,12 +26,10 @@
   import SearchResult from "./lib/SearchResult.svelte";
 
   export let url = "";
-  const storedProducts = localStorage.getItem("products");
   let checkFromNav = false;
   let btnScrollState = false;
   let isDarkMode;
   let upBtn;
-  let parsedProducts;
   let wishlistUnsubscribe;
   let headerOnTop;
 
@@ -71,7 +69,7 @@
     wishlistUnsubscribe = dbOnValue(wishListRef, async (snapshot) => {
       if (snapshot.exists()) {
         const wishList = await snapshot.val();
-        productPkg.local(wishList);
+        wishListPkg.local(wishList);
       };
     });
   } else if (wishlistUnsubscribe) {
@@ -216,9 +214,9 @@
       <article class="relative">
         <WishComp
           user={$User}
-          prodList={$productPkg}
+          wishlistValueRef={$wishListPkg}
           bind:checkValue={checkFromNav}
-          prodListMethods={productPkg}
+          wishlistRef={wishListPkg}
           discount={discountedStateChecker}
           prodView={displayLargeView}
         />
@@ -280,7 +278,7 @@
             allProds={$Stock.allProducts}
             filterProds={$Stock.filteredProducts}
             user={$User}
-            prodList={productPkg}
+            wishlistRef={wishListPkg}
             discount={discountedStateChecker}
             explorerProds={displayLargeView}
             navTo={handleNavi}
@@ -289,8 +287,9 @@
         <Route path="/">
           <HomeSec
             user={$User}
-            prodList={productPkg}
+            wishlistRef={wishListPkg}
             newStock={Stock}
+            darkMode={isDarkMode}
             discount={discountedStateChecker}
             displayProd={displayLargeView}
             ItemsClass={Items}
@@ -300,7 +299,7 @@
           <SearchResult
             filterProds={$Stock.filteredProducts}
             user={$User}
-            prodList={productPkg}
+            prodList={wishListPkg}
             tag={params.id}
             stockMethods={Stock}
             displayProd={displayLargeView}

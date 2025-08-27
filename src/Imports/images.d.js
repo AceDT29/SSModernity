@@ -70,6 +70,10 @@ import hiddenInfo from "../assets/hidden-info.svg";
 import editIcon from "../assets/edit-icon.svg";
 // @ts-ignore
 import editIconDark from "../assets/edit-iconDark.svg";
+// @ts-ignore
+import searchIcon from "../assets/search-icon.svg";
+// @ts-ignore
+import searchIconDark from "../assets/search-iconDark.svg";
 
 // -- FONDOS Y ASSETS
 
@@ -174,7 +178,9 @@ export const svgIcons = {
     eyeIcon,
     hiddenInfo, 
     editIcon,
-    editIconDark
+    editIconDark,
+    searchIcon,
+    searchIconDark
 };
 
 export const productImgs = {

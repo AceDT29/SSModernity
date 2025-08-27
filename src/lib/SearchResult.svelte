@@ -17,7 +17,7 @@
     });
 
     $: if (tag) {
-        stockMethods.search(tag);
+        stockMethods.fillProds(tag);
     } else {
         navTo("/")
     }
