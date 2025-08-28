@@ -33,6 +33,7 @@
     })
 
     onMount(() => {
+        if(myProduct.length == 0) navTo("/")
         return () => unsubscribe();
     })
 

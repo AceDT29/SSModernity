@@ -95,6 +95,10 @@ import vinylBg from "../assets/vinyl-hidden.png";
 import vinylBgMobile from "../assets/vinyl-hiddenMobile.png";
 // @ts-ignore
 import editProfilePic from "../assets/edit-profile-pic.png";
+// @ts-ignore
+import ghostStylish from "../assets/ghostLight.png"
+// @ts-ignore
+import ghostStylishDark from "../assets/ghostDark.png"
 
 // -- CATEGORIAS --
 
@@ -208,7 +212,9 @@ export const backgrounds = {
     MobileBan,
     vinylBg,
     vinylBgMobile,
-    editProfilePic
+    editProfilePic,
+    ghostStylish,
+    ghostStylishDark
 };
 
 export const tags = {

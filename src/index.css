@@ -87,6 +87,9 @@
     .animFade {
        @apply animate-fade animate-once ease-out animate-duration-500
     }
+    .animBounceInfinite {
+        @apply animate-bounce animate-infinite animate-duration-700 animate-ease-out animate-fill-forwards
+    }
     .animFadeLeft {
         @apply animate-fade-left animate-once animate-duration-[800ms] animate-ease-out
     }
