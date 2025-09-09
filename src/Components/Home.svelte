@@ -69,7 +69,7 @@
     </div>
     {#if products.length === 0}
         <div class="flex flex-col my-5  w-[90%] h-auto justify-center items-center gap-y-4 md:my-10">
-            <figure class="w-[40%] h-[40%] mx-auto md:max-w-[30%] md:max-h-[30%]">
+            <figure class="w-[40%] h-[40%] mx-auto md:max-w-[30%] md:max-h-[30%] opacity-50">
                 <img class="globalImgs" src={darkMode ? backgrounds.ghostStylishDark : backgrounds.ghostStylish} alt="">
             </figure>
             <h3 class="text-base text-center font-lobster md:text-lg">Sorry, nothing matches your search.</h3>

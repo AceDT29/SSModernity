@@ -1,6 +1,5 @@
 import { writable } from "svelte/store"
 import { User } from "./UserStore"
-import { fireDb, dbRef, dbSet} from "../firebase/firebaseConfig";
 import { itemExists, updateWishlistOnDb } from "../Utilities/dbQuery"
 
 let userUid = "";

@@ -1,6 +1,6 @@
 import { writable, get } from "svelte/store"
-import { getCurrentUser } from "../firebase/firebaseConfig"
-import { fireDb, dbSet, dbRef } from "../firebase/firebaseConfig";
+import { getCurrentUser } from "../Services/firebaseConfig"
+import { fireDb, dbSet, dbRef } from "../Services/firebaseConfig";
 import { userExists } from "../Utilities/dbQuery";
 
 class SSUser {

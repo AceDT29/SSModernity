@@ -3,27 +3,27 @@
   import { wishListPkg } from "./Stores/WishlistStore";
   import { User } from "./Stores/UserStore";
   import { Stock } from "./Stores/stockSearchStore";
-  import { auth, provider } from "./firebase/firebaseConfig";
+  import { auth, provider } from "./Services/firebaseConfig";
   import {
     signOut,
     signInWithPopup,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
   } from "firebase/auth";
-  import { fireDb, dbOnValue, dbRef } from "./firebase/firebaseConfig";
+  import { fireDb, dbOnValue, dbRef } from "./Services/firebaseConfig";
   import { Router, Route, navigate } from "svelte-routing";
   import { svgIcons } from "./Imports/images.d.js";
-  import SideNav from "./lib/SideBar.svelte";
-  import Banner from "./lib/Banner.svelte";
-  import HomeSec from "./lib/Home.svelte";
-  import WishComp from "./lib/Wishlist.svelte";
-  import Login from "./lib/Login.svelte";
-  import MyProfile from "./lib/MyProfile.svelte";
-  import SignUp from "./lib/Registrer.svelte";
-  import Product from "./lib/ProductView.svelte";
-  import NotFound from "./lib/NotFound.svelte";
-  import Categories from "./lib/Categories.svelte";
-  import SearchResult from "./lib/SearchResult.svelte";
+  import SideNav from "./Components/SideBar.svelte";
+  import Banner from "./Components/Banner.svelte";
+  import HomeSec from "./Components/Home.svelte";
+  import WishComp from "./Components/Wishlist.svelte";
+  import Login from "./Components/Login.svelte";
+  import MyProfile from "./Components/MyProfile.svelte";
+  import SignUp from "./Components/Registrer.svelte";
+  import Product from "./Components/ProductView.svelte";
+  import NotFound from "./Components/NotFound.svelte";
+  import Categories from "./Components/Categories.svelte";
+  import SearchResult from "./Components/SearchResult.svelte";
 
   export let url = "";
   let checkFromNav = false;
@@ -32,7 +32,7 @@
   let upBtn;
   let wishlistUnsubscribe;
   let headerOnTop;
-
+  
   class Items {
     static userDiscount = 15;
 

@@ -1,5 +1,5 @@
-import { dbGet, dbRef, dbSet } from "../firebase/firebaseConfig";
-import { fireDb } from "../firebase/firebaseConfig";
+import { dbGet, dbRef, dbSet } from "../Services/firebaseConfig";
+import { fireDb } from "../Services/firebaseConfig";
 
 export async function userExists(uid) {
   const userRef = dbRef(fireDb, `users/${uid}`);
