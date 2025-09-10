@@ -4,12 +4,12 @@ import { getDatabase, ref, set, onValue, get } from "firebase/database"
 import { GoogleAuthProvider } from "firebase/auth"
 
 const firebaseConfig = {
-    apiKey: import.meta.env.VITE_FIREBASE_APY_KEY,
-    authDomain:import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-    projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-    storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDERID,
-    appId: import.meta.env.VITE_FIREBASE_APP_ID
+    apiKey: "AIzaSyBbVQAg6xQ4x2wG4DKFgY5kLtDvdNtPWSE",
+    authDomain: "ssmodernity-c421a.firebaseapp.com",
+    projectId: "ssmodernity-c421a",
+    storageBucket: "ssmodernity-c421a.firebasestorage.app",
+    messagingSenderId: "1038604237794",
+    appId: "1:1038604237794:web:70906b46e89e07a0dc57bb"
 };
 
 initializeApp(firebaseConfig)
